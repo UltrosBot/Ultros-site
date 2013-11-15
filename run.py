@@ -19,4 +19,4 @@ def static(path):
 def static_403():
     abort(403, "You may not list the static files.")
 
-run(host='localhost', port=8080)
+run(host='localhost', port=8080, server='cherrypy')
