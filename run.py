@@ -1,9 +1,10 @@
 # coding=utf-8
 __author__ = "Gareth Coles"
 
-from bottle import route, run, static_file, abort, Bottle
+from bottle import route, run, static_file, abort, default_app
 from bottle import mako_template as template
 
+app = default_app()
 
 @route('/')
 def index():
@@ -21,6 +22,3 @@ def static_403():
 
 if __name__ == "__main__":
     run(host='0.0.0.0', port=8080, server='cherrypy')
-else:
-    app = application = Bottle()  # Run for uWSGI.
-                                  # Otherwise, use CherryPy for the dev server.
