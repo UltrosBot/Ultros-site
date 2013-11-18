@@ -6,9 +6,10 @@ from bottle import mako_template as template
 
 app = default_app()
 
+
 @route('/')
 def index():
-    return template("templates/index.html", title="Index")
+    return template("templates/index.html", title="Under construction!")
 
 
 @route('/static/<path:path>')
