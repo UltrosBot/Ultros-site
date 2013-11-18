@@ -20,7 +20,7 @@ def static_403():
     abort(403, "You may not list the static files.")
 
 if __name__ == "__main__":
-    run(host='localhost', port=8080, server='cherrypy')
+    run(host='0.0.0.0', port=8080, server='cherrypy')
 else:
     app = application = Bottle()  # Run for uWSGI.
                                   # Otherwise, use CherryPy for the dev server.
