@@ -1,13 +1,21 @@
-<%include file="base/header.html" args="title=title"/>
+<%inherit file="base.html"/>
 
+<%block name="title">Under construction!</%block>
+
+<div class="container">
+    <figure>
+        <img src="/static/images/logos/${image}"/>
+        <figcaption>This logo was made by ${img_name}.<br/>
+        <a href="https://github.com/UltrosBot/Ultros/wiki/Logos">See here</a> for more information.</figcaption>
+    </figure>
+</div>
+<div class="container center">
     <h1>Under construction!</h1>
-    <div>See the following links for more information.
-        <ul>
-            <li><a href="https://github.com/UltrosBot/Ultros">GitHub project</a></li>
-            <li><a href="https://github.com/UltrosBot/Ultros/wiki">Documentation</a></li>
-            <li><a href="http://webchat.esper.net/?nick=&channels=Ultross">Join us on IRC</a></li>
-            <li><a href="http://bamboo.gserv.me">Bamboo</a></li>
-        </ul>
+    <div>See the following links for more information.</div>
+    <div>
+        <a href="https://github.com/UltrosBot/Ultros">GitHub project</a> |
+        <a href="https://github.com/UltrosBot/Ultros/wiki">Documentation</a> |
+        <a href="http://webchat.esper.net/?nick=&channels=Ultross">IRC webchat</a> |
+        <a href="http://bamboo.gserv.me">Bamboo</a>
     </div>
-
-<%include file="base/footer.html"/>
+</div>
