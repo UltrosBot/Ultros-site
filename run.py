@@ -9,6 +9,7 @@ from internal.util import log_request
 
 app = default_app()
 
+
 @hook('after_request')
 def log_all():
     log_request(request, "%s %s " % (request.method, request.fullpath),
