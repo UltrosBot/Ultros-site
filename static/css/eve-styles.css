@@ -68,7 +68,7 @@ body{background:url(../img/bg.jpg) repeat;}
 	font-size: 1.1em;
 	margin: 0 0 0.6em 0;	
 }
-#nav.main a:hover{color: #fff; text-shadow: 1px 1px 0px #333; background-color: #ca80ff; letter-spacing: 1px;}
+#nav.main a:hover{color: #fff; text-shadow: 1px 1px 0px #333; background-color: #ca80ff;}
 
 #nav.main a.active{color: #fff; text-shadow: 1px 1px 0px #333; /*font-weight: bold;*/ background-color: #8e47c1; letter-spacing: 1px;}
 
