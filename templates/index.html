@@ -1,21 +1,200 @@
-<%inherit file="base.html"/>
+<%inherit file="base.html"/> <%block name="title">Ultros | Index</%block>
+<!-- Header, navigation and social icons -->
 
-<%block name="title">Under construction!</%block>
+<div class="wrapper">
+    <a href="/" id="logo"><img src="/static/images/logos/rakiru-small.png" alt="The Ultros logo" />
+        <h1 class="accessibility">Ultros - The only squid that connects communities</h1></a>
 
-<div class="container">
-    <figure>
-        <img src="/static/images/logos/${image}"/>
-        <figcaption>This logo was made by ${img_name}.<br/>
-        <a href="https://github.com/UltrosBot/Ultros/wiki/Logos">See here</a> for more information.</figcaption>
-    </figure>
+    <div class="social">
+        <a href="https://bamboo.gserv.me" title="Bamboo"><img src="/static/images/justvector_icons/retweet.svg" width="20" height="20" alt="bamboo"></a>
+        <a href="http://webchat.esper.net/?nick=&channels=Ultros" title="IRC"><img src="/static/images/justvector_icons/google_talk.svg" width="20" height="20" alt="irc"></a>
+        <a href="http://steamcommunity.com/id/UltrosBot" title="Steam"><img src="/static/images/justvector_icons/steam.svg" width="20" height="20" alt="steam"></a>
+    </div>
+
+    <ul id="nav" class="main">
+        <li><a href="/" class="active">Home</a></li>
+        <li><a href="https://github.com/UltrosBot/">GitHub</a></li>
+    </ul>
 </div>
-<div class="container center">
-    <h1>Under construction!</h1>
-    <div>See the following links for more information.</div>
-    <div>
-        <a href="https://github.com/UltrosBot/Ultros">GitHub project</a> |
-        <a href="https://github.com/UltrosBot/Ultros/wiki">Documentation</a> |
-        <a href="http://webchat.esper.net/?nick=&channels=Ultross">IRC webchat</a> |
-        <a href="http://bamboo.gserv.me">Bamboo (builds)</a>
+
+<div class="clear"></div>
+
+<!-- Introduction section -->
+<div class="wrapper">
+    <div class="grids top">
+        <div class="grid-16 grid intro">
+            <h2>Ultros</h2>
+            <p> Ultros is a highly modular chat-focused bot. Its purpose is to provide various
+                services and tools to people using chat networks, in a highly extensible and
+                protocol-agnostic way.
+            </p>
+            <p> Connecting communities, one squid at a time. </p>
+        </div>
+
+        <div class="grid-10 grid">
+            <!--<div class="flexslider">-->
+                <!--<noscript>You have Javascript disabled - If you would like to see this slideshow widget properly, please enable it.</noscript>-->
+                <!--<ul class="slides">-->
+                    <!--<li>-->
+                        <!--<a href="http://www."><img src="/static/img/img1.jpg" alt="demo-image" />-->
+                            <!--<p class="flex-caption">This is a describing caption for your image</p>-->
+                        <!--</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<a href="http://www."><img src="/static/img/img2.jpg" alt="demo-image" />-->
+                            <!--<p class="flex-caption">Of course you can also remove it, if you want</p>-->
+                        <!--</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<a href="http://www."><img src="/static/img/img3.jpg" alt="demo-image" />-->
+                            <!--&lt;!&ndash; delete the p if you don´t want to use captions for the images&ndash;&gt;-->
+                        <!--</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<a href="http://www."><img src="/static/img/img4.jpg" alt="demo-image" />-->
+                            <!--<p class="flex-caption">This is another caption for your image</p>-->
+                        <!--</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<a href="http://www."><img src="/static/img/img5.jpg" alt="demo-image" />-->
+                            <!--<p class="flex-caption">Write whatever you want here!</p>-->
+                        <!--</a>-->
+                    <!--</li>-->
+                <!--</ul>-->
+            <!--</div>-->
+        </div>
+    </div>
+</div>
+
+<!-- First informational section -->
+
+<div class="wrapper">
+    <div class="grids">
+        <div class="grid-10 grid">
+            <h2>Why?</h2>
+            <p> There are a lot of bots out there - so many that it would be impossible to list
+                them all off in one place. While a lot of hard work does go into these bots, we
+                feel that they often have limitations that make working with them troublesome.
+                For example, most bots will only be able to connect to one chat network, will
+                only be able to connect once per instance, and will be difficult to customize
+                due to the choice of language.
+            </p>
+            <p> Ultros solves these problems. By leveraging the power of the incredibly popular
+                <a href="http://python.org">Python language</a>, we are able to produce a bot that
+                challenges all of the above problems. We hope it does this sufficiently for most
+                people's needs.
+            </p>
+            <a class="button" href="https://github.com/UltrosBot/Ultros">Check out the code</a>
+            <a class="button" href="https://github.com/UltrosBot/Ultros/archive/master.zip">Download latest .zip</a>
+        </div><!--end of grid-10-->
+        <div class="grid-6 grid grey">
+            <h2>What is Python?</h2>
+            <p class="quote">
+                Python is an object-oriented language designed to make coding fast,
+                fun and efficient, whilst still being entirely cross-platform.
+                <span>More information: <a href="http://python.org">Python.org</a></span>
+            </p>
+        </div>
+    </div>
+</div>
+
+<hr />
+
+<!-- Epeen section -->
+
+<div class="wrapper">
+    <div class="grids">
+        <div class="grid-3 grid">
+            <h4>User-friendly</h4>
+            <p> <b>Ultros is easy to use.</b> YAML-based configuration files make Ultros a breeze
+                to set up, without sacrificing power, speed and feature density. All configuration
+                files are organized into an easy-to-understand folder structure, and have example
+                files provided.
+            </p>
+        </div>
+        <div class="grid-3 grid">
+            <h4>Developer-friendly</h4>
+            <p> <b>Ultros is easy to read.</b> Using the fabulous
+                <a href="http://yapsy.sourceforge.net/">yapsy</a> library, we were able to come up
+                with a plugin system that won't leave your head spinning. If you know Python, you'll
+                pick it up in no time - and there are plenty of example plugins to help you along the
+                way.
+            </p>
+        </div>
+        <div class="grid-3 grid">
+            <h4>Modular</h4>
+            <p> <b>Ultros is extensible.</b> Ultros' robust plugin system means that extending is
+                no problem. Simply drop your files into the plugin folder, add them to the configuration
+                and off you go. Ultros also has a package manager and
+                <a href="https://github.com/UltrosBot/Ultros-contrib/blob/master/README.md">contrib repository</a>,
+                to keep extensions together.
+##                <br />
+##                <a class="button" href="https://github.com/UltrosBot/Ultros-contrib/blob/master/README.md">How to contribute</a>
+            </p>
+        </div>
+        <div class="grid-3 grid">
+            <h4>Efficient</h4>
+            <p> <b>Ultros is fast.</b> A lot of programmers look down on Python for being slower
+                than other, more popular languages. We beg to differ. All our code is written not
+                only with ease of use in mind, but also efficiency - We think it's fast, and we
+                hope you will too.
+            </p>
+        </div>
+        <div class="grid-4 grid">
+            <h4>Protocol-agnostic</h4>
+            <p> <b>Ultros can talk to anything.</b> Ultros introduces a unique protocol system,
+                which allows developers to easily create their own protocol objects. These objects
+                allow Ultros to work over a wide range of platforms. Want an IRC bot? No problem!
+                Mumble? Sure, why not! Ultros ships with both of these protocols as standard, and
+                more are being developed over time.
+            </p>
+        </div>
+    </div>
+</div>
+
+<hr />
+
+<!-- Developers section -->
+
+<div class="wrapper">
+    <div class="grids">
+        <div class="grid-4 grid">
+            <img src="/static/images/g-identicon.png" alt="Avatar">
+        </div>
+        <div class="grid-4 grid">
+            <h5>Gareth Coles
+                <a href="https://github.com/gdude2002" title="GitHub" class="right"><img src="/static/images/justvector_icons/github_alt.svg" width="30" alt="github"></a>
+                <a href="http://ie.linkedin.com/pub/gareth-coles/82/13b/81a/" title="LinkedIn" class="right"><img src="/static/images/justvector_icons/linkedin_alt.svg" width="30" alt="linkedin"></a>
+                <a href="http://archivesmc.com" title="The Archives" class="right"><img src="/static/images/justvector_icons/vcard.svg" width="30" alt="site"></a>
+            </h5>
+            <p> Gareth is an English programmer living in Ireland. He prefers to write everything in Python,
+                and has many years of experience writing bots in this language, as well as Linux systems administration.
+            </p>
+        </div>
+        <div class="grid-4 grid">
+            <img src="/static/images/r-identicon.png" alt="Avatar">
+        </div>
+        <div class="grid-4 grid">
+            <h5>Sean Gordon
+                <a href="https://github.com/rakiru" title="GitHub" class="right"><img src="/static/images/justvector_icons/github_alt.svg" width="30" alt="github"></a>
+                <a href="http://uk.linkedin.com/in/seanjmgordon" title="LinkedIn" class="right"><img src="/static/images/justvector_icons/linkedin_alt.svg" width="30" alt="linkedin"></a>
+                <a href="http://www.rakiru.com/" title="rakiru.com" class="right"><img src="/static/images/justvector_icons/vcard.svg" width="30" alt="site"></a>
+            </h5>
+            <p>
+
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+
+<div class="wrapper">
+    <div id="footer">
+        <div class="grids">
+            <div class="grid-16 grid text-center">
+                <p>&copy; 2014 Gareth and Sean, based on a the template by <a href="http://sg-layout.com" title="SG-Layout Webdesign">SiGa</a></p>
+            </div>
+        </div>
     </div>
 </div>
