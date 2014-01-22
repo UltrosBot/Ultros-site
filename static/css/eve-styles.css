@@ -35,8 +35,8 @@ body{background:url(../img/bg.jpg) repeat;}
 	LOGO
 \*------------------------------------*/
 
-#logo, #logo img{display:block;width:500px; height:300px;}
-#logo{float: left; background:url(../images/logos/rakiru-500-300.png) top center no-repeat; position: relative; margin: 0; z-index: 120; display: inline; /* fixes IE6 margin bug */}
+#logo, #logo img{display:block;width:400px; height:200px;}
+#logo{float: left; background:url(../images/logos/rakiru-400-200.png) top center no-repeat; position: relative; margin: 0; z-index: 120; display: inline; /* fixes IE6 margin bug */}
 #logo img{position:absolute; left:-99999px;}
 
 /*------------------------------------*\
