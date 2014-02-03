@@ -1,7 +1,5 @@
 .code-nav {
-    position: relative;
-    top: 60px;
+    margin: -15px 100px 0 0;
     font-size: 20px;
-    float: left;
-    clear: right;
+    float: right;
 }
