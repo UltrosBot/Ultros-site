@@ -1,0 +1,9 @@
+bottle
+beaker
+cherrypy
+mako
+pymysql
+rauth
+requests
+sqlalchemy
+werkzeug

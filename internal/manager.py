@@ -13,7 +13,7 @@ class Manager(object):
     def __init__(self):
         self.app = default_app()
 
-        @hook('after_request')
+        @hook("after_request")
         def log_all():
             log_request(request, "%s %s " % (request.method, request.fullpath),
                         logging.INFO)
@@ -41,7 +41,7 @@ class Manager(object):
 
     def start(self):
         try:
-            config = yaml.load(open("development.yml", "r"))
+            config = yaml.load(open("config/development.yml", "r"))
             host = config.get("host", "127.0.0.1")
             port = config.get("port", 8080)
             server = config.get("server", "cherrypy")

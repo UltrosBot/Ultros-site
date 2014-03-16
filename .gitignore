@@ -39,3 +39,6 @@ nosetests.xml
 .idea
 .idea/*
 .idea/**/*
+
+# Configuration
+config/*.yml
