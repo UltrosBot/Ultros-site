@@ -3,18 +3,17 @@ __author__ = 'Gareth Coles'
 import os
 import random
 
-from bottle import request
 from bottle import mako_template as template
-from util import log
+from internal.util import log
 
-class ContentRoutes(object):
 
-    def __init__(self, app):
+class Routes(object):
+
+    def __init__(self, app, manager):
         self.app = app
+        self.manager = manager
 
         app.route("/", "GET", self.index)
-
-        log("Content routes set up.")
 
     def index(self):
         files = os.listdir("static/images/logos")

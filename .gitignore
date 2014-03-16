@@ -34,3 +34,8 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
+
+# IDEa/PyCharm
+.idea
+.idea/*
+.idea/**/*

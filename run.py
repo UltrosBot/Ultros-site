@@ -1,26 +1,16 @@
 # coding=utf-8
 __author__ = "Gareth Coles"
 
-import logging
+import sys
+from internal.manager import Manager
 
-from bottle import run, default_app, request, hook
-from internal import api, static, content, admin
-from internal.util import log_request
+# To conform to the uWSGI spec
+sys._stdout = sys.stdout
+sys.stdout = sys.stderr
 
-app = default_app()
+manager = Manager()
 
-
-@hook('after_request')
-def log_all():
-    log_request(request, "%s %s " % (request.method, request.fullpath),
-                logging.INFO)
-
-admin_class = admin.AdminRoutes(app)
-api_class = api.ApiRoutes(app)
-content_class = content.ContentRoutes(app)
-static_class = static.StaticRoutes(app)
-
-application = app
+application = app = manager.get_app()
 
 if __name__ == "__main__":
-    run(host='127.0.0.1', port=8080, server='cherrypy')
+    manager.start()
