@@ -1,7 +1,6 @@
 __author__ = 'Gareth Coles'
 
 from bottle import static_file, abort
-from internal.util import log
 
 
 class Routes(object):

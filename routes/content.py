@@ -4,7 +4,6 @@ import os
 import random
 
 from bottle import mako_template as template
-from internal.util import log
 
 
 class Routes(object):
