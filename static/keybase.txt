@@ -1,0 +1,139 @@
+==================================================================
+https://keybase.io/gdude2002
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of http://ultros.io
+  * I am gdude2002 (https://keybase.io/gdude2002) on keybase.
+  * I have a public key with fingerprint FDE9 31DA 44AC ABCD 0770  7325 3AD0 7AC1 CBBA 85D6
+
+To claim this, I am signing this object:
+
+{
+    "body": {
+        "key": {
+            "fingerprint": "fde931da44acabcd077073253ad07ac1cbba85d6",
+            "host": "keybase.io",
+            "key_id": "3AD07AC1CBBA85D6",
+            "uid": "fec69e7d38ac8b62aa1bcf26c388b100",
+            "username": "gdude2002"
+        },
+        "service": {
+            "hostname": "ultros.io",
+            "protocol": "http:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "ctime": 1395950453,
+    "expire_in": 157680000,
+    "prev": "75a172b9a897da8def075f028e310ef77e7a6fc8966c5b9b056d3c8b296db25c",
+    "seqno": 9,
+    "tag": "signature"
+}
+
+with the aforementioned key, yielding the PGP signature:
+
+-----BEGIN PGP MESSAGE-----
+Version: GnuPG v1.4.13 (MingW32)
+
+owGbwMvMwMR4/09UXpas/GTG0wfeJzEEmzSXVisl5adUKllVK2Wngqm0zLz01KKC
+osy8EiUrpbSUVEtjw5REE5PE5MSk5BQDc3MDc2MjU+NEIDMx2TA5KSnRwjTFTElH
+KSO/GKQDaExSYnGqXmY+UAzIic9MAYoaO7oYmDs6Gzo7OTlamLqA1JeCJdJSk80s
+U81TjC0Sky2SzIwSEw2TktOMzJKNLSySDA0MQAqLU4vyEnNTgarTU0pTUo0MDIyU
+anWUgMJlmcmpIEeD7IYqKc0pKcovhlhfUJRfkp+cnwMUzigpKbAC6SqpLAApK09N
+iocaEJ+UmZcC9DVQQ1lqUXFmfp6SlSFQZXJJJshEQ2NLU0tTAxNTYx2l1IqCzKLU
++EyQClNzMwsDIABZk1oGNNLcNNHQ3CjJMtHC0jwl0SIlNc3A3DTNwMgi1djQIDXN
+3DzVPNEsLdnC0sws2TTJMsnA1CzFGOhpI0uzlCQj02QlkJcK8/KVrCyBzkxMBxpZ
+nJmel1hSWpSqVNvJJMPCwMjEwMbKBIo3Bi5OAVhsnn/M/7+wzXvj3vxygfrvXpMX
+FUWf17Pd2KUwS6thMt+EaSE/mudvv+LJVhL/m/m+hf3GCdU/VZdMrdCS+fBuVejV
+Z9Lz5Pf1Lm+VbzAVt7mzVF/2XywrQ097ntX6Aw1T3iUvM/ju46pfGL3kx+cV5o3v
+WD9fO2SeYJcYZChx8TujYs6VS3GbVT33iK6JPqlpP//vns7E63GzFlZK18r+vbBC
+NYRn3ZKg2n1mub7zlkdbGhdM5lzU8E96T2HIuR0mLp83GJR8tw3KWV3vd2A1v/OX
+ZZOXu//yv+fmO6lM3n9G3rOfTbOFrmZFlCYK7b088UNNUOOL7z9vLOlavC3m3IlQ
+r71bTzuKP3kUuY8x5Tn/IjadS2VcwisXN52KtJjz1P5njUvoN3vn1ZtuqM2WEjj8
+Xf2tpPMi5irVHWqHNrw4d9Gh4mD7xYe8bL8XfCs/0RJw3ov/4BkTiak5m86vij3b
+vLejfKUHn+2+M1YsEW6vGm+68qSE3i8O7VcVyRPU2v3oS5xMwJ/lXBJB0aG1pZ8u
+BL3L95m93zJeMSy5ZFZE1QOXmrRrVW/0ZwT1XZ6x4laxZHjpxvBUzocb7/DsKeHc
+Kma/W0egbAVTm+42V/Etuddj1ZpZY3plTqaWLn+yT87m/f32aVvrDM5UHaoznKJ7
+UkN0mdw2LdPqugO5hsK/rjrcX5tQvSb4uP48e6Z5Dg+ZHD9tOfjvK9uzJx9COAA=
+=hoxb
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/gdude2002
+
+==================================================================
+
+==================================================================
+https://keybase.io/rakiru
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of http://ultros.io
+  * I am rakiru (https://keybase.io/rakiru) on keybase.
+  * I have a public key with fingerprint 7B76 080D 095C 2F3B 18D8  15CC 70A8 0004 4392 8C12
+
+To claim this, I am signing this object:
+
+{
+    "body": {
+        "key": {
+            "fingerprint": "7b76080d095c2f3b18d815cc70a8000443928c12",
+            "host": "keybase.io",
+            "key_id": "70A8000443928C12",
+            "uid": "9e2973d69f2531226d35facbcc6b2a00",
+            "username": "rakiru"
+        },
+        "service": {
+            "hostname": "ultros.io",
+            "protocol": "http:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "ctime": 1395951065,
+    "expire_in": 157680000,
+    "prev": "e9ff9b80c39d87c98ccaa168c2e4a95ab09b209e5c8b5fb9d1a1ae1834f1ae2d",
+    "seqno": 3,
+    "tag": "signature"
+}
+
+with the aforementioned key, yielding the PGP signature:
+
+-----BEGIN PGP MESSAGE-----
+Version: GnuPG v2.0.22 (MingW32)
+
+owGbwMvMwMSoqXJ/VVju7FuMpw+8SWIINmm9Wa2UlJ9SqWRVrZSdCqbSMvPSU4sK
+ijLzSpSslMyTzM0MLAxSDCxNk43SjJMMLVIsDE2Tk80NEi0MDAxMTIwtjSySDY2U
+dJQy8otBOoDGJCUWp+pl5gPFgJz4zBSQOQaOCPXOYPWlYAnLVCNLc+MUM8s0I1Nj
+QyMjsxRj07TE5KTkZLMko0QDA5DC4tSivMTcVKDqosTszKJSpVodJaBYWWZyKsjF
+IIuh8qU5JUX5xRC7C4ryS/KT83OAwhklJQVWIF0llQUgZeWpSfFQA+KTMvNSgF4G
+aihLLSrOzM9TsjIEqkwuyQSZaGhsaWppamhgZqqjlFpRkFmUGp8JUmFqbgbyjwHI
+mtQyoJGplmlplkkWBsnGlikW5smWFsnJiYmGZhbJRqkmiZamiUkGlklGBpappskW
+SaZpSZYphomGiamGFsYmaUDaKEUJ5KXCvHwlK2OgMxPTgUYWZ6bnJZaUFqUq1XYy
+ybAwMDIxsLEygSKNgYtTABaVjxgEGDqZT2y7cWJVZZ9kt6DBtpn68rlv/k5emHL7
+fvHC0hVlDtWtL3U1g7Qs2FginweLaJ+ICMgze7fTQq0lvkvmhlT9vmdFhlc/yauH
+lL7wDGUqm2i6IMlO+tPs3YVdwo5B6TPXpvcUXn2ptsFwzRKZvcWtmmv+var515Hq
+qxwb837J4VpmifZMCe/Jst8bFU/qR7noGtYU1z7f7fbax/7CowWJV5/Ex3Fu+RlR
+XZC/8mL8jxOLk08lq+l8LPsw9aLohTssl89W1hblXb0ko3T8zN+IDxarW2SXcdV6
+TLikp5TTwSqnuLsko3XWeYbmmdfmNr5bfHvqj4WZR5tmOiu/uL3pxsndMWK25/48
+YZtpOyvgX9m+5+vjdp/4vCniMfOU0gRHuWhO4fO6/3sm/LwXy3ycb9GRQ4tqJxXZ
+/+qYXXL6xAFuppVWXvyvvO78nJJgWC45JVE60JrxLsuzVeZLb6wP1eBmuiixmKWN
+Z/uC+1YdvHsklukp1cpprnOKOLhZfl35s8kTduzJuvGitC9GtHO/4jv7x/bxTbu4
+d9/xiJ1TbX7Xp+T0L9+j6al/p/mXTA1bHM4RzfuOYY3v+3cs8/ZY1+3+rbvvhrj1
+SnHxFT+LRUQu/lxxdWd3zI/UHObsf7P3BUlPfLm/9pwfc3K7rfp73VcRnomX+O7I
+9Zj+vHN5fd2Tdx+aXnPlHHywM36WsGizzzqJL9Hyb3JOfQMA
+=6L9O
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/rakiru
+
+==================================================================
