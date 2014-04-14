@@ -7,3 +7,16 @@
     font-size: 20px;
     float: right;
 }
+
+.announcement {
+    border: 1px #800080 dashed;
+    border-radius: 20px;
+    padding: 2em;
+    padding-bottom: 0.5em;
+}
+
+code {
+    border: 1px #400040 dashed;
+    background-color: #FFDDFF;
+    color: grey;
+}

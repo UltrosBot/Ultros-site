@@ -5,7 +5,7 @@
 <%block name="description">Ultros is a highly modular, chat-focused, Python-based bot. Its purpose is to provide various services and tools to people using chat networks, in a highly extensible and protocol-agnostic way.
 
 Connecting communities, one squid at a time.</%block>
-<%block name="keywords">python bot irc ircbot ultros squid octopus squidoctopus plugin plugins modular protocol extensible</%block>
+<%block name="keywords">python bot irc ircbot mumble mumblebot ultros squid octopus squidoctopus plugin plugins modular protocol extensible</%block>
 
 ## Header, navigation and social icons
 
@@ -42,10 +42,47 @@ Connecting communities, one squid at a time.</%block>
 
             <div class='code-nav'>
                 <a class="button" href="https://github.com/UltrosBot/Ultros">Check out the code</a>
-                <a class="button" href="https://github.com/UltrosBot/Ultros/archive/master.zip">Download latest .zip</a>
+                <a class="button" href="https://github.com/UltrosBot/Ultros/archive/master.zip"
+                   title="You'll need to use git if you want to realistically keep this up to date, so click the other button if you need that.">
+                    Download latest .zip
+                </a>
             </div>
 
             <p> Connecting communities, one squid at a time. </p>
+        </div>
+    </div>
+</div>
+
+## Info
+<div class="wrapper">
+    <div class="grids top">
+        <div class="grid-16 grid announcement">
+            <h3>Announcement</h3>
+            <p>
+                If you're unable to join our channel, <strong><a href="irc://irc.esper.net/Ultros">#Ultros on EsperNet</a></strong>,
+                or unable to talk there, then please send a private message to g (g, gShop2002, gDroid2002) or Kasen (Kasen, rakiru),
+                presuming we're around at the time.
+            </p>
+            <p>
+                Sometimes we have to do this to moderate unsavory users, people with botnets, and so on. Please don't take it personally.
+            </p>
+            <p>
+                Additionally, we've been making some core API changes recently. If you update your bot and your plugins
+                stop working, you should also do a plugin update to ensure everything is up to date. See below for information on both of
+                these operations.
+                <ul>
+                    <li>
+                        Updating the bot (both operations require that git is installed)
+                        <ul>
+                            <li>With git directly: <code>$ git pull</code></li>
+                            <li>Using the update script: <code>$ python run.py --update</code></li>
+                        </ul>
+                    </li>
+                    <li>
+                        Updating plugins: <code>$ python packages.py update all</code>
+                    </li>
+                </ul>
+            </p>
         </div>
     </div>
 </div>
