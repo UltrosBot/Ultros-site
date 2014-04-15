@@ -53,36 +53,58 @@ Connecting communities, one squid at a time.</%block>
     </div>
 </div>
 
-## Info
+## Announcement and Latest additions
 <div class="wrapper">
     <div class="grids top">
         <div class="grid-16 grid announcement">
-            <h3>Announcement</h3>
-            <p>
-                If you're unable to join our channel, <strong><a href="irc://irc.esper.net/Ultros">#Ultros on EsperNet</a></strong>,
-                or unable to talk there, then please send a private message to g (g, gShop2002, gDroid2002) or Kasen (Kasen, rakiru),
-                presuming we're around at the time.
-            </p>
-            <p>
-                Sometimes we have to do this to moderate unsavory users, people with botnets, and so on. Please don't take it personally.
-            </p>
-            <p>
-                Additionally, we've been making some core API changes recently. If you update your bot and your plugins
-                stop working, you should also do a plugin update to ensure everything is up to date. See below for information on both of
-                these operations.
+            <div class="grid-9">
+                <h3>Announcement</h3>
+                <p>
+                    If you're unable to join our channel, <strong><a href="irc://irc.esper.net/Ultros">#Ultros on EsperNet</a></strong>,
+                    or unable to talk there, then please send a private message to g (g, gShop2002, gDroid2002) or Kasen (Kasen, rakiru),
+                    presuming we're around at the time.
+                </p>
+                <p>
+                    Sometimes we have to do this to moderate unsavory users, people with botnets, and so on. Please don't take it personally.
+                </p>
+                <p>
+                    Additionally, we've been making some core API changes recently. If you update your bot and your plugins
+                    stop working, you should also do a plugin update to ensure everything is up to date. See below for information on both of
+                    these operations.
+                    <ul>
+                        <li>
+                            Updating the bot (both operations require that git is installed)
+                            <ul>
+                                <li>With git directly: <code>$ git pull</code></li>
+                                <li>Using the update script: <code>$ python run.py --update</code></li>
+                            </ul>
+                        </li>
+                        <li>
+                            Updating plugins: <code>$ python packages.py update all</code>
+                        </li>
+                    </ul>
+                </p>
+            </div>
+            <div class="grid-6">
+                <h3>Latest additions</h3>
                 <ul>
                     <li>
-                        Updating the bot (both operations require that git is installed)
-                        <ul>
-                            <li>With git directly: <code>$ git pull</code></li>
-                            <li>Using the update script: <code>$ python run.py --update</code></li>
-                        </ul>
+                        <b>Control plugin</b> for telling the bot to join/leave a channel, send raw data, or directly call a protocol function.
                     </li>
                     <li>
-                        Updating plugins: <code>$ python packages.py update all</code>
+                        <b>Negative permissions nodes</b> as well as inheritance and per-protocol/source permissions.
+                    </li>
+                    <li>
+                        <b>Factoids</b>, for storage and recollection of bite-sized pieces of information.
+                    </li>
+                    <li>
+                        <b>Asynchronous support</b> for storage and various plugins, to keep things fast.
+                    </li>
+                    <li>
+                        <b>IRC performs</b>, sent after identification but before channel join.
                     </li>
                 </ul>
-            </p>
+            </div>
         </div>
     </div>
 </div>
