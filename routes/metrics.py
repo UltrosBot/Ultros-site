@@ -103,10 +103,28 @@ class Routes(object):
         app.route("/api/metrics/post/<uuid:re:%s>" % regexp, "POST",
                   self.post_metrics)
 
+        app.route("/metrics", "GET", self.metrics_page)
+        app.route("/metrics/", "GET", self.metrics_page)
+
         map(manager.add_api_route, ["/api/metrics/get/uuid",
                                     "/api/metrics/get/metrics",
                                     "/api/metrics/get/metrics/recent",
                                     "/api/metrics/post/<uuid>"])
+
+    def metrics_page(self, db):
+        self.bind(db)
+
+        now = datetime.datetime.now()
+        last_fortnight = now - datetime.timedelta(weeks=2)
+        last_online = now - datetime.timedelta(minutes=10)
+
+        online = db.query(Bot).filter(Bot.last_seen > last_online).count()
+        recent = db.query(Bot).filter(Bot.last_seen > last_fortnight).count()
+        all = db.query(Bot).count()
+
+        kwargs = {"online": online, "recent": recent, "total": all}
+
+        return template("templates/metrics.html", **kwargs)
 
     def bind(self, db):
         if not self.bound:
@@ -116,9 +134,6 @@ class Routes(object):
 
     def commit(self, db):
         return db.commit()
-
-    def index(self):
-        return template("templates/index.html")
 
     def get_uuid(self):
         return str(uuid4())

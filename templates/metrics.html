@@ -1,0 +1,98 @@
+<%inherit file="base.html"/>
+
+## SEO Stuff
+<%block name="title">Ultros | Metrics</%block>
+<%block name="description">Ultros is a highly modular, chat-focused, Python-based bot. Its purpose is to provide various services and tools to people using chat networks, in a highly extensible and protocol-agnostic way.
+
+Connecting communities, one squid at a time.</%block>
+<%block name="keywords">python bot irc ircbot mumble mumblebot ultros squid octopus squidoctopus plugin plugins modular protocol extensible</%block>
+
+## Header, navigation and social icons
+
+<div class="wrapper">
+    <a href="/" id="logo">
+        <img src="/static/images/logos/rakiru-400-200.png" alt="The Ultros logo" />
+        <h1 class="accessibility">Ultros - The only squid that connects communities</h1>
+    </a>
+
+    <div class="social">
+        <a href="https://travis-ci.org/UltrosBot/Ultros" title="Continuous Integration"><img src="/static/images/justvector_icons/retweet.svg" width="20" height="20" alt="bamboo"></a>
+        <a href="http://webchat.esper.net/?nick=&channels=Ultros" title="IRC"><img src="/static/images/justvector_icons/google_talk.svg" width="20" height="20" alt="irc"></a>
+        <a href="http://steamcommunity.com/id/UltrosBot" title="Steam"><img src="/static/images/justvector_icons/steam.svg" width="20" height="20" alt="steam"></a>
+    </div>
+
+    <ul id="nav" class="main">
+        <li><a href="/">Home</a></li>
+        <li><a href="/metrics" class="active">Metrics</a></li>
+        <li><a href="https://github.com/UltrosBot/">GitHub</a></li>
+        <li><a href="https://github.com/UltrosBot/Ultros-Contrib">Extensions</a></li>
+        <li><a href="http://docs.ultros.io">Docs (beta)</a></li>
+    </ul>
+</div>
+
+<div class="clear"></div>
+
+## Metrics!
+<div class="wrapper">
+    <div class="grids top">
+
+        ## Introduction to metrics
+        <div class="grid-16 grid">
+            <h1>Metrics</h1>
+
+            <p>
+                We collect various anonymous metrics from running Ultros bots automatically, in the interests of curiosity and research, and for keeping track of popularity,
+                interest and receptiveness to updates.
+            </p>
+            <p>
+                Metrics are collected anonymously and are easy to opt-out of. Each instance of Ultros gets a UUID, which is not public, and is the only way to identify a
+                bot on the system. No IP addresses are collected, however they may appear in the server logs.
+            </p>
+            <p>
+                If you're running a bot and would like to disable metrics, simply open <strong>data/metrics.yml</strong> and change <code>enable: true</code> to
+                <code>enable: false</code>. Please don't remove the UUID - we need it to delete our stored metrics for your bot. Please also note that bots with
+                disabled metrics will still count towards the "total bots seen" count.
+            </p>
+        </div>
+
+        ## General metrics
+        <div class="grid-16 grid">
+            <h2>
+                General
+            </h2>
+
+            <p>
+                <small>
+                    These are general metrics, which show some simple counts. Metrics are collected every ten minutes, which allows us to discern which bots are online.
+                    If a bot hasn't been seen for two weeks, then it's not considered "active" until it's seen again.
+                </small>
+            </p>
+
+            <p>
+                <ul>
+                    <li>
+                        Bots seen in the last ten minutes: <strong>${online}</strong>
+                    </li>
+                    <li>
+                        Bots seen in the last two weeks: <strong>${recent}</strong>
+                    </li>
+                    <li>
+                        Total bots seen: <strong>${total}</strong>
+                    </li>
+                </ul>
+            </p>
+        </div>
+    </div>
+</div>
+
+## Footer
+
+<div class="wrapper">
+    <div id="footer">
+        <div class="grids">
+            <div class="grid-16 grid text-center">
+                <p>&copy; 2014 Gareth and Sean, based on the template by <a href="http://sg-layout.com" title="SG-Layout Webdesign">SiGa</a> with additional design work from <a href="https://github.com/chall8908">Chris Hall</a></p>
+            </div>
+        </div>
+    </div>
+</div>
