@@ -1,0 +1,5 @@
+adapter: mysql+pymysql
+username: ultros
+password: pass
+host: localhost
+database: ultros
