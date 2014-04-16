@@ -126,17 +126,28 @@ class Routes(object):
     def get_metrics(self, db):
         self.bind(db)
 
-        bots = db.query(Bot).all()
+        try:
+            start = int(request.query.get("start", 0))
+        except:
+            start = 0
+
+        bots = db.query(Bot).slice(start, start + 100).all()
 
         return {"metrics": [bot.to_dict() for bot in bots]}
 
     def get_metrics_recent(self, db):
         self.bind(db)
 
+        try:
+            start = int(request.query.get("start", 0))
+        except:
+            start = 0
+
         now = datetime.datetime.now()
         last_fortnight = now - datetime.timedelta(weeks=2)
 
-        bots = db.query(Bot).filter(Bot.last_seen > last_fortnight).all()
+        bots = db.query(Bot).filter(Bot.last_seen > last_fortnight)\
+            .slice(start, start + 100).all()
 
         return {"metrics": [bot.to_dict() for bot in bots]}
 
