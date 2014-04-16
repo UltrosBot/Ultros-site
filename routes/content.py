@@ -15,8 +15,4 @@ class Routes(object):
         app.route("/", "GET", self.index)
 
     def index(self):
-        files = os.listdir("static/images/logos")
-        image = random.choice(files)
-        fname = image.split(".")[0]
-        return template("templates/index.html", title="Under construction!",
-                        image=image, img_name=fname)
+        return template("templates/index.html")
