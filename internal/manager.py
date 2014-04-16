@@ -56,18 +56,7 @@ class Manager(object):
     def get_app(self):
         return self.app
 
-    def start(self):
-        try:
-            config = yaml.load(open("config/development.yml", "r"))
-            host = config.get("host", "127.0.0.1")
-            port = config.get("port", 8080)
-            server = config.get("server", "cherrypy")
-        except Exception as e:
-            log("Unable to load development config: %s" % e, logging.INFO)
-            log("Continuing using the defaults.", logging.INFO)
-            host = "127.0.0.1"
-            port = 8080
-            server = "cherrypy"
+    def setup_sql(self):
         try:
             db_config = yaml.load(open("config/database.yml", "r"))
             self.db = db_config
@@ -91,5 +80,18 @@ class Manager(object):
             self.app.install(plugin)
         except Exception as e:
             log("Unable to load database config: %s" % e, logging.INFO)
+
+    def start(self):
+        try:
+            config = yaml.load(open("config/development.yml", "r"))
+            host = config.get("host", "127.0.0.1")
+            port = config.get("port", 8080)
+            server = config.get("server", "cherrypy")
+        except Exception as e:
+            log("Unable to load development config: %s" % e, logging.INFO)
+            log("Continuing using the defaults.", logging.INFO)
+            host = "127.0.0.1"
+            port = 8080
+            server = "cherrypy"
 
         run(host=host, port=port, server=server)
