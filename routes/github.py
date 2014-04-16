@@ -20,13 +20,13 @@ class Routes(object):
         self.manager = manager
 
         self.config = yaml.load(open("config/github.yml", "r"))
-        self.github = OAuth2Service(name="github",
-                                    authorize_url=github_auth_url,
-                                    access_token_url=github_token_url,
-                                    client_id=
-                                    self.config["oauth"]["client_id"],
-                                    client_secret=
-                                    self.config["oauth"]["client_secret"])
+        self.github = OAuth2Service(
+            name="github",
+            authorize_url=github_auth_url,
+            access_token_url=github_token_url,
+            client_id=self.config["oauth"]["client_id"],
+            client_secret=self.config["oauth"]["client_secret"]
+        )
 
         app.route("/oauth/github", ["GET", "POST"], self.callback)
         app.route("/oauth/login", ["GET", "POST"], self.login)

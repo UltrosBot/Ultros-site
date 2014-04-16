@@ -1,8 +1,5 @@
 __author__ = 'Gareth Coles'
 
-import os
-import random
-
 from bottle import mako_template as template
 
 
