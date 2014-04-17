@@ -50,8 +50,8 @@ Connecting communities, one squid at a time.</%block>
             </p>
             <p>
                 If you're running a bot and would like to disable metrics, simply open <strong>config/settings.yml</strong> and change <code>metrics: on</code> to
-                <code>metrics: off</code>. Please don't remove <strong>data/metrics.yml</strong> - we need the UUID within to delete our stored metrics for your bot.
-                Please also note that UUIDs with disabled metrics are still kept in the database (and counted below).
+                <code>metrics: off</code>. Please don't remove <strong>data/metrics.yml</strong> - we need the UUID within to delete our metrics on plugin, package
+                and protocol usage. Please also note that UUIDs with disabled metrics are still kept in the database (and counted below).
             </p>
             <p>
                 If you really must do so, you can entirely remove your metrics by opening <strong>config/settings.yml</strong> and settings <code>metrics</code> to
@@ -64,57 +64,95 @@ Connecting communities, one squid at a time.</%block>
             </p>
         </div>
 
-        ## General metrics
+        ## Metrics
         <div class="grid-16 grid">
-            <h2>
-                General
-            </h2>
-
             <p>
-                <small>
-                    These are general metrics, which show some simple counts. Metrics are collected every ten minutes, which allows us to discern which bots are online.
-                    If a bot hasn't been seen for two weeks, then it's not considered "active" until it's seen again.
-                </small>
-            </p>
-
-            <p>
-                <small>
-                    Key: <span class="red-text">metrics disabled</span>, <span class="green-text">metrics enabled</span>, <span class="blue-text">total</span>
-                </small>
+                <table>
+                    <thead>
+                        <tr>
+                            <th colspan="3">Colour key</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="1">
+                                <span class="red-text">
+                                    Metrics disabled
+                                </span>
+                            </td>
+                            <td colspan="1">
+                                <span class="green-text">
+                                    Metrics enabled
+                                </span>
+                            </td>
+                            <td colspan="1">
+                                <span class="blue-text">
+                                    Totals
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </p>
 
             <p>
                 <table>
                     <thead>
                         <tr>
-                            <th colspan="6">Online</th>
-                            <th colspan="6">Active</th>
-                            <th colspan="6">Total</th>
+                            <th colspan="4">Bot activity</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="green-text" colspan="3">${online_enabled}</td>
-                            <td class="blue-text" colspan="3">${online}</td>
-                            <td class="green-text" colspan="3">${recent_enabled}</td>
-                            <td class="blue-text" colspan="3">${recent}</td>
-                            <td class="green-text" colspan="2">${total_enabled}</td>
-                            <td class="red-text" colspan="2">${total_disabled}</td>
-                            <td class="blue-text" colspan="2">${total}</td>
+                            <th>Online</th>
+                            <td>
+                                <span class="green-text">
+                                    ${online_enabled}
+                                </span>
+                            </td>
+                            <td>
+                                <span class="blue-text">
+                                    ${online}
+                                </span>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Active</th>
+                            <td>
+                                <span class="green-text">
+                                    ${recent_enabled}
+                                </span>
+                            </td>
+                            <td>
+                                <span class="blue-text">
+                                    ${recent}
+                                </span>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Total</th>
+                            <td>
+                                <span class="green-text">
+                                    ${total_enabled}
+                                </span>
+                            </td>
+                            <td>
+                                <span class="blue-text">
+                                    ${total}
+                                </span>
+                            </td>
+                            <td>
+                                <span class="red-text">
+                                    ${total_disabled}
+                                </span>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
-##                <ul>
-##                    <li>
-##                        Bots seen in the last ten minutes: <strong>${online}</strong>
-##                    </li>
-##                    <li>
-##                        Bots seen in the last two weeks: <strong>${recent}</strong>
-##                    </li>
-##                    <li>
-##                        Total bots seen: <strong>${total}</strong>
-##                    </li>
-##                </ul>
             </p>
         </div>
     </div>

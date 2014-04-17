@@ -27,13 +27,28 @@ code {
 }
 
 .green-text {
-    color: green;
+    color: black;
+    background-color: #DDFFDD;
+    border-radius: 15px;
+    padding: 2px 10px;
+    margin-left: 1em;
+    margin-right: 1em;
 }
 
 .red-text {
-    color: red;
+    color: black;
+    background-color: #FFDDDD;
+    border-radius: 15px;
+    padding: 2px 10px;
+    margin-left: 1em;
+    margin-right: 1em;
 }
 
 .blue-text {
-    color: blue;
+    color: black;
+    background-color: #DDDDFF;
+    border-radius: 15px;
+    padding: 2px 10px;
+    margin-left: 1em;
+    margin-right: 1em;
 }
