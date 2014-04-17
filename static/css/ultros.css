@@ -27,8 +27,7 @@ code {
 }
 
 .green-text {
-    color: black;
-    background-color: #DDFFDD;
+    color: green;
     border-radius: 15px;
     padding: 2px 10px;
     margin-left: 1em;
@@ -36,8 +35,7 @@ code {
 }
 
 .red-text {
-    color: black;
-    background-color: #FFDDDD;
+    color: red;
     border-radius: 15px;
     padding: 2px 10px;
     margin-left: 1em;
@@ -45,8 +43,7 @@ code {
 }
 
 .blue-text {
-    color: black;
-    background-color: #DDDDFF;
+    color: blue;
     border-radius: 15px;
     padding: 2px 10px;
     margin-left: 1em;
