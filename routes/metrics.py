@@ -34,16 +34,19 @@ class Bot(base):
     enabled = Column(Boolean())
     packages = Column(PickleType())
     plugins = Column(PickleType())
+    protocols = Column(PickleType())
     first_seen = Column(DateTime(timezone=True))
     last_seen = Column(DateTime(timezone=True))
 
     def __init__(self, uuid, enabled=True, packages=None, plugins=None,
-                 first_seen=None, last_seen=None):
+                 protocols=None, first_seen=None, last_seen=None):
 
         if packages is None:
             packages = []
         if plugins is None:
             plugins = []
+        if protocols is None:
+            protocols = []
         if first_seen is None:
             first_seen = datetime.datetime.now()
         if last_seen is None:
@@ -53,6 +56,7 @@ class Bot(base):
         self.enabled = enabled
         self.packages = packages
         self.plugins = plugins
+        self.protocols = protocols
         self.first_seen = first_seen
         self.last_seen = last_seen
 
@@ -121,12 +125,8 @@ class Routes(object):
         online = db.query(Bot).filter(Bot.last_seen > last_online).count()
         online_enabled = db.query(Bot).filter_by(enabled=True)\
             .filter(Bot.last_seen > last_online).count()
-        online_disabled = db.query(Bot).filter_by(enabled=False)\
-            .filter(Bot.last_seen > last_online).count()
         recent = db.query(Bot).filter(Bot.last_seen > last_fortnight).count()
         recent_enabled = db.query(Bot).filter_by(enabled=True)\
-            .filter(Bot.last_seen > last_fortnight).count()
-        recent_disabled = db.query(Bot).filter_by(enabled=False)\
             .filter(Bot.last_seen > last_fortnight).count()
         total = db.query(Bot).count()
         total_enabled = db.query(Bot).filter_by(enabled=True).count()
@@ -136,8 +136,6 @@ class Routes(object):
                   "online_enabled": online_enabled,
                   "recent_enabled": recent_enabled,
                   "total_enabled": total_enabled,
-                  "online_disabled": online_disabled,
-                  "recent_disabled": recent_disabled,
                   "total_disabled": total_disabled}
 
         return template("templates/metrics.html", **kwargs)
@@ -224,6 +222,7 @@ class Routes(object):
             bot.enabled = True
             bot.packages = params["packages"]
             bot.plugins = params["plugins"]
+            bot.protocols = params["protocols"]
 
         bot.last_seen = datetime.datetime.now()
 
