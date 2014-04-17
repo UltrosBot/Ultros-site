@@ -25,3 +25,15 @@ code {
     box-shadow: 10px 10px 5px #DDDDDD;
     border-radius: 20px;
 }
+
+.green-text {
+    color: green;
+}
+
+.red-text {
+    color: red;
+}
+
+.blue-text {
+    color: blue;
+}

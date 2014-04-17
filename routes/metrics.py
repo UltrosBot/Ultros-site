@@ -119,10 +119,26 @@ class Routes(object):
         last_online = now - datetime.timedelta(minutes=10)
 
         online = db.query(Bot).filter(Bot.last_seen > last_online).count()
+        online_enabled = db.query(Bot).filter_by(enabled=True)\
+            .filter(Bot.last_seen > last_online).count()
+        online_disabled = db.query(Bot).filter_by(enabled=False)\
+            .filter(Bot.last_seen > last_online).count()
         recent = db.query(Bot).filter(Bot.last_seen > last_fortnight).count()
-        all = db.query(Bot).count()
+        recent_enabled = db.query(Bot).filter_by(enabled=True)\
+            .filter(Bot.last_seen > last_fortnight).count()
+        recent_disabled = db.query(Bot).filter_by(enabled=False)\
+            .filter(Bot.last_seen > last_fortnight).count()
+        total = db.query(Bot).count()
+        total_enabled = db.query(Bot).filter_by(enabled=True).count()
+        total_disabled = db.query(Bot).filter_by(enabled=False).count()
 
-        kwargs = {"online": online, "recent": recent, "total": all}
+        kwargs = {"online": online, "recent": recent, "total": total,
+                  "online_enabled": online_enabled,
+                  "recent_enabled": recent_enabled,
+                  "total_enabled": total_enabled,
+                  "online_disabled": online_disabled,
+                  "recent_disabled": recent_disabled,
+                  "total_disabled": total_disabled}
 
         return template("templates/metrics.html", **kwargs)
 
@@ -146,7 +162,8 @@ class Routes(object):
         except:
             start = 0
 
-        bots = db.query(Bot).slice(start, start + 100).all()
+        bots = db.query(Bot).filter_by(enabled=True).slice(start, start + 100)\
+            .all()
 
         return {"metrics": [bot.to_dict() for bot in bots]}
 
@@ -161,7 +178,8 @@ class Routes(object):
         now = datetime.datetime.now()
         last_fortnight = now - datetime.timedelta(weeks=2)
 
-        bots = db.query(Bot).filter(Bot.last_seen > last_fortnight)\
+        bots = db.query(Bot).filter_by(enabled=True)\
+            .filter(Bot.last_seen > last_fortnight)\
             .slice(start, start + 100).all()
 
         return {"metrics": [bot.to_dict() for bot in bots]}
