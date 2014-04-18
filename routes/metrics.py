@@ -2,15 +2,54 @@ __author__ = 'Gareth Coles'
 
 import datetime
 import json
+import logging
+
 from uuid import uuid4
 
 from bottle import request, abort
 from bottle import mako_template as template
-from sqlalchemy import Integer, Sequence, Column, String, Boolean, \
-    PickleType, DateTime
+from sqlalchemy import Integer, Sequence, Column, String, Boolean, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 
+from internal.util import log
+
 base = declarative_base()
+
+
+class Obj(base):
+    """
+    Obj represents lists of things we track in bots. Each Obj has a type and
+    name, and (right now) stores all protocols, plugins and packages
+    that people have installed.
+
+    Columns:
+    * id - Unique row ID
+    * what - String, type of Obj
+    * who - String, name of Obj
+    """
+
+    __tablename__ = "objs"
+    id = Column(Integer, Sequence('objs_id_seq'), primary_key=True)
+    what = Column(String(64))
+    who = Column(String(128))
+
+    def __init__(self, what, who):
+        self.what = what
+        self.who = who
+
+    def to_dict(self):
+        """
+        Convert this Obj into a dict.
+        """
+        return {
+            "type": self.type,
+            "name": self.name
+        }
+
+    def __repr__(self):
+        return "<Obj(what=%s, who=%s)>" % (
+            self.what, self.who
+        )
 
 
 class Bot(base):
@@ -32,9 +71,9 @@ class Bot(base):
     id = Column(Integer, Sequence('bots_id_seq'), primary_key=True)
     uuid = Column(String(36))
     enabled = Column(Boolean())
-    packages = Column(PickleType())
-    plugins = Column(PickleType())
-    protocols = Column(PickleType())
+    packages = Column(String(256))
+    plugins = Column(String(256))
+    protocols = Column(String(256))
     first_seen = Column(DateTime(timezone=True))
     last_seen = Column(DateTime(timezone=True))
 
@@ -42,11 +81,11 @@ class Bot(base):
                  protocols=None, first_seen=None, last_seen=None):
 
         if packages is None:
-            packages = []
+            packages = "||"
         if plugins is None:
-            plugins = []
+            plugins = "||"
         if protocols is None:
-            protocols = []
+            protocols = "||"
         if first_seen is None:
             first_seen = datetime.datetime.now()
         if last_seen is None:
@@ -72,17 +111,11 @@ class Bot(base):
             "last_seen": str(self.last_seen)
         }
 
-    def to_json(self):
-        """
-        Convert this Bot into JSON.
-        """
-
-        return json.dumps(self.to_dict())
-
     def __repr__(self):
-        return "<Bot(%s, %s, %d packages, %d plugins, %s)>" % (
-            self.uuid, self.enabled, len(self.packages), len(self.plugins),
-            self.first_seen
+        return "<Bot(uuid=%s, enabled=%s, %d packages, %d plugins, " \
+               "first_seen=%s, last_seen=%s)>" % (
+               self.uuid, self.enabled, len(self.packages), len(self.plugins),
+               self.first_seen, self.last_seen
         )
 
 
@@ -132,11 +165,19 @@ class Routes(object):
         total_enabled = db.query(Bot).filter_by(enabled=True).count()
         total_disabled = db.query(Bot).filter_by(enabled=False).count()
 
+        other_counts = self.get_counts(db)
+
+        log(other_counts, logging.INFO)
+
         kwargs = {"online": online, "recent": recent, "total": total,
                   "online_enabled": online_enabled,
                   "recent_enabled": recent_enabled,
                   "total_enabled": total_enabled,
-                  "total_disabled": total_disabled}
+                  "total_disabled": total_disabled,
+                  "packages": other_counts["package"],
+                  "protocols": other_counts["protocol"],
+                  "plugins": other_counts["plugin"]
+                  }
 
         return template("templates/metrics.html", **kwargs)
 
@@ -148,6 +189,55 @@ class Routes(object):
 
     def commit(self, db):
         return db.commit()
+
+    def add_obj(self, db, what, who):
+        r = db.query(Obj).filter_by(what=what).filter_by(who=who).first()
+
+        if not r:
+            new = Obj(what, who)
+            db.add(new)
+            self.commit(db)
+
+            return new.id
+        return r.id
+
+    def get_id_map(self, db):
+        r = db.query(Obj).all()
+        done = {}
+
+        for e in r:
+            if not e.what in done:
+                done[e.what] = {}
+            done[e.what][e.who] = e.id
+
+        log(done, logging.INFO)
+
+        return done
+
+    def get_counts(self, db):
+        done = {"package": {},
+                "plugin": {},
+                "protocol": {}}
+
+        objs = db.query(Obj).all()
+
+        for e in objs:
+            if e.what == "package":
+                count = db.query(Bot).filter(
+                    Bot.packages.like("%%|%s|%%" % e.id)
+                ).count()
+            elif e.what == "plugin":
+                count = db.query(Bot).filter(
+                    Bot.plugins.like("%%|%s|%%" % e.id)
+                ).count()
+            else:
+                count = db.query(Bot).filter(
+                    Bot.protocols.like("%%|%s|%%" % e.id)
+                ).count()
+
+            done[e.what][e.who] = count
+
+        return done
 
     def get_uuid(self):
         return str(uuid4())
@@ -206,9 +296,40 @@ class Routes(object):
                 }
             ))
 
+        base_str = "|%s|"
+
+        _packages = params["packages"]
+        _plugins = params["plugins"]
+        _protocols = params["protocols"]
+
+        id_map = self.get_id_map(db)
+
+        packages = []
+        plugins = []
+        protocols = []
+
+        for element in _packages:
+            _id = self.add_obj(db, "package", element)
+            packages.append(str(_id))
+
+        for element in _plugins:
+            _id = self.add_obj(db, "plugin", element)
+            plugins.append(str(_id))
+
+        for element in _protocols:
+            _id = self.add_obj(db, "protocol", element)
+            protocols.append(str(_id))
+
+        packages = base_str % ("|".join(packages))
+        plugins = base_str % ("|".join(plugins))
+        protocols = base_str % ("|".join(protocols))
+
         if not bot:
-            bot = Bot(uuid, params["enabled"], params["packages"],
-                      params["plugins"])
+            if not params["enabled"]:
+                bot = Bot(uuid, params["enabled"], "||", "||", "||")
+            else:
+                bot = Bot(uuid, params["enabled"],
+                          packages, plugins, protocols)
             db.add(bot)
 
             return {"result": "created",
@@ -216,13 +337,14 @@ class Routes(object):
 
         if not params["enabled"]:
             bot.enabled = False
-            bot.packages = []
-            bot.plugins = []
+            bot.packages = "||"
+            bot.plugins = "||"
+            bot.protocols = "||"
         else:
             bot.enabled = True
-            bot.packages = params["packages"]
-            bot.plugins = params["plugins"]
-            bot.protocols = params["protocols"]
+            bot.packages = packages
+            bot.plugins = plugins
+            bot.protocols = protocols
 
         bot.last_seen = datetime.datetime.now()
 

@@ -64,99 +64,126 @@ Connecting communities, one squid at a time.</%block>
             </p>
         </div>
 
-        ## Metrics
-        <div class="grid-16 grid">
-            <p>
-                <table>
-                    <thead>
-                        <tr>
-                            <th colspan="3">Colour key</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td colspan="1">
-                                <span class="red-text">
-                                    Metrics disabled
-                                </span>
-                            </td>
-                            <td colspan="1">
-                                <span class="green-text">
-                                    Metrics enabled
-                                </span>
-                            </td>
-                            <td colspan="1">
-                                <span class="blue-text">
-                                    Totals
-                                </span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </p>
+        <hr />
 
-            <p>
-                <table>
-                    <thead>
-                        <tr>
-                            <th colspan="4">Bot activity</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th>Online</th>
-                            <td>
-                                <span class="green-text">
-                                    ${online_enabled}
-                                </span>
-                            </td>
-                            <td>
-                                <span class="blue-text">
-                                    ${online}
-                                </span>
-                            </td>
-                            <td>
-                                <span class="red-text"> &mdash; </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Active</th>
-                            <td>
-                                <span class="green-text">
-                                    ${recent_enabled}
-                                </span>
-                            </td>
-                            <td>
-                                <span class="blue-text">
-                                    ${recent}
-                                </span>
-                            </td>
-                            <td>
-                                <span class="red-text"> &mdash; </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Total</th>
-                            <td>
-                                <span class="green-text">
-                                    ${total_enabled}
-                                </span>
-                            </td>
-                            <td>
-                                <span class="blue-text">
-                                    ${total}
-                                </span>
-                            </td>
-                            <td>
-                                <span class="red-text">
-                                    ${total_disabled}
-                                </span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </p>
+        ## Keys
+
+        <div class="grid-16 grid-header">
+            <h3>Colour key</h3>
         </div>
+
+        <div class="grid-8 grid-left">
+            <span class="red-text">Red text</span> <br />
+            <span class="green-text">Green text</span> <br />
+            <span class="blue-text">Blue text</span> <br />
+        </div>
+
+        <div class="grid-8 grid-right">
+            Metrics disabled <br />
+            Metrics enabled <br />
+            Totals <br />
+        </div>
+
+        ## Activity
+
+        <div class="grid-16 grid-header">
+            <h3>Activity</h3>
+        </div>
+
+        <div class="grid-8 grid-left">
+            Online <br />
+            Active <br />
+            Totals <br />
+        </div>
+
+        <div class="grid-8 grid-right">
+            <span class="green-text"> ${online_enabled}</span>,
+            <span class="blue-text"> ${online}</span>,
+            <span class="red-text"> &mdash;</span>
+            <br />
+
+            <span class="green-text"> ${recent_enabled}</span>,
+            <span class="blue-text"> ${recent}</span>,
+            <span class="red-text"> &mdash;</span>
+            <br />
+
+            <span class="green-text"> ${total_enabled}</span>,
+            <span class="blue-text"> ${total}</span>,
+            <span class="red-text"> ${total_disabled}</span>
+            <br />
+        </div>
+
+        ## Protocols
+
+        <div class="grid-16 grid-header">
+            <h3>Protocol usage</h3>
+        </div>
+
+        % if not protocols:
+            <div class="grid-16 grid-header-nomargin">
+                Nothing here yet.
+            </div>
+        % else:
+            <div class="grid-8 grid-left">
+                % for key in sorted(protocols.keys(), key=lambda s: s.lower()):
+                    ${key} <br />
+                % endfor
+            </div>
+
+            <div class="grid-8 grid-right">
+                % for key in sorted(protocols.keys(), key=lambda s: s.lower()):
+                    <span class="green-text"> ${protocols[key]}</span> <br />
+                % endfor
+            </div>
+        % endif
+
+        ## Packages
+
+        <div class="grid-16 grid-header">
+            <h3>Packages installed</h3>
+        </div>
+
+        % if not packages:
+            <div class="grid-16 grid-header-nomargin">
+                Nothing here yet.
+            </div>
+        % else:
+            <div class="grid-8 grid-left">
+                % for key in sorted(packages.keys(), key=lambda s: s.lower()):
+                    ${key} <br />
+                % endfor
+            </div>
+
+            <div class="grid-8 grid-right">
+                % for key in sorted(packages.keys(), key=lambda s: s.lower()):
+                    <span class="green-text"> ${packages[key]}</span> <br />
+                % endfor
+            </div>
+        % endif
+
+        ## Plugins
+
+        <div class="grid-16 grid-header">
+            <h3>Plugins enabled</h3>
+        </div>
+
+        % if not plugins:
+            <div class="grid-16 grid-header-nomargin">
+                Nothing here yet.
+            </div>
+        % else:
+            <div class="grid-8 grid-left">
+                % for key in sorted(plugins.keys(), key=lambda s: s.lower()):
+                    ${key} <br />
+                % endfor
+            </div>
+
+            <div class="grid-8 grid-right">
+                % for key in sorted(plugins.keys(), key=lambda s: s.lower()):
+                    <span class="green-text"> ${plugins[key]}</span> <br />
+                % endfor
+            </div>
+        % endif
     </div>
 </div>
 
