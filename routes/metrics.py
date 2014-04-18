@@ -114,9 +114,9 @@ class Bot(base):
     def __repr__(self):
         return "<Bot(uuid=%s, enabled=%s, %d packages, %d plugins, " \
                "first_seen=%s, last_seen=%s)>" % (
-               self.uuid, self.enabled, len(self.packages), len(self.plugins),
-               self.first_seen, self.last_seen
-        )
+                   self.uuid, self.enabled, len(self.packages),
+                   len(self.plugins), self.first_seen, self.last_seen
+               )
 
 
 class Routes(object):
@@ -206,7 +206,7 @@ class Routes(object):
         done = {}
 
         for e in r:
-            if not e.what in done:
+            if e.what not in done:
                 done[e.what] = {}
             done[e.what][e.who] = e.id
 
@@ -301,8 +301,6 @@ class Routes(object):
         _packages = params["packages"]
         _plugins = params["plugins"]
         _protocols = params["protocols"]
-
-        id_map = self.get_id_map(db)
 
         packages = []
         plugins = []
