@@ -126,13 +126,17 @@ Connecting communities, one squid at a time.</%block>
         % else:
             <div class="grid-8 grid-left">
                 % for key in sorted(protocols.keys(), key=lambda s: s.lower()):
-                    ${key} <br />
+                    % if protocols[key]:
+                        ${key} <br />
+                    % endif
                 % endfor
             </div>
 
             <div class="grid-8 grid-right">
                 % for key in sorted(protocols.keys(), key=lambda s: s.lower()):
-                    <span class="green-text"> ${protocols[key]}</span> <br />
+                    % if protocols[key]:
+                        <span class="green-text"> ${protocols[key]}</span> <br />
+                    % endif
                 % endfor
             </div>
         % endif
@@ -150,13 +154,17 @@ Connecting communities, one squid at a time.</%block>
         % else:
             <div class="grid-8 grid-left">
                 % for key in sorted(packages.keys(), key=lambda s: s.lower()):
-                    ${key} <br />
+                    % if packages[key]:
+                        ${key} <br />
+                    % endif
                 % endfor
             </div>
 
             <div class="grid-8 grid-right">
                 % for key in sorted(packages.keys(), key=lambda s: s.lower()):
-                    <span class="green-text"> ${packages[key]}</span> <br />
+                    % if packages[key]:
+                        <span class="green-text"> ${packages[key]}</span> <br />
+                    % endif
                 % endfor
             </div>
         % endif
@@ -174,13 +182,17 @@ Connecting communities, one squid at a time.</%block>
         % else:
             <div class="grid-8 grid-left">
                 % for key in sorted(plugins.keys(), key=lambda s: s.lower()):
-                    ${key} <br />
+                    % if plugins[key]:
+                        ${key} <br />
+                    % endif
                 % endfor
             </div>
 
             <div class="grid-8 grid-right">
                 % for key in sorted(plugins.keys(), key=lambda s: s.lower()):
-                    <span class="green-text"> ${plugins[key]}</span> <br />
+                    % if plugins[key]:
+                        <span class="green-text"> ${plugins[key]}</span> <br />
+                    % endif
                 % endfor
             </div>
         % endif
