@@ -61,10 +61,16 @@ class Manager(object):
         try:
             db_config = yaml.load(open("config/database.yml", "r"))
             self.db = db_config
-            engine = create_engine("%s://%s:%s@%s/%s" % (
+
+            db_uri = "%s://%s:%s@%s/%s" % (
                 self.db["adapter"], self.db["username"], self.db["password"],
                 self.db["host"], self.db["database"]
-            ))
+            )
+
+            if "socket" in self.db and self.db["socket"]:
+                db_uri += "?unix_socket=%s" % self.db["socket"]
+
+            engine = create_engine(db_uri)
             self.sql_engine = engine
             self.get_session = sessionmaker(bind=engine)
 
