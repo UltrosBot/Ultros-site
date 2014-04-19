@@ -98,7 +98,7 @@ class Routes(object):
         if not r:
             new = Obj(what, who)
             db.add(new)
-            _id = new.id
+            _id = str(new.id)
             self.commit(db)
 
             return _id
