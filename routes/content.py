@@ -20,6 +20,8 @@ class Routes(object):
 
         now = datetime.datetime.now()
         last_online = now - datetime.timedelta(minutes=10)
-        online = db.query(Bot).filter(Bot.last_seen > last_online).count()
+        online = int(db.query(Bot).filter(Bot.last_seen > last_online).count())
+
+        db.close()
 
         return template("templates/index.html", online=online)

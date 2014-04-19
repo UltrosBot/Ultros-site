@@ -51,17 +51,20 @@ class Routes(object):
         last_fortnight = now - datetime.timedelta(weeks=2)
         last_online = now - datetime.timedelta(minutes=10)
 
-        online = db.query(Bot).filter(Bot.last_seen > last_online).count()
-        online_enabled = db.query(Bot).filter_by(enabled=True)\
-            .filter(Bot.last_seen > last_online).count()
-        recent = db.query(Bot).filter(Bot.last_seen > last_fortnight).count()
-        recent_enabled = db.query(Bot).filter_by(enabled=True)\
-            .filter(Bot.last_seen > last_fortnight).count()
-        total = db.query(Bot).count()
-        total_enabled = db.query(Bot).filter_by(enabled=True).count()
-        total_disabled = db.query(Bot).filter_by(enabled=False).count()
+        online = int(db.query(Bot).filter(Bot.last_seen > last_online).count())
+        online_enabled = int(db.query(Bot).filter_by(enabled=True)
+                             .filter(Bot.last_seen > last_online).count())
+        recent = int(db.query(Bot).filter(Bot.last_seen > last_fortnight)
+                     .count())
+        recent_enabled = int(db.query(Bot).filter_by(enabled=True)
+                             .filter(Bot.last_seen > last_fortnight).count())
+        total = int(db.query(Bot).count())
+        total_enabled = int(db.query(Bot).filter_by(enabled=True).count())
+        total_disabled = int(db.query(Bot).filter_by(enabled=False).count())
 
         other_counts = self.get_counts(db)
+
+        db.close()
 
         kwargs = {"online": online, "recent": recent, "total": total,
                   "online_enabled": online_enabled,
@@ -101,6 +104,7 @@ class Routes(object):
             self.commit(db)
 
             return self.add_obj(what, who)
+        db.close()
         return r.id
 
     def get_id_map(self, db):
@@ -123,17 +127,17 @@ class Routes(object):
 
         for e in objs:
             if e.what == "package":
-                count = db.query(Bot).filter(
+                count = int(db.query(Bot).filter(
                     Bot.packages.like("%%|%s|%%" % e.id)
-                ).count()
+                ).count())
             elif e.what == "plugin":
-                count = db.query(Bot).filter(
+                count = int(db.query(Bot).filter(
                     Bot.plugins.like("%%|%s|%%" % e.id)
-                ).count()
+                ).count())
             else:
-                count = db.query(Bot).filter(
+                count = int(db.query(Bot).filter(
                     Bot.protocols.like("%%|%s|%%" % e.id)
-                ).count()
+                ).count())
 
             done[e.what][e.who] = count
 
@@ -153,7 +157,11 @@ class Routes(object):
         bots = db.query(Bot).filter_by(enabled=True).slice(start, start + 100)\
             .all()
 
-        return {"metrics": [bot.to_dict() for bot in bots]}
+        data = {"metrics": [bot.to_dict() for bot in bots]}
+
+        db.close()
+
+        return data
 
     def get_metrics_recent(self):
         db = self.manager.get_session()
@@ -170,92 +178,102 @@ class Routes(object):
             .filter(Bot.last_seen > last_fortnight)\
             .slice(start, start + 100).all()
 
-        return {"metrics": [bot.to_dict() for bot in bots]}
+        data = {"metrics": [bot.to_dict() for bot in bots]}
+
+        db.close()
+
+        return data
 
     def post_metrics(self, uuid):
-        db = self.manager.get_session()
-        bot = db.query(Bot).filter_by(uuid=uuid).first()
-
-        params = request.POST.get("data", None)
-
-        if not params:
-            return abort(400, json.dumps(
-                {
-                    "result": "error",
-                    "error": "Missing 'data' parameter"
-                }
-            ))
-
         try:
-            params = json.loads(params)
-        except Exception as e:
-            return abort(400, json.dumps(
-                {
-                    "result": "error",
-                    "error": "Error parsing data: %s" % e
-                }
-            ))
+            db = self.manager.get_session()
+            bot = db.query(Bot).filter_by(uuid=uuid).first()
 
-        for part in ["packages", "plugins", "protocols", "enabled"]:
-            if part not in params:
-                return {
-                    "result": "error",
-                    "error": "Missing parameter: %s" % part
-                }
+            params = request.POST.get("data", None)
 
-        base_str = "|%s|"
+            if not params:
+                db.close()
+                return abort(400, json.dumps(
+                    {
+                        "result": "error",
+                        "error": "Missing 'data' parameter"
+                    }
+                ))
 
-        _packages = params["packages"]
-        _plugins = params["plugins"]
-        _protocols = params["protocols"]
+            try:
+                params = json.loads(params)
+            except Exception as e:
+                db.close()
+                return abort(400, json.dumps(
+                    {
+                        "result": "error",
+                        "error": "Error parsing data: %s" % e
+                    }
+                ))
 
-        packages = []
-        plugins = []
-        protocols = []
+            for part in ["packages", "plugins", "protocols", "enabled"]:
+                if part not in params:
+                    db.close()
+                    return {
+                        "result": "error",
+                        "error": "Missing parameter: %s" % part
+                    }
 
-        for element in _packages:
-            _id = self.add_obj("package", element)
-            packages.append(str(_id))
+            base_str = "|%s|"
 
-        for element in _plugins:
-            _id = self.add_obj("plugin", element)
-            plugins.append(str(_id))
+            _packages = params["packages"]
+            _plugins = params["plugins"]
+            _protocols = params["protocols"]
 
-        for element in _protocols:
-            _id = self.add_obj("protocol", element)
-            protocols.append(str(_id))
+            packages = []
+            plugins = []
+            protocols = []
 
-        packages = base_str % ("|".join(packages))
-        plugins = base_str % ("|".join(plugins))
-        protocols = base_str % ("|".join(protocols))
+            for element in _packages:
+                _id = self.add_obj("package", element)
+                packages.append(str(_id))
 
-        if not bot:
+            for element in _plugins:
+                _id = self.add_obj("plugin", element)
+                plugins.append(str(_id))
+
+            for element in _protocols:
+                _id = self.add_obj("protocol", element)
+                protocols.append(str(_id))
+
+            packages = base_str % ("|".join(packages))
+            plugins = base_str % ("|".join(plugins))
+            protocols = base_str % ("|".join(protocols))
+
+            if not bot:
+                if not params["enabled"]:
+                    bot = Bot(uuid, params["enabled"], "||", "||", "||")
+                else:
+                    bot = Bot(uuid, params["enabled"],
+                              packages, plugins, protocols)
+                db.add(bot)
+                self.commit(db)
+
+                return {"result": "created",
+                        "enabled": params["enabled"]}
+
             if not params["enabled"]:
-                bot = Bot(uuid, params["enabled"], "||", "||", "||")
+                bot.enabled = False
+                bot.packages = "||"
+                bot.plugins = "||"
+                bot.protocols = "||"
             else:
-                bot = Bot(uuid, params["enabled"],
-                          packages, plugins, protocols)
-            db.add(bot)
+                bot.enabled = True
+                bot.packages = packages
+                bot.plugins = plugins
+                bot.protocols = protocols
+
+            bot.last_seen = datetime.datetime.now()
+
+            db.merge(bot)
             self.commit(db)
 
-            return {"result": "created",
+            return {"result": "updated",
                     "enabled": params["enabled"]}
-
-        if not params["enabled"]:
-            bot.enabled = False
-            bot.packages = "||"
-            bot.plugins = "||"
-            bot.protocols = "||"
-        else:
-            bot.enabled = True
-            bot.packages = packages
-            bot.plugins = plugins
-            bot.protocols = protocols
-
-        bot.last_seen = datetime.datetime.now()
-
-        db.merge(bot)
-        self.commit(db)
-
-        return {"result": "updated",
-                "enabled": params["enabled"]}
+        finally:
+            db.close()
