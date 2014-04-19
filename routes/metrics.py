@@ -32,12 +32,16 @@ class Routes(object):
         app.route("/api/metrics/post/<uuid:re:%s>" % regexp, "POST",
                   self.post_metrics)
 
+        app.route("/api/metrics/destroy/<uuid:re:%s>" % regexp, "GET",
+                  self.destroy)
+
         app.route("/metrics", "GET", self.metrics_page)
         app.route("/metrics/", "GET", self.metrics_page)
 
         map(manager.add_api_route, ["/api/metrics/get/uuid",
                                     "/api/metrics/get/metrics",
                                     "/api/metrics/get/metrics/recent",
+                                    "/api/metrics/destroy/<uuid>",
                                     "/api/metrics/post/<uuid>"])
 
     def metrics_page(self):
@@ -72,17 +76,32 @@ class Routes(object):
         return template("templates/metrics.html", **kwargs)
 
     def commit(self, db):
-        return db.commit()
+        db.commit()
+        db.close()
 
-    def add_obj(self, db, what, who):
+    def destroy(self, uuid):
+        db = self.manager.get_session()
+
+        r = db.query(Bot).filter_by(uuid=uuid).first()
+
+        if r:
+            db.delete(r)
+            self.commit(db)
+
+            return {"result": "success"}
+        return {"result": "unknown"}
+
+    def add_obj(self, what, who):
+        db = self.manager.get_session()
         r = db.query(Obj).filter_by(what=what).filter_by(who=who).first()
 
         if not r:
             new = Obj(what, who)
             db.add(new)
+            _id = new.id
             self.commit(db)
 
-            return new.id
+            return _id
         return r.id
 
     def get_id_map(self, db):
@@ -178,6 +197,13 @@ class Routes(object):
                 }
             ))
 
+        for part in ["packages", "plugins", "protocols", "enabled"]:
+            if part not in params:
+                return {
+                    "result": "error",
+                    "error": "Missing parameter: %s" % part
+                }
+
         base_str = "|%s|"
 
         _packages = params["packages"]
@@ -189,15 +215,15 @@ class Routes(object):
         protocols = []
 
         for element in _packages:
-            _id = self.add_obj(db, "package", element)
+            _id = self.add_obj("package", element)
             packages.append(str(_id))
 
         for element in _plugins:
-            _id = self.add_obj(db, "plugin", element)
+            _id = self.add_obj("plugin", element)
             plugins.append(str(_id))
 
         for element in _protocols:
-            _id = self.add_obj(db, "protocol", element)
+            _id = self.add_obj("protocol", element)
             protocols.append(str(_id))
 
         packages = base_str % ("|".join(packages))
@@ -211,9 +237,10 @@ class Routes(object):
                 bot = Bot(uuid, params["enabled"],
                           packages, plugins, protocols)
             db.add(bot)
+            self.commit(db)
 
             return {"result": "created",
-                    "enabled": bot.enabled}
+                    "enabled": params["enabled"]}
 
         if not params["enabled"]:
             bot.enabled = False
@@ -232,4 +259,4 @@ class Routes(object):
         self.commit(db)
 
         return {"result": "updated",
-                "enabled": bot.enabled}
+                "enabled": params["enabled"]}
