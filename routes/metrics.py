@@ -98,10 +98,9 @@ class Routes(object):
         if not r:
             new = Obj(what, who)
             db.add(new)
-            _id = str(new.id)
             self.commit(db)
 
-            return _id
+            return self.add_obj(what, who)
         return r.id
 
     def get_id_map(self, db):
