@@ -68,6 +68,7 @@ class Manager(object):
             )
 
             if "socket" in self.db and self.db["socket"]:
+                log("Using unix socket: %s" % self.db["socket"], logging.INFO)
                 db_uri += "?unix_socket=%s" % self.db["socket"]
 
             engine = create_engine(db_uri)
