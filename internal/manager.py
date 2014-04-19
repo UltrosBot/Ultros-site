@@ -71,7 +71,7 @@ class Manager(object):
                 log("Using unix socket: %s" % self.db["socket"], logging.INFO)
                 db_uri += "?unix_socket=%s" % self.db["socket"]
 
-            engine = create_engine(db_uri)
+            engine = create_engine(db_uri, pool_recycle=300)
             self.sql_engine = engine
             self.get_session = sessionmaker(bind=engine)
 
