@@ -7,4 +7,3 @@ rauth
 requests
 sqlalchemy
 werkzeug
-bottle-sqlalchemy

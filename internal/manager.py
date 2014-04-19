@@ -5,9 +5,9 @@ import os
 import yaml
 
 from bottle import run, default_app, request
-from bottle.ext import sqlalchemy
+
 from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
 
 from internal.util import log_request, log
 
@@ -16,6 +16,7 @@ class Manager(object):
 
     db = {}
     sql_engine = None
+    get_session = None
 
     def __init__(self):
         self.app = default_app()
@@ -60,24 +61,18 @@ class Manager(object):
         try:
             db_config = yaml.load(open("config/database.yml", "r"))
             self.db = db_config
-            base = declarative_base()
             engine = create_engine("%s://%s:%s@%s/%s" % (
                 self.db["adapter"], self.db["username"], self.db["password"],
                 self.db["host"], self.db["database"]
             ))
-
             self.sql_engine = engine
+            self.get_session = sessionmaker(bind=engine)
 
-            plugin = sqlalchemy.Plugin(
-                engine,
-                base.metadata,
-                keyword='db',
-                create=True,
-                commit=True,
-                use_kwargs=False
-            )
+            from internal.schemas import Bot, Obj
 
-            self.app.install(plugin)
+            Bot.base.metadata.create_all(engine)
+            Obj.base.metadata.create_all(engine)
+
         except Exception as e:
             log("Unable to load database config: %s" % e, logging.INFO)
 

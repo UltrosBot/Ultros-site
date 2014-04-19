@@ -68,3 +68,10 @@ code {
     text-align: left;
     font-size: large;
 }
+
+.icon-font-size {
+    font-size: 30px;
+    border-left: 2px solid grey;
+    margin-left: 5px;
+    padding-left: 8px;
+}

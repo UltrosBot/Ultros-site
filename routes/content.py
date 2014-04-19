@@ -1,6 +1,10 @@
 __author__ = 'Gareth Coles'
 
+import datetime
+
 from bottle import mako_template as template
+
+from internal.schemas import Bot
 
 
 class Routes(object):
@@ -12,4 +16,10 @@ class Routes(object):
         app.route("/", "GET", self.index)
 
     def index(self):
-        return template("templates/index.html")
+        db = self.manager.get_session()
+
+        now = datetime.datetime.now()
+        last_online = now - datetime.timedelta(minutes=10)
+        online = db.query(Bot).filter(Bot.last_seen > last_online).count()
+
+        return template("templates/index.html", online=online)
