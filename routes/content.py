@@ -2,6 +2,7 @@ __author__ = 'Gareth Coles'
 
 import datetime
 
+from bottle import route
 from bottle import mako_template as template
 
 from internal.schemas import Bot
@@ -13,7 +14,7 @@ class Routes(object):
         self.app = app
         self.manager = manager
 
-        app.route("/", "GET", self.index)
+        route("/", "GET", self.index)
 
     def index(self):
         db = self.manager.get_session()

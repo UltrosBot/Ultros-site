@@ -1,5 +1,7 @@
 __author__ = 'Gareth Coles'
 
+from bottle import route
+
 
 class Routes(object):
 
@@ -7,8 +9,8 @@ class Routes(object):
         self.app = app
         self.manager = manager
 
-        app.route("/api", "GET", self.api_index)
-        app.route("/api/", "GET", self.api_index)
+        route("/api", "GET", self.api_index)
+        route("/api/", "GET", self.api_index)
 
     def api_index(self):
         return {"routes": self.manager.api_routes}

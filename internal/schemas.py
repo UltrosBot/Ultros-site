@@ -2,46 +2,11 @@ __author__ = 'Gareth Coles'
 
 import datetime
 
-from sqlalchemy import Integer, Sequence, Column, String, Boolean, DateTime
+from sqlalchemy import Integer, Sequence, Column, String, Boolean, DateTime, \
+    PickleType
 from sqlalchemy.ext.declarative import declarative_base
 
 base = declarative_base()
-
-
-class Obj(base):
-    """
-    Obj represents lists of things we track in bots. Each Obj has a type and
-    name, and (right now) stores all protocols, plugins and packages
-    that people have installed.
-
-    Columns:
-    * id - Unique row ID
-    * what - String, type of Obj
-    * who - String, name of Obj
-    """
-
-    __tablename__ = "objs"
-    id = Column(Integer, Sequence('objs_id_seq'), primary_key=True)
-    what = Column(String(64))
-    who = Column(String(128))
-
-    def __init__(self, what, who):
-        self.what = what
-        self.who = who
-
-    def to_dict(self):
-        """
-        Convert this Obj into a dict.
-        """
-        return {
-            "type": self.type,
-            "name": self.name
-        }
-
-    def __repr__(self):
-        return "<Obj(what=%s, who=%s)>" % (
-            self.what, self.who
-        )
 
 
 class Bot(base):
@@ -111,5 +76,86 @@ class Bot(base):
                )
 
 
+class Obj(base):
+    """
+    Obj represents lists of things we track in bots. Each Obj has a type and
+    name, and (right now) stores all protocols, plugins and packages
+    that people have installed.
+
+    Columns:
+    * id - Unique row ID
+    * what - String, type of Obj
+    * who - String, name of Obj
+    """
+
+    __tablename__ = "objs"
+    id = Column(Integer, Sequence('objs_id_seq'), primary_key=True)
+    what = Column(String(64))
+    who = Column(String(128))
+
+    def __init__(self, what, who):
+        self.what = what
+        self.who = who
+
+    def to_dict(self):
+        """
+        Convert this Obj into a dict.
+        """
+        return {
+            "type": self.type,
+            "name": self.name
+        }
+
+    def __repr__(self):
+        return "<Obj(what=%s, who=%s)>" % (
+            self.what, self.who
+        )
+
+
+class User(base):
+    """
+    User represents a username and auth token for a GitHub login.
+
+    Columns:
+    * id - Unique row ID
+    * username - String, username of the user
+    * token - String, authorization token for use with GitHub calls
+    * data_* - String, Pickled dict of various pieces of info
+    """
+
+    __tablename__ = "users"
+    id = Column(Integer, Sequence('users_id_seq'), primary_key=True)
+    username = Column(String(64))
+    token = Column(String(128))
+    data_user = Column(PickleType())
+    data_user_repos = Column(PickleType())
+    data_orgs = Column(PickleType())
+    data_orgs_repos = Column(PickleType())
+
+    def __init__(self, username, token,
+                 data_user, data_user_repos, data_orgs, data_orgs_repos):
+        self.username = username
+        self.token = token
+        self.data_user = data_user
+        self.data_user_repos = data_user_repos
+        self.data_orgs = data_orgs
+        self.data_orgs_repos = data_orgs_repos
+
+    def to_dict(self):
+        """
+        Convert this Obj into a dict.
+        """
+        return {
+            "username": self.username,
+            "token": self.token
+        }
+
+    def __repr__(self):
+        return "<Obj(username=%s, token=%s)>" % (
+            self.username, self.token
+        )
+
+
 Bot.base = base
 Obj.base = base
+User.base = base

@@ -1,6 +1,6 @@
 __author__ = 'Gareth Coles'
 
-from bottle import static_file, abort
+from bottle import static_file, abort, route
 
 
 class Routes(object):
@@ -9,11 +9,11 @@ class Routes(object):
         self.app = app
         self.manager = manager
 
-        app.route("/static/<path:path>", ["GET", "POST"], self.static)
-        app.route("/static/", ["GET", "POST"], self.static_403)
-        app.route("/static", ["GET", "POST"], self.static_403)
-        app.route("/.well-known/keybase.txt", ["GET", "POST"],
-                  self.static_keybase)
+        route("/static/<path:path>", ["GET", "POST"], self.static)
+        route("/static/", ["GET", "POST"], self.static_403)
+        route("/static", ["GET", "POST"], self.static_403)
+        route("/.well-known/keybase.txt", ["GET", "POST"],
+              self.static_keybase)
 
     def static(self, path):
         return static_file(path, root="static")

@@ -4,7 +4,8 @@ import logging
 import os
 import yaml
 
-from bottle import run, default_app, request
+from beaker.middleware import SessionMiddleware
+from bottle import run, default_app, request, hook
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -21,11 +22,38 @@ class Manager(object):
     def __init__(self):
         self.app = default_app()
 
+        self.db = yaml.load(open("config/database.yml", "r"))
+        self.main_conf = yaml.load(open("config/config.yml", "r"))
+
+        self.db_uri = "%s://%s:%s@%s/%s" % (
+            self.db["adapter"], self.db["username"], self.db["password"],
+            self.db["host"], self.db["database"]
+        )
+
+        if "socket" in self.db and self.db["socket"]:
+            log("Using unix socket for DB connection: %s" % self.db["socket"],
+                logging.INFO)
+            self.db_uri += "?unix_socket=%s" % self.db["socket"]
+
+        session_opts = {
+            "session.cookie_expires": True,
+            "session.type": "ext:database",
+            "session.url": self.db_uri,
+            "session.lock_dir": "sessions/lock/",
+            # "auto": True,
+            "secret": self.main_conf["secret"]
+        }
+
+        @hook('before_request')
+        def setup_request():
+            request.session = request.environ['beaker.session']
+
+        @hook('after_request')
         def log_all():
             log_request(request, "%s %s " % (request.method, request.fullpath),
                         logging.INFO)
 
-        self.app.hook("after_request")(log_all)
+        self.wrapped = SessionMiddleware(self.app, session_opts)
 
         self.routes = {}
         self.api_routes = []
@@ -39,7 +67,7 @@ class Manager(object):
                 try:
                     log("Loading routes module '%s'..." % module, logging.INFO)
                     mod = __import__("routes.%s" % module, fromlist=["Routes"])
-                    self.routes[module] = mod.Routes(self.app, self)
+                    self.routes[module] = mod.Routes(self.wrapped, self)
                 except Exception as e:
                     log("Error loading routes module '%s': %s" % (module, e),
                         logging.INFO)
@@ -55,33 +83,22 @@ class Manager(object):
         return True
 
     def get_app(self):
-        return self.app
+        return self.wrapped
 
     def setup_sql(self):
         try:
-            db_config = yaml.load(open("config/database.yml", "r"))
-            self.db = db_config
-
-            db_uri = "%s://%s:%s@%s/%s" % (
-                self.db["adapter"], self.db["username"], self.db["password"],
-                self.db["host"], self.db["database"]
-            )
-
-            if "socket" in self.db and self.db["socket"]:
-                log("Using unix socket: %s" % self.db["socket"], logging.INFO)
-                db_uri += "?unix_socket=%s" % self.db["socket"]
-
-            engine = create_engine(db_uri, pool_recycle=300)
+            engine = create_engine(self.db_uri, pool_recycle=300)
             self.sql_engine = engine
             self.get_session = sessionmaker(bind=engine)
 
-            from internal.schemas import Bot, Obj
+            from internal.schemas import Bot, Obj, User
 
             Bot.base.metadata.create_all(engine)
             Obj.base.metadata.create_all(engine)
+            User.base.metadata.create_all(engine)
 
         except Exception as e:
-            log("Unable to load database config: %s" % e, logging.INFO)
+            log("Unable to set up database: %s" % e, logging.INFO)
 
     def start(self):
         try:
@@ -96,4 +113,4 @@ class Manager(object):
             port = 8080
             server = "cherrypy"
 
-        run(host=host, port=port, server=server)
+        run(app=self.wrapped, host=host, port=port, server=server)

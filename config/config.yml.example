@@ -1,0 +1,1 @@
+secret: ""  # Make this a big random string. It's needed for sessions. Don't share it with anyone!
