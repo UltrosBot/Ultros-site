@@ -64,6 +64,10 @@ class Manager(object):
         for _file in files:
             if _file.endswith(".py"):
                 module = _file.rsplit(".", 1)[0]
+                if module in self.main_conf.get("disabled-routes", []):
+                    log("Routes module '%s' is disabled - not loading."
+                        % module, logging.INFO)
+                    continue
                 try:
                     log("Loading routes module '%s'..." % module, logging.INFO)
                     mod = __import__("routes.%s" % module, fromlist=["Routes"])
