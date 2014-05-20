@@ -44,14 +44,15 @@ class Manager(object):
             "secret": self.main_conf["secret"]
         }
 
-        @hook('before_request')
         def setup_request():
             request.session = request.environ['beaker.session']
 
-        @hook('after_request')
         def log_all():
             log_request(request, "%s %s " % (request.method, request.fullpath),
                         logging.INFO)
+
+        hook('before_request')(setup_request)
+        hook('after_request')(log_all)
 
         self.wrapped = SessionMiddleware(self.app, session_opts)
 

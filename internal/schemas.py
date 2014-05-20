@@ -102,8 +102,8 @@ class Obj(base):
         Convert this Obj into a dict.
         """
         return {
-            "type": self.type,
-            "name": self.name
+            "what": self.what,
+            "who": self.who
         }
 
     def __repr__(self):

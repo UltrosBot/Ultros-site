@@ -5,7 +5,7 @@ import sys
 from internal.manager import Manager
 
 # To conform to the uWSGI spec
-sys._stdout = sys.stdout
+sys.stdout_ = sys.stdout
 sys.stdout = sys.stderr
 
 manager = Manager()

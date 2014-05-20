@@ -66,15 +66,16 @@ class Routes(object):
 
         db.close()
 
-        kwargs = {"online": online, "recent": recent, "total": total,
-                  "online_enabled": online_enabled,
-                  "recent_enabled": recent_enabled,
-                  "total_enabled": total_enabled,
-                  "total_disabled": total_disabled,
-                  "packages": other_counts["package"],
-                  "protocols": other_counts["protocol"],
-                  "plugins": other_counts["plugin"]
-                  }
+        kwargs = {
+            "online": online, "recent": recent, "total": total,
+            "online_enabled": online_enabled,
+            "recent_enabled": recent_enabled,
+            "total_enabled": total_enabled,
+            "total_disabled": total_disabled,
+            "packages": other_counts["package"],
+            "protocols": other_counts["protocol"],
+            "plugins": other_counts["plugin"]
+        }
 
         return template("templates/metrics.html", **kwargs)
 
@@ -151,7 +152,7 @@ class Routes(object):
 
         try:
             start = int(request.query.get("start", 0))
-        except:
+        except Exception:
             start = 0
 
         bots = db.query(Bot).filter_by(enabled=True).slice(start, start + 100)\
@@ -168,7 +169,7 @@ class Routes(object):
 
         try:
             start = int(request.query.get("start", 0))
-        except:
+        except Exception:
             start = 0
 
         now = datetime.datetime.now()
