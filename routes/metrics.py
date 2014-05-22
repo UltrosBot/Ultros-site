@@ -286,11 +286,11 @@ class Routes(object):
         protocols = set()
 
         for x in _packages:
-            packages.update(self.add_obj("package", x))
+            packages.add(self.add_obj("package", x))
         for x in _plugins:
-            plugins.update(self.add_obj("plugin", x))
+            plugins.add(self.add_obj("plugin", x))
         for x in _protocols:
-            protocols.update(self.add_obj("protocol", x))
+            protocols.add(self.add_obj("protocol", x))
 
         packages = list(packages)
         plugins = list(plugins)
