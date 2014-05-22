@@ -11,7 +11,7 @@ sys.stdout = sys.stderr
 manager = Manager()
 
 application = app = manager.get_app()
-manager.setup_sql()
+manager.setup_mongo()
 
 if __name__ == "__main__":
     manager.start()

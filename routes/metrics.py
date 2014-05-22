@@ -8,7 +8,9 @@ from uuid import uuid4
 from bottle import request, abort, route
 from bottle import mako_template as template
 
-from internal.schemas import Obj, Bot
+from kitchen.text.converters import to_unicode
+
+from pymongo.collection import ObjectId
 
 
 class Routes(object):
@@ -44,27 +46,71 @@ class Routes(object):
                                     "/api/metrics/destroy/<uuid>",
                                     "/api/metrics/post/<uuid>"])
 
+    def prepare_document(self, data):
+        del data["uuid"]
+        del data["_id"]
+
+        packages = []
+        protocols = []
+        plugins = []
+
+        for x in data["packages"]:
+            packages.append(self.get_obj_by_id(x)["name"])
+
+        for x in data["protocols"]:
+            protocols.append(self.get_obj_by_id(x)["name"])
+
+        for x in data["plugins"]:
+            plugins.append(self.get_obj_by_id(x)["name"])
+
+        data["packages"] = packages
+        data["protocols"] = protocols
+        data["plugins"] = plugins
+        return self.manager.mongo.stringify(data)
+
     def metrics_page(self):
-        db = self.manager.get_session()
+        db = self.manager.mongo
+        bots = db.get_collection("bots")
 
-        now = datetime.datetime.now()
-        last_fortnight = now - datetime.timedelta(weeks=2)
+        now = datetime.datetime.utcnow()
+
         last_online = now - datetime.timedelta(minutes=10)
+        last_fortnight = now - datetime.timedelta(weeks=2)
 
-        online = int(db.query(Bot).filter(Bot.last_seen > last_online).count())
-        online_enabled = int(db.query(Bot).filter_by(enabled=True)
-                             .filter(Bot.last_seen > last_online).count())
-        recent = int(db.query(Bot).filter(Bot.last_seen > last_fortnight)
-                     .count())
-        recent_enabled = int(db.query(Bot).filter_by(enabled=True)
-                             .filter(Bot.last_seen > last_fortnight).count())
-        total = int(db.query(Bot).count())
-        total_enabled = int(db.query(Bot).filter_by(enabled=True).count())
-        total_disabled = int(db.query(Bot).filter_by(enabled=False).count())
+        # Online
 
-        other_counts = self.get_counts(db)
+        online = bots.find({
+            "last_seen": {"$gt": last_online}
+        }).count()
+        online_enabled = bots.find({
+            "last_seen": {"$gt": last_online},
+            "enabled": True
+        }).count()
 
-        db.close()
+        # Recent
+
+        recent = bots.find({
+            "last_seen": {"$gt": last_fortnight}
+        }).count()
+
+        recent_enabled = bots.find({
+            "last_seen": {"$gt": last_fortnight},
+            "enabled": True
+        }).count()
+
+        # Total
+
+        total = bots.find().count()
+
+        total_enabled = bots.find({
+            "enabled": True
+        }).count()
+
+        total_disabled = bots.find({
+            "enabled": False
+        }).count()
+
+        other_counts = self.get_counts()
 
         kwargs = {
             "online": online, "recent": recent, "total": total,
@@ -79,68 +125,77 @@ class Routes(object):
 
         return template("templates/metrics.html", **kwargs)
 
-    def commit(self, db):
-        db.commit()
-        db.close()
-
     def destroy(self, uuid):
-        db = self.manager.get_session()
+        db = self.manager.mongo
+        bots = db.get_collection("bots")
 
-        r = db.query(Bot).filter_by(uuid=uuid).first()
+        r = bots.find({"uuid": uuid}).count()
 
         if r:
-            db.delete(r)
-            self.commit(db)
-
+            bots.delete({"uuid": uuid}, multi=True)
             return {"result": "success"}
         return {"result": "unknown"}
 
-    def add_obj(self, what, who):
-        db = self.manager.get_session()
-        r = db.query(Obj).filter_by(what=what).filter_by(who=who).first()
+    def add_obj(self, _type, _name):
+        db = self.manager.mongo
+        objs = db.get_collection("objs")
+
+        r = objs.find_one({"type": _type, "name": _name})
 
         if not r:
-            new = Obj(what, who)
-            db.add(new)
-            self.commit(db)
+            r = {"type": _type, "name": _name}
+            _id = objs.insert(r)
+            return _id
 
-            return self.add_obj(what, who)
-        db.close()
-        return r.id
+        return r["_id"]
 
-    def get_id_map(self, db):
-        r = db.query(Obj).all()
+    def get_obj_by_id(self, _id):
+        db = self.manager.mongo
+        objs = db.get_collection("objs")
+
+        if not isinstance(_id, ObjectId):
+            _id = ObjectId(_id)
+
+        return objs.find_one({"_id": _id})
+
+    def get_id_map(self):
+        db = self.manager.mongo
+        objs = db.get_collection("objs")
+
+        r = objs.find()
         done = {}
 
         for e in r:
-            if e.what not in done:
-                done[e.what] = {}
-            done[e.what][e.who] = e.id
+            if e["type"] not in done:
+                done[e["type"]] = {}
+            done[e["type"]][e["name"]] = e["_id"]
 
         return done
 
-    def get_counts(self, db):
+    def get_counts(self):
         done = {"package": {},
                 "plugin": {},
                 "protocol": {}}
 
-        objs = db.query(Obj).all()
+        db = self.manager.mongo
+        objs = db.get_collection("objs").find()
+        bots = db.get_collection("bots")
 
         for e in objs:
-            if e.what == "package":
-                count = int(db.query(Bot).filter(
-                    Bot.packages.like("%%|%s|%%" % e.id)
-                ).count())
-            elif e.what == "plugin":
-                count = int(db.query(Bot).filter(
-                    Bot.plugins.like("%%|%s|%%" % e.id)
-                ).count())
+            if e["type"] == "package":
+                count = bots.find({
+                    "packages": {"$in": [e["_id"]]}
+                }).count()
+            elif e["type"] == "plugin":
+                count = bots.find({
+                    "plugins": {"$in": [e["_id"]]}
+                }).count()
             else:
-                count = int(db.query(Bot).filter(
-                    Bot.protocols.like("%%|%s|%%" % e.id)
-                ).count())
+                count = bots.find({
+                    "protocols": {"$in": [e["_id"]]}
+                }).count()
 
-            done[e.what][e.who] = count
+            done[e["type"]][e["name"]] = count
 
         return done
 
@@ -148,24 +203,25 @@ class Routes(object):
         return str(uuid4())
 
     def get_metrics(self):
-        db = self.manager.get_session()
+        db = self.manager.mongo
+        bots = db.get_collection("bots")
 
         try:
             start = int(request.query.get("start", 0))
         except Exception:
             start = 0
 
-        bots = db.query(Bot).filter_by(enabled=True).slice(start, start + 100)\
-            .all()
+        r = bots.find({
+            "enabled": True
+        }, skip=start, limit=100)
 
-        data = {"metrics": [bot.to_dict() for bot in bots]}
-
-        db.close()
+        data = {"metrics": [self.prepare_document(bot) for bot in r]}
 
         return data
 
     def get_metrics_recent(self):
-        db = self.manager.get_session()
+        db = self.manager.mongo
+        bots = db.get_collection("bots")
 
         try:
             start = int(request.query.get("start", 0))
@@ -175,106 +231,110 @@ class Routes(object):
         now = datetime.datetime.now()
         last_fortnight = now - datetime.timedelta(weeks=2)
 
-        bots = db.query(Bot).filter_by(enabled=True)\
-            .filter(Bot.last_seen > last_fortnight)\
-            .slice(start, start + 100).all()
+        r = bots.find({
+            "enabled": True,
+            "last_seen": {"$gt": last_fortnight}
+        }, skip=start, limit=100)
 
-        data = {"metrics": [bot.to_dict() for bot in bots]}
-
-        db.close()
+        data = {"metrics": [self.prepare_document(bot) for bot in r]}
 
         return data
 
     def post_metrics(self, uuid):
+        uuid = to_unicode(uuid)
+
+        db = self.manager.mongo
+        bots = db.get_collection("bots")
+
+        bot = bots.find_one({
+            "uuid": uuid
+        })
+
+        params = request.POST.get("data", None)
+
+        if not params:
+            return abort(400, json.dumps(
+                {
+                    "result": "error",
+                    "error": "Missing 'data' parameter"
+                }
+            ))
+
         try:
-            db = self.manager.get_session()
-            bot = db.query(Bot).filter_by(uuid=uuid).first()
+            params = json.loads(params)
+        except Exception as e:
+            return abort(400, json.dumps(
+                {
+                    "result": "error",
+                    "error": "Error parsing data: %s" % e
+                }
+            ))
 
-            params = request.POST.get("data", None)
+        for part in ["packages", "plugins", "protocols", "enabled"]:
+            if part not in params:
+                return {
+                    "result": "error",
+                    "error": "Missing parameter: %s" % part
+                }
 
-            if not params:
-                db.close()
-                return abort(400, json.dumps(
-                    {
-                        "result": "error",
-                        "error": "Missing 'data' parameter"
-                    }
-                ))
+        _packages = params["packages"]
+        _plugins = params["plugins"]
+        _protocols = params["protocols"]
 
-            try:
-                params = json.loads(params)
-            except Exception as e:
-                db.close()
-                return abort(400, json.dumps(
-                    {
-                        "result": "error",
-                        "error": "Error parsing data: %s" % e
-                    }
-                ))
+        packages = []
+        plugins = []
+        protocols = []
 
-            for part in ["packages", "plugins", "protocols", "enabled"]:
-                if part not in params:
-                    db.close()
-                    return {
-                        "result": "error",
-                        "error": "Missing parameter: %s" % part
-                    }
+        for x in _packages:
+            packages.append(self.add_obj("package", x))
+        for x in _plugins:
+            plugins.append(self.add_obj("plugin", x))
+        for x in _protocols:
+            protocols.append(self.add_obj("protocol", x))
 
-            base_str = "|%s|"
-
-            _packages = params["packages"]
-            _plugins = params["plugins"]
-            _protocols = params["protocols"]
-
-            packages = []
-            plugins = []
-            protocols = []
-
-            for element in _packages:
-                _id = self.add_obj("package", element)
-                packages.append(str(_id))
-
-            for element in _plugins:
-                _id = self.add_obj("plugin", element)
-                plugins.append(str(_id))
-
-            for element in _protocols:
-                _id = self.add_obj("protocol", element)
-                protocols.append(str(_id))
-
-            packages = base_str % ("|".join(packages))
-            plugins = base_str % ("|".join(plugins))
-            protocols = base_str % ("|".join(protocols))
-
-            if not bot:
-                if not params["enabled"]:
-                    bot = Bot(uuid, params["enabled"], "||", "||", "||")
-                else:
-                    bot = Bot(uuid, params["enabled"],
-                              packages, plugins, protocols)
-                db.add(bot)
-                self.commit(db)
-
-                return {"result": "created",
-                        "enabled": params["enabled"]}
-
+        if not bot:
             if not params["enabled"]:
-                bot.enabled = False
-                bot.packages = "||"
-                bot.plugins = "||"
-                bot.protocols = "||"
+                bot = {
+                    "uuid": uuid,
+                    "enabled": False,
+                    "packages": [],
+                    "plugins": [],
+                    "protocols": [],
+                    "last_seen": datetime.datetime.utcnow(),
+                    "first_seen": datetime.datetime.utcnow()
+                }
             else:
-                bot.enabled = True
-                bot.packages = packages
-                bot.plugins = plugins
-                bot.protocols = protocols
+                bot = {
+                    "uuid": uuid,
+                    "enabled": True,
+                    "packages": packages,
+                    "plugins": plugins,
+                    "protocols": protocols,
+                    "last_seen": datetime.datetime.utcnow(),
+                    "first_seen": datetime.datetime.utcnow()
+                }
 
-            bot.last_seen = datetime.datetime.now()
+            bots.insert(bot)
 
-            db.merge(bot)
-            self.commit(db)
-
-            return {"result": "updated",
+            return {"result": "created",
                     "enabled": params["enabled"]}
-        finally:
-            db.close()
+
+        if not params["enabled"]:
+            bot["enabled"] = False
+            bot["packages"] = []
+            bot["plugins"] = []
+            bot["protocols"] = []
+        else:
+            bot["enabled"] = True
+            bot["packages"] = packages
+            bot["plugins"] = plugins
+            bot["protocols"] = protocols
+
+        bot["last_seen"] = datetime.datetime.now()
+
+        bots.update({
+            "uuid": uuid
+        }, bot)
+
+        return {"result": "updated",
+                "enabled": params["enabled"]}

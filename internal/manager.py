@@ -7,22 +7,23 @@ import yaml
 from beaker.middleware import SessionMiddleware
 from bottle import run, default_app, request, hook
 
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-
+from internal.db import Db
+from internal.schemas import schemas
 from internal.util import log_request, log
 
 
 class Manager(object):
 
     db = {}
-    sql_engine = None
-    get_session = None
+    mongo_conf = {}
+    mongo = None
 
     def __init__(self):
         self.app = default_app()
 
         self.db = yaml.load(open("config/database.yml", "r"))
+        self.mongo_conf = self.db["mongo"]
+        self.db = self.db["beaker"]
         self.main_conf = yaml.load(open("config/config.yml", "r"))
 
         self.db_uri = "%s://%s:%s@%s/%s" % (
@@ -77,7 +78,6 @@ class Manager(object):
                     log("Error loading routes module '%s': %s" % (module, e),
                         logging.INFO)
 
-        log("Finished loading routes modules.", logging.INFO)
         log("%s routes set up." % len(self.app.routes), logging.INFO)
 
     def add_api_route(self, route):
@@ -90,20 +90,19 @@ class Manager(object):
     def get_app(self):
         return self.wrapped
 
-    def setup_sql(self):
+    def setup_mongo(self):
         try:
-            engine = create_engine(self.db_uri, pool_recycle=300)
-            self.sql_engine = engine
-            self.get_session = sessionmaker(bind=engine)
+            self.mongo = Db(self.mongo_conf)
+            self.mongo.setup()
 
-            from internal.schemas import Bot, Obj, User
+            for key in schemas.keys():
+                log("Adding schema for collection: %s" % key, logging.INFO)
+                self.mongo.add_schema(key, schemas[key])
 
-            Bot.base.metadata.create_all(engine)
-            Obj.base.metadata.create_all(engine)
-            User.base.metadata.create_all(engine)
-
+            self.mongo.client.admin.command("ping")
+            log("Set up Mongo successfully.", logging.INFO)
         except Exception as e:
-            log("Unable to set up database: %s" % e, logging.INFO)
+            log("Unable to set up Mongo: %s" % e, logging.ERROR)
 
     def start(self):
         try:

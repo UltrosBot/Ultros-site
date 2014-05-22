@@ -5,8 +5,6 @@ import datetime
 from bottle import route
 from bottle import mako_template as template
 
-from internal.schemas import Bot
-
 
 class Routes(object):
 
@@ -17,12 +15,14 @@ class Routes(object):
         route("/", "GET", self.index)
 
     def index(self):
-        db = self.manager.get_session()
+        db = self.manager.mongo
+        bots = db.get_collection("bots")
 
-        now = datetime.datetime.now()
+        now = datetime.datetime.utcnow()
         last_online = now - datetime.timedelta(minutes=10)
-        online = int(db.query(Bot).filter(Bot.last_seen > last_online).count())
 
-        db.close()
+        online = bots.find({
+            "last_seen": {"$gt": last_online}
+        }).count()
 
         return template("templates/index.html", online=online)
