@@ -228,7 +228,7 @@ class Routes(object):
         except Exception:
             start = 0
 
-        now = datetime.datetime.now()
+        now = datetime.datetime.utcnow()
         last_fortnight = now - datetime.timedelta(weeks=2)
 
         r = bots.find({
@@ -242,13 +242,6 @@ class Routes(object):
 
     def post_metrics(self, uuid):
         uuid = to_unicode(uuid)
-
-        db = self.manager.mongo
-        bots = db.get_collection("bots")
-
-        bot = bots.find_one({
-            "uuid": uuid
-        })
 
         params = request.POST.get("data", None)
 
@@ -277,20 +270,31 @@ class Routes(object):
                     "error": "Missing parameter: %s" % part
                 }
 
+        db = self.manager.mongo
+        bots = db.get_collection("bots")
+
+        bot = bots.find_one({
+            "uuid": uuid
+        })
+
         _packages = params["packages"]
         _plugins = params["plugins"]
         _protocols = params["protocols"]
 
-        packages = []
-        plugins = []
-        protocols = []
+        packages = set()
+        plugins = set()
+        protocols = set()
 
         for x in _packages:
-            packages.append(self.add_obj("package", x))
+            packages.update(self.add_obj("package", x))
         for x in _plugins:
-            plugins.append(self.add_obj("plugin", x))
+            plugins.update(self.add_obj("plugin", x))
         for x in _protocols:
-            protocols.append(self.add_obj("protocol", x))
+            protocols.update(self.add_obj("protocol", x))
+
+        packages = list(packages)
+        plugins = list(plugins)
+        protocols = list(protocols)
 
         if not bot:
             if not params["enabled"]:
@@ -330,7 +334,7 @@ class Routes(object):
             bot["plugins"] = plugins
             bot["protocols"] = protocols
 
-        bot["last_seen"] = datetime.datetime.now()
+        bot["last_seen"] = datetime.datetime.utcnow()
 
         bots.update({
             "uuid": uuid
