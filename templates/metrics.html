@@ -110,8 +110,8 @@ Connecting communities, one squid at a time.</%block>
 
         ## Protocols
 
-        % if not protocols:
-            <div class="grid-8">
+        <div class="grid-8">
+            % if not protocols:
                 <table>
                     <thead>
                         <tr>
@@ -119,9 +119,7 @@ Connecting communities, one squid at a time.</%block>
                         </tr>
                     </thead>
                 </table>
-            </div>
-        % else:
-            <div class="grid-8">
+            % else:
                 <table>
                     <thead>
                         <tr>
@@ -139,8 +137,38 @@ Connecting communities, one squid at a time.</%block>
                         % endfor
                     </tbody>
                 </table>
-            </div>
-        % endif
+            % endif
+
+        ## Plugins
+
+            % if not plugins:
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="header-column" colspan="2">No plugins enabled</th>
+                        </tr>
+                    </thead>
+                </table>
+            % else:
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="header-column" colspan="2">Plugins enabled</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        % for key in sorted(plugins.keys(), key=lambda s: s.lower()):
+                            % if plugins[key]:
+                                <tr>
+                                    <td class="text-column">${key}</td>
+                                    <td class="num-column green-text">${plugins[key]}</td>
+                                </tr>
+                            % endif
+                        % endfor
+                    </tbody>
+                </table>
+            % endif
+        </div>
 
         ## Packages
 
@@ -173,40 +201,6 @@ Connecting communities, one squid at a time.</%block>
                             % endif
                         % endfor
 
-                    </tbody>
-                </table>
-            </div>
-        % endif
-
-        ## Plugins
-
-        % if not plugins:
-            <div class="grid-8">
-                <table>
-                    <thead>
-                        <tr>
-                            <th class="header-column" colspan="2">No plugins enabled</th>
-                        </tr>
-                    </thead>
-                </table>
-            </div>
-        % else:
-            <div class="grid-8">
-                <table>
-                    <thead>
-                        <tr>
-                            <th class="header-column" colspan="2">Plugins enabled</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        % for key in sorted(plugins.keys(), key=lambda s: s.lower()):
-                            % if plugins[key]:
-                                <tr>
-                                    <td class="text-column">${key}</td>
-                                    <td class="num-column green-text">${plugins[key]}</td>
-                                </tr>
-                            % endif
-                        % endfor
                     </tbody>
                 </table>
             </div>
