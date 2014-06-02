@@ -73,134 +73,140 @@ Connecting communities, one squid at a time.</%block>
 
         <hr style="clear: both;" />
 
-        ## Keys
-
-        <div class="grid-16 grid-header">
-            <h3>Colour key</h3>
-        </div>
-
-        <div class="grid-8 grid-left">
-            <span class="red-text">Red text</span> <br />
-            <span class="green-text">Green text</span> <br />
-            <span class="blue-text">Blue text</span> <br />
-        </div>
-
-        <div class="grid-8 grid-right">
-            Metrics disabled <br />
-            Metrics enabled <br />
-            Totals <br />
-        </div>
-
         ## Activity
 
-        <div class="grid-16 grid-header">
-            <h3>Activity</h3>
-        </div>
-
-        <div class="grid-8 grid-left">
-            Online <br />
-            Active <br />
-            Totals <br />
-        </div>
-
-        <div class="grid-8 grid-right">
-            <span class="green-text"> ${online_enabled}</span>,
-            <span class="blue-text"> ${online}</span>,
-            <span class="red-text"> &mdash;</span>
-            <br />
-
-            <span class="green-text"> ${recent_enabled}</span>,
-            <span class="blue-text"> ${recent}</span>,
-            <span class="red-text"> &mdash;</span>
-            <br />
-
-            <span class="green-text"> ${total_enabled}</span>,
-            <span class="blue-text"> ${total}</span>,
-            <span class="red-text"> ${total_disabled}</span>
-            <br />
+        <div class="grid-16">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="text-column-small" style="text-align: left">Activity</th>
+                        <th class="num-column green-text">Metrics enabled</th>
+                        <th class="num-column red-text">Metrics disabled</th>
+                        <th class="num-column blue-text">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-column-small">Online</td>
+                        <td class="num-column green-text">${online_enabled}</td>
+                        <td class="num-column red-text">N/A</td>
+                        <td class="num-column blue-text">${online}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-column-small">Active</td>
+                        <td class="num-column green-text">${recent_enabled}</td>
+                        <td class="num-column red-text">N/A</td>
+                        <td class="num-column blue-text">${recent}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-column-small">Totals</td>
+                        <td class="num-column green-text">${total_enabled}</td>
+                        <td class="num-column red-text">${total_disabled}</td>
+                        <td class="num-column blue-text">${total}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
         ## Protocols
 
-        <div class="grid-16 grid-header">
-            <h3>Protocol usage</h3>
-        </div>
-
         % if not protocols:
-            <div class="grid-16 grid-header-nomargin">
-                Nothing here yet.
+            <div class="grid-8">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="header-column" colspan="2">No protocols in use</th>
+                        </tr>
+                    </thead>
+                </table>
             </div>
         % else:
-            <div class="grid-8 grid-left">
-                % for key in sorted(protocols.keys(), key=lambda s: s.lower()):
-                    % if protocols[key]:
-                        ${key} <br />
-                    % endif
-                % endfor
-            </div>
-
-            <div class="grid-8 grid-right">
-                % for key in sorted(protocols.keys(), key=lambda s: s.lower()):
-                    % if protocols[key]:
-                        <span class="green-text"> ${protocols[key]}</span> <br />
-                    % endif
-                % endfor
+            <div class="grid-8">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="header-column" colspan="2">Protocol usage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            % for key in sorted(protocols.keys(), key=lambda s: s.lower()):
+                                % if protocols[key]:
+                                    <td class="text-column">${key}</td>
+                                    <td class="num-column green-text">${protocols[key]}</td>
+                                % endif
+                            % endfor
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         % endif
 
         ## Packages
 
-        <div class="grid-16 grid-header">
-            <h3>Packages installed</h3>
-        </div>
-
         % if not packages:
-            <div class="grid-16 grid-header-nomargin">
-                Nothing here yet.
+            <div class="grid-8">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="header-column" colspan="2">No packages installed</th>
+                        </tr>
+                    </thead>
+                </table>
             </div>
         % else:
-            <div class="grid-8 grid-left">
-                % for key in sorted(packages.keys(), key=lambda s: s.lower()):
-                    % if packages[key]:
-                        ${key} <br />
-                    % endif
-                % endfor
-            </div>
-
-            <div class="grid-8 grid-right">
-                % for key in sorted(packages.keys(), key=lambda s: s.lower()):
-                    % if packages[key]:
-                        <span class="green-text"> ${packages[key]}</span> <br />
-                    % endif
-                % endfor
+            <div class="grid-8">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="header-column" colspan="2">Packages installed</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            % for key in sorted(packages.keys(), key=lambda s: s.lower()):
+                                % if packages[key]:
+                                    <td class="text-column">${key}</td>
+                                    <td class="num-column green-text">${packages[key]}</td>
+                                % endif
+                            % endfor
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         % endif
 
         ## Plugins
 
-        <div class="grid-16 grid-header">
-            <h3>Plugins enabled</h3>
-        </div>
-
         % if not plugins:
-            <div class="grid-16 grid-header-nomargin">
-                Nothing here yet.
+            <div class="grid-8">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="header-column" colspan="2">No plugins enabled</th>
+                        </tr>
+                    </thead>
+                </table>
             </div>
         % else:
-            <div class="grid-8 grid-left">
-                % for key in sorted(plugins.keys(), key=lambda s: s.lower()):
-                    % if plugins[key]:
-                        ${key} <br />
-                    % endif
-                % endfor
-            </div>
-
-            <div class="grid-8 grid-right">
-                % for key in sorted(plugins.keys(), key=lambda s: s.lower()):
-                    % if plugins[key]:
-                        <span class="green-text"> ${plugins[key]}</span> <br />
-                    % endif
-                % endfor
+            <div class="grid-8">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="header-column" colspan="2">Plugins enabled</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            % for key in sorted(plugins.keys(), key=lambda s: s.lower()):
+                                % if plugins[key]:
+                                    <td class="text-column">${key}</td>
+                                    <td class="num-column green-text">${plugins[key]}</td>
+                                % endif
+                            % endfor
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         % endif
     </div>

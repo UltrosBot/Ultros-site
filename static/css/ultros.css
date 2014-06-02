@@ -69,9 +69,30 @@ code {
     font-size: large;
 }
 
+.grid-center {
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
 .icon-font-size {
     font-size: 30px;
     border-left: 2px solid grey;
     margin-left: 5px;
     padding-left: 8px;
+}
+
+.header-column {
+    width: 100%;
+}
+
+.text-column {
+    width: 85%;
+}
+
+.text-column-small {
+    width: 55%;
+}
+
+.num-column {
+    width: 15%;
 }
