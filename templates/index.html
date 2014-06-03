@@ -17,7 +17,7 @@ Connecting communities, one squid at a time.</%block>
 
     <div class="social">
         <a href="https://travis-ci.org/UltrosBot/Ultros" title="Continuous Integration"><img src="/static/images/justvector_icons/retweet.svg" width="20" height="20" alt="bamboo"></a>
-        <a href="http://webchat.esper.net/?nick=&channels=Ultros" title="IRC"><img src="/static/images/justvector_icons/google_talk.svg" width="20" height="20" alt="irc"></a>
+        <a href="http://webchat.esper.net/?nick=&amp;channels=Ultros" title="IRC"><img src="/static/images/justvector_icons/google_talk.svg" width="20" height="20" alt="irc"></a>
         <a href="http://steamcommunity.com/id/UltrosBot" title="Steam"><img src="/static/images/justvector_icons/steam.svg" width="20" height="20" alt="steam"></a>
         % if online == 0:
             <span class="icon-font-size"> <span class="red-text">No</span> bots online</span>
@@ -83,19 +83,20 @@ Connecting communities, one squid at a time.</%block>
                     Additionally, we've been making some core API changes recently. If you update your bot and your plugins
                     stop working, you should also do a plugin update to ensure everything is up to date. See below for information on both of
                     these operations.
-                    <ul>
-                        <li>
-                            Updating the bot (both operations require that git is installed)
-                            <ul>
-                                <li>With git directly: <code>$ git pull</code></li>
-                                <li>Using the update script: <code>$ python run.py --update</code></li>
-                            </ul>
-                        </li>
-                        <li>
-                            Updating plugins: <code>$ python packages.py update all</code>
-                        </li>
-                    </ul>
                 </p>
+
+                <ul>
+                    <li>
+                        Updating the bot (both operations require that git is installed)
+                        <ul>
+                            <li>With git directly: <code>$ git pull</code></li>
+                            <li>Using the update script: <code>$ python run.py --update</code></li>
+                        </ul>
+                    </li>
+                    <li>
+                        Updating plugins: <code>$ python packages.py update all</code>
+                    </li>
+                </ul>
             </div>
             <div class="grid-6">
                 <h3>Latest additions</h3>
