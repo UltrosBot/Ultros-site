@@ -96,3 +96,7 @@ code {
 .num-column {
     width: 15%;
 }
+
+.table-top-margin {
+    margin-top: 48px;
+}
