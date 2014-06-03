@@ -103,7 +103,7 @@ class Routes(object):
 #         done["orgs"] = orgs
 #         done["org_repos"] = org_repos
 #
-#         # We need to sanitize a bit so that we can fit everything into the DB.
+        # We need to sanitize a bit so that we can fit everything into the DB.
 #         # TODO: Rewrite this and the schemas for better efficiency
 #         # TODO: Make the below a recursive function
 #
