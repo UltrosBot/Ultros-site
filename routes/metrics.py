@@ -31,6 +31,9 @@ class Routes(object):
                  "4[a-fA-F0-9]{3}-" \
                  "[89aAbB][a-fA-F0-9]{3}-" \
                  "[a-fA-F0-9]{12}"
+        route("/api/metrics/post/exception/<uuid:re:%s>" % regexp, "POST",
+              self.post_exception)
+
         route("/api/metrics/post/<uuid:re:%s>" % regexp, "POST",
               self.post_metrics)
 
@@ -239,6 +242,45 @@ class Routes(object):
         data = {"metrics": [self.prepare_document(bot) for bot in r]}
 
         return data
+
+    def post_exception(self, uuid):
+        uuid = to_unicode(uuid)
+        params = request.POST.get("data", None)
+
+        if not params:
+            return abort(400, json.dumps(
+                {
+                    "result": "error",
+                    "error": "Missing 'data' parameter"
+                }
+            ))
+
+        try:
+            params = json.loads(params)
+        except Exception as e:
+            return abort(400, json.dumps(
+                {
+                    "result": "error",
+                    "error": "Error parsing data: %s" % e
+                }
+            ))
+
+        params["uuid"] = uuid
+
+        db = self.manager.mongo
+        coll = db.get_collection("exceptions")
+
+        try:
+            coll.insert(params)
+        except Exception as e:
+            return abort(400, json.dumps(
+                {
+                    "result": "error",
+                    "error": "Error inserting data: %s" % e
+                }
+            ))
+        else:
+            return {"result": "submitted"}
 
     def post_metrics(self, uuid):
         uuid = to_unicode(uuid)

@@ -26,8 +26,16 @@ USER = {
     "data_orgs_repos": dict  # Repos for organisations
 }
 
+EXCEPTION = {
+    "uuid": unicode,  # UUID of the user's exception
+    "traceback": unicode,  # The exception traceback
+    "type": unicode,  # The exception type
+    "value": unicode  # The exception value
+}
+
 schemas = {
     "bots": BOT,
     "objs": OBJ,
-    "users": USER
+    "users": USER,
+    "exceptions": EXCEPTION
 }
