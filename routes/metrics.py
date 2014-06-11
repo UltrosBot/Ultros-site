@@ -273,7 +273,7 @@ class Routes(object):
         try:
             coll.insert(params)
         except Exception as e:
-            return abort(400, json.dumps(
+            return abort(500, json.dumps(
                 {
                     "result": "error",
                     "error": "Error inserting data: %s" % e
