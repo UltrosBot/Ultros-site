@@ -129,13 +129,17 @@ class Routes(object):
         return template("templates/metrics.html", **kwargs)
 
     def destroy(self, uuid):
+        uuid = to_unicode(uuid)
+
         db = self.manager.mongo
         bots = db.get_collection("bots")
+        exceptions = db.get_collection("exceptions")
 
         r = bots.find({"uuid": uuid}).count()
 
         if r:
             bots.delete({"uuid": uuid}, multi=True)
+            exceptions.delete({"uuid": uuid}, multi=True)
             return {"result": "success"}
         return {"result": "unknown"}
 
