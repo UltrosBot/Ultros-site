@@ -72,7 +72,7 @@ Connecting communities, one squid at a time.</%block>
                             <tr>
                                 <td class="date-column-exception">${item["date"].strftime("%d %b '%y %H:%M:%S UTC")}</td>
                                 % if "'" in item["type"]:
-                                    % if len(item["type"].split("'")) == 2:
+                                    % if len(item["type"].split("'")) == 3:
                                         <td class="column-exception">${item["type"].split("'")[1] | h}</td>
                                     % else:
                                         <td class="column-exception">${item["type"] | h}</td>
