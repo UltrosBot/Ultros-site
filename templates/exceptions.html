@@ -63,7 +63,7 @@ Connecting communities, one squid at a time.</%block>
                         <tr>
                             <th class="date-column-exception">Date</th>
                             <th class="column-exception">Type</th>
-                            <th class="column-exception">Value</th>
+##                            <th class="column-exception">Value</th>
                             <th class="text-column-exception">Traceback</th>
                         </tr>
                         </thead>
@@ -72,7 +72,7 @@ Connecting communities, one squid at a time.</%block>
                             <tr>
                                 <td class="date-column-exception">${item["date"].strftime("%d %b '%y %H:%M:%S UTC")}</td>
                                 <td class="column-exception">${item["type"] | h}</td>
-                                <td class="column-exception">${item["value"] | h}</td>
+##                                <td class="column-exception">${item["value"] | h}</td>
                                 <td class="text-column-exception">
                                     <pre>${item["traceback"] | h}</pre>
                                 </td>
