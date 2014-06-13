@@ -67,6 +67,10 @@ Connecting communities, one squid at a time.</%block>
                 and protocol usage. Please also note that UUIDs with disabled metrics are still kept in the database (and counted below).
             </p>
             <p>
+                If you're okay with normal metrics but would like to prevent exceptions from being sent, then you can open <strong>config/settings.yml</strong> and change
+                <code>send-exceptions: yes</code> to <code>send-exceptions: no</code>. Please note that exceptions will never be sent if you disable metrics.
+            </p>
+            <p>
                 If you really must do so, you can entirely remove your metrics by opening <strong>config/settings.yml</strong> and settings <code>metrics</code> to
                 <code>destroy</code>. <strong>This will entirely remove your UUID from the database and delete it from your bot's storage!</strong>
                 Please note that if you do this, you'll be assigned a new UUID should you ever decide to re-enable metrics.
