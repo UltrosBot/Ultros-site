@@ -66,7 +66,7 @@ body{background:url(../img/bg.jpg) repeat;}
 	text-transform:uppercase; 
 	text-shadow: 1px 1px 1px #fff;
 	font-size: 1.1em;
-	margin: 0 0 0.6em 0;	
+	margin: 0 0 0.6em 0;
 }
 #nav.main a:hover{color: #fff; text-shadow: 1px 1px 0px #333; background-color: #ca80ff;}
 

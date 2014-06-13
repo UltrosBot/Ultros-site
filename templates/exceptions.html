@@ -1,0 +1,113 @@
+<%inherit file="base.html"/>
+
+## SEO Stuff
+<%block name="title">Ultros | Index</%block>
+<%block name="description">Ultros is a highly modular, chat-focused, Python-based bot. Its purpose is to provide various services and tools to people using chat networks, in a highly extensible and protocol-agnostic way.
+
+Connecting communities, one squid at a time.</%block>
+<%block name="keywords">python bot irc ircbot mumble mumblebot ultros squid octopus squidoctopus plugin plugins modular protocol extensible</%block>
+
+## Header, navigation and social icons
+
+<div class="wrapper">
+    <a href="/" id="logo">
+        <img src="/static/images/logos/rakiru-400-200.png" alt="The Ultros logo" />
+        <h1 class="accessibility">Ultros - The only squid that connects communities</h1>
+    </a>
+
+    <div class="social">
+        <a href="https://travis-ci.org/UltrosBot/Ultros" title="Continuous Integration"><img src="/static/images/justvector_icons/retweet.svg" width="20" height="20" alt="bamboo"></a>
+        <a href="http://webchat.esper.net/?nick=&amp;channels=Ultros" title="IRC"><img src="/static/images/justvector_icons/google_talk.svg" width="20" height="20" alt="irc"></a>
+        <a href="http://steamcommunity.com/id/UltrosBot" title="Steam"><img src="/static/images/justvector_icons/steam.svg" width="20" height="20" alt="steam"></a>
+        % if online == 0:
+            <span class="icon-font-size"> <span class="red-text">No</span> bots online</span>
+        % elif online == 1:
+            <span class="icon-font-size"> <span class="green-text">${online}</span> bot online</span>
+        % else:
+            <span class="icon-font-size"> <span class="green-text">${online}</span> bots online</span>
+        % endif
+    </div>
+
+    <ul id="nav" class="main nav">
+        <li><a href="/">Home</a></li>
+        <li><a href="/metrics" class="active">Metrics</a></li>
+        <li><a href="https://github.com/UltrosBot/">GitHub</a></li>
+        <li><a href="https://github.com/UltrosBot/Ultros-Contrib">Extensions</a></li>
+        <li><a href="http://docs.ultros.io">Docs (beta)</a></li>
+    </ul>
+    <ul class="nav second-nav">
+        <li><span>Metrics: &nbsp;</span></li>
+        <li><a href="/metrics">Main</a></li>
+        <li><a href="/metrics/exceptions" class="active">Exceptions</a></li>
+    </ul>
+</div>
+
+<div class="clear"></div>
+
+## UUID form
+<div class="wrapper">
+    <div class="grids top">
+        <div class="grid-16 grid">
+            % if error is not None:
+                <p class="message error">
+                    ${error}
+                </p>
+            % else:
+                % if not data.count() > 0:
+                    <p class="message error">
+                        No data found.
+                    </p>
+                % else:
+                    <table>
+                        <thead>
+                        <tr>
+                            <th class="date-column-exception">Date</th>
+                            <th class="column-exception">Type</th>
+                            <th class="column-exception">Value</th>
+                            <th class="text-column-exception">Traceback</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            % for item in data:
+                            <tr>
+                                <td class="date-column-exception">${item["date"].strftime("%d %b '%y %H:%M:%S UTC")}</td>
+                                <td class="column-exception">${item["type"]}</td>
+                                <td class="column-exception">${item["value"]}</td>
+                                <td class="text-column-exception">
+                                    <pre>${item["traceback"]}</pre>
+                                </td>
+                            </tr>
+                            % endfor
+                        </tbody>
+                    </table>
+                % endif
+            % endif
+
+            <div class="grid grid-16">
+                % if cur_page > 1:
+                    <div class="left">
+                        <a href="${cur_page - 1}"><-- Page ${cur_page - 1}</a>
+                    </div>
+                % endif
+
+                % if cur_page != max_page:
+                    <div class="right">
+                        <a href="${cur_page + 1}">Page ${cur_page + 1} --></a>
+                    </div>
+                % endif
+            </div>
+        </div>
+    </div>
+</div>
+
+
+## Footer
+<div class="wrapper">
+    <div id="footer">
+        <div class="grids">
+            <div class="grid-16 grid text-center">
+                <p>&copy; 2014 Gareth and Sean, based on the template by <a href="http://sg-layout.com" title="SG-Layout Webdesign">SiGa</a> with additional design work from <a href="https://github.com/chall8908">Chris Hall</a></p>
+            </div>
+        </div>
+    </div>
+</div>

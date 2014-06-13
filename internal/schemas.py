@@ -30,7 +30,8 @@ EXCEPTION = {
     "uuid": unicode,  # UUID of the user's exception
     "traceback": unicode,  # The exception traceback
     "type": unicode,  # The exception type
-    "value": unicode  # The exception value
+    "value": unicode,  # The exception value
+    "date": datetime.datetime  # When the exception was submitted
 }
 
 schemas = {

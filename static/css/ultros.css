@@ -97,6 +97,66 @@ code {
     width: 15%;
 }
 
+.text-column-exception {
+    width: 45%;
+}
+
+.date-column-exception {
+    width: 25%;
+}
+
+.column-exception {
+    width: 15%;
+}
+
 .table-top-margin {
     margin-top: 48px;
+}
+
+.second-nav {
+    float: right;
+    text-align: center;
+    margin: -0.5em 0 0 0;
+    padding: 0.4em 0;
+    font-family:'Oswald', Arial, sans-serif;
+}
+.second-nav li {
+    display:inline;
+    float:none;
+}
+
+.second-nav a {
+    display:inline-block;
+    padding: 0.6em 1.2em;
+    background-color: #EFEFEF;
+    border-radius: 10px;
+    border-right: 1px solid #bbb;
+    border-bottom: 2px solid #bbb;
+    color: #666;text-decoration:none;
+    text-transform:uppercase;
+    text-shadow: 1px 1px 1px #fff;
+    font-size: 1.1em;
+    margin: 0 0 0.6em 0;
+}
+
+.second-nav a:hover {
+    color: #fff;
+    text-shadow: 1px 1px 0 #333;
+    background-color: #ca80ff;
+}
+
+.second-nav a.active {
+    color: #fff;
+    text-shadow: 1px 1px 0 #333;
+    /*font-weight: bold;*/
+    background-color: #8e47c1;
+    letter-spacing: 1px;
+}
+
+.second-navli span {
+    display: block;
+    font-size: 10px;
+    color: #666;
+    text-shadow: none;
+    line-height: 8px;
 }

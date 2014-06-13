@@ -5,12 +5,13 @@ import json
 
 from uuid import uuid4
 
-from bottle import request, abort, route
+from bottle import request, abort, route, redirect
 from bottle import mako_template as template
 
 from kitchen.text.converters import to_unicode
 
 from pymongo.collection import ObjectId
+from pymongo import DESCENDING
 
 
 class Routes(object):
@@ -43,11 +44,114 @@ class Routes(object):
         route("/metrics", "GET", self.metrics_page)
         route("/metrics/", "GET", self.metrics_page)
 
+        route("/metrics/exceptions", "GET", self.exceptions_form)
+        route("/metrics/exceptions/", "GET", self.exceptions_form)
+
+        route("/metrics/exceptions", "POST", self.exceptions_form_post)
+        route("/metrics/exceptions/", "POST", self.exceptions_form_post)
+
+        route("/metrics/exceptions/<uuid>/<page>", "GET",
+              self.exceptions)
+        route("/metrics/exceptions/<uuid>/<page>/", "GET",
+              self.exceptions)
+
         map(manager.add_api_route, ["/api/metrics/get/uuid",
                                     "/api/metrics/get/metrics",
                                     "/api/metrics/get/metrics/recent",
                                     "/api/metrics/destroy/<uuid>",
                                     "/api/metrics/post/<uuid>"])
+
+    def exceptions_form(self):
+        db = self.manager.mongo
+        bots = db.get_collection("bots")
+
+        now = datetime.datetime.utcnow()
+
+        last_online = now - datetime.timedelta(minutes=10)
+        online = bots.find({
+            "last_seen": {"$gt": last_online}
+        }).count()
+
+        return template("templates/exceptions_form.html",
+                        online=online, error=None)
+
+    def exceptions_form_post(self):
+        db = self.manager.mongo
+        bots = db.get_collection("bots")
+        exceptions = db.get_collection("exceptions")
+
+        now = datetime.datetime.utcnow()
+
+        last_online = now - datetime.timedelta(minutes=10)
+        online = bots.find({
+            "last_seen": {"$gt": last_online}
+        }).count()
+
+        uuid = request.forms.get("uuid", None)
+
+        if uuid is None:
+            return template("templates/exceptions_form.html",
+                            online=online, error="You must specify a UUID.")
+
+        logged = exceptions.find({
+            "uuid": uuid
+        }).count()
+
+        if logged < 1:
+            return template("templates/exceptions_form.html",
+                            online=online, error="No exceptions have been "
+                                                 "logged for the UUID '%s'"
+                                                 % uuid)
+
+        return redirect("/metrics/exceptions/%s/1" % uuid)
+
+    def exceptions(self, uuid, page):
+        uuid = to_unicode(uuid)
+        try:
+            page = int(page)
+        except:
+            return abort(404, "Page not found")
+
+        if page < 1:
+            return abort(404, "Page not found")
+
+        db = self.manager.mongo
+        bots = db.get_collection("bots")
+        exceptions = db.get_collection("exceptions")
+
+        now = datetime.datetime.utcnow()
+
+        last_online = now - datetime.timedelta(minutes=10)
+        online = bots.find({
+            "last_seen": {"$gt": last_online}
+        }).count()
+
+        logged_num = exceptions.find({
+            "uuid": uuid
+        }).count()
+
+        if logged_num < 1:
+            return template("templates/exceptions_form.html",
+                            online=online, error="No exceptions have been "
+                                                 "logged for the UUID '%s'"
+                                                 % uuid)
+
+        pages = int(logged_num / 10) + 1
+
+        start = (pages * 10) - 10
+        limit = 10
+
+        if page > pages:
+            return abort(404, "Page not found")
+
+        data = exceptions.find({
+            "uuid": uuid
+        }, skip=start, limit=limit, sort=[("date", DESCENDING)])
+
+        return template("templates/exceptions.html",
+                        online=online, error=None,
+                        cur_page=page, max_page=pages,
+                        data=data)
 
     def prepare_document(self, data):
         del data["uuid"]
@@ -270,6 +374,7 @@ class Routes(object):
             ))
 
         params["uuid"] = uuid
+        params["date"] = datetime.datetime.utcnow()
 
         db = self.manager.mongo
         coll = db.get_collection("exceptions")
