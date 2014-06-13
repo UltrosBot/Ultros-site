@@ -145,7 +145,7 @@ Connecting communities, one squid at a time.</%block>
                         % for key in sorted(protocols.keys(), key=lambda s: s.lower()):
                             % if protocols[key]:
                                 <tr>
-                                    <td class="text-column">${key}</td>
+                                    <td class="text-column">${key| h}</td>
                                     <td class="num-column green-text">${protocols[key]}</td>
                                 </tr>
                             % endif
@@ -176,7 +176,7 @@ Connecting communities, one squid at a time.</%block>
                         % for key in sorted(packages.keys(), key=lambda s: s.lower()):
                             % if packages[key]:
                                 <tr>
-                                    <td class="text-column">${key}</td>
+                                    <td class="text-column">${key| h}</td>
                                     <td class="num-column green-text">${packages[key]}</td>
                                 </tr>
                             % endif
@@ -211,7 +211,7 @@ Connecting communities, one squid at a time.</%block>
                         % for key in sorted(plugins.keys(), key=lambda s: s.lower()):
                             % if plugins[key]:
                                 <tr>
-                                    <td class="text-column">${key}</td>
+                                    <td class="text-column">${key| h}</td>
                                     <td class="num-column green-text">${plugins[key]}</td>
                                 </tr>
                             % endif

@@ -71,10 +71,10 @@ Connecting communities, one squid at a time.</%block>
                             % for item in data:
                             <tr>
                                 <td class="date-column-exception">${item["date"].strftime("%d %b '%y %H:%M:%S UTC")}</td>
-                                <td class="column-exception">${item["type"]}</td>
-                                <td class="column-exception">${item["value"]}</td>
+                                <td class="column-exception">${item["type"] | h}</td>
+                                <td class="column-exception">${item["value"] | h}</td>
                                 <td class="text-column-exception">
-                                    <pre>${item["traceback"]}</pre>
+                                    <pre>${item["traceback"] | h}</pre>
                                 </td>
                             </tr>
                             % endfor
