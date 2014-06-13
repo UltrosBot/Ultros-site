@@ -151,7 +151,7 @@ class Routes(object):
         return template("templates/exceptions.html",
                         online=online, error=None,
                         cur_page=page, max_page=pages,
-                        data=data)
+                        data=data, uuid=uuid)
 
     def prepare_document(self, data):
         del data["uuid"]

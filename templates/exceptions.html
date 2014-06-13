@@ -1,7 +1,7 @@
 <%inherit file="base.html"/>
 
 ## SEO Stuff
-<%block name="title">Ultros | Index</%block>
+<%block name="title">Ultros | Exceptions | ${uuid}</%block>
 <%block name="description">Ultros is a highly modular, chat-focused, Python-based bot. Its purpose is to provide various services and tools to people using chat networks, in a highly extensible and protocol-agnostic way.
 
 Connecting communities, one squid at a time.</%block>
@@ -71,7 +71,15 @@ Connecting communities, one squid at a time.</%block>
                             % for item in data:
                             <tr>
                                 <td class="date-column-exception">${item["date"].strftime("%d %b '%y %H:%M:%S UTC")}</td>
-                                <td class="column-exception">${item["type"] | h}</td>
+                                % if "'" in item["type"]:
+                                    % if len(item["type"].split("'")) == 2:
+                                        <td class="column-exception">${item["type"].split("'")[1] | h}</td>
+                                    % else:
+                                        <td class="column-exception">${item["type"] | h}</td>
+                                    % endif
+                                % else:
+                                    <td class="column-exception">${item["type"] | h}</td>
+                                % endif
 ##                                <td class="column-exception">${item["value"] | h}</td>
                                 <td class="text-column-exception">
                                     <pre>${item["traceback"] | h}</pre>
