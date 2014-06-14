@@ -102,6 +102,10 @@ code {
     overflow-x: auto;
 }
 
+.text-column-exception pre {
+    overflow-x: auto;
+}
+
 .date-column-exception {
     width: 35%;
 }
