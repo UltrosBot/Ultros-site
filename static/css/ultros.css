@@ -104,6 +104,7 @@ code {
 
 .text-column-exception pre {
     overflow-x: auto;
+    white-space: pre-wrap;
 }
 
 .date-column-exception {
