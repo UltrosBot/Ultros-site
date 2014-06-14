@@ -52,21 +52,21 @@ code {
 }
 
 .grid-left {
-    margin-right: 0 !important;
-    margin-left: 0 !important;
-    padding-right: 1em !important;
-    border-right: 1px solid grey;
-    text-align: right;
-    font-size: large;
+    /*margin-right: 0 !important;*/
+    /*margin-left: 0 !important;*/
+    padding-left: 1em !important;
+    border-right: 1px solid #D1ADFF;
+    /*text-align: right;*/
+    /*font-size: large;*/
 }
 
 .grid-right {
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    padding-left: 1em !important;
-    border-left: 1px solid grey;
-    text-align: left;
-    font-size: large;
+    /*margin-left: 0 !important;*/
+    /*margin-right: 0 !important;*/
+    padding-right: 1em !important;
+    border-left: 1px solid #D1ADFF;
+    /*text-align: left;*/
+    /*font-size: large;*/
 }
 
 .grid-center {
@@ -99,6 +99,7 @@ code {
 
 .text-column-exception {
     width: 45%;
+    overflow-x: auto;
 }
 
 .date-column-exception {
