@@ -136,9 +136,14 @@ class Routes(object):
                                                  "logged for the UUID '%s'"
                                                  % uuid)
 
-        pages = int(logged_num / 10) + 1
+        pages = (int(logged_num) / 10)
 
-        start = (pages * 10) - 10
+        overhang = int(logged_num) % 10
+
+        if overhang > 0:
+            pages += 1
+
+        start = (page * 10) - 10
         limit = 10
 
         if page > pages:
@@ -309,6 +314,18 @@ class Routes(object):
             done[e["type"]][e["name"]] = count
 
         return done
+
+    def get_online(self):
+        db = self.manager.mongo
+        bots = db.get_collection("bots")
+
+        last_online = (
+            datetime.datetime.utcnow() - datetime.timedelta(minutes=10)
+        )
+
+        return bots.find({
+            "last_seen": {"$gt": last_online}
+        }).count()
 
     def get_uuid(self):
         return str(uuid4())
