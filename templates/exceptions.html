@@ -48,6 +48,20 @@ Connecting communities, one squid at a time.</%block>
 <div class="wrapper">
     <div class="grids top">
         <div class="grid-16 grid">
+            <div class="grid grid-16">
+                % if cur_page > 1:
+                    <div class="left">
+                        <a href="${cur_page - 1}"><-- Page ${cur_page - 1}</a>
+                    </div>
+                % endif
+
+                % if cur_page != max_page:
+                    <div class="right">
+                        <a href="${cur_page + 1}">Page ${cur_page + 1} --></a>
+                    </div>
+                % endif
+            </div>
+
             % if error is not None:
                 <p class="message error">
                     ${error}
