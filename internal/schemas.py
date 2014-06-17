@@ -31,7 +31,8 @@ EXCEPTION = {
     "traceback": unicode,  # The exception traceback
     "type": unicode,  # The exception type
     "value": unicode,  # The exception value
-    "date": datetime.datetime  # When the exception was submitted
+    "date": datetime.datetime,  # When the exception was submitted
+    "scope": dict  # Innermost frame local scope
 }
 
 schemas = {

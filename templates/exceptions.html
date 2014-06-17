@@ -80,7 +80,7 @@ Connecting communities, one squid at a time.</%block>
                             <th class="date-column-exception">Date</th>
                             <th class="column-exception">Type</th>
 ##                            <th class="column-exception">Value</th>
-                            <th class="text-column-exception">Traceback</th>
+                            <th class="text-column-exception">Information</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -97,8 +97,42 @@ Connecting communities, one squid at a time.</%block>
                                     <td class="column-exception">${item["type"] | h}</td>
                                 % endif
 ##                                <td class="column-exception">${item["value"] | h}</td>
-                                <td class="text-column-exception">
-                                    <pre>${item["traceback"] | h}</pre>
+                                <td class="text-column-exception full-outer">
+                                    <table class="hidden-body full">
+                                        <thead class="pointer">
+                                            <tr>
+                                                <th>Traceback</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <pre>${item["traceback"] | h}</pre>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    % if "scope" in item:
+                                        <table class="hidden-body full-last">
+                                            <thead class="pointer">
+                                                <tr>
+                                                    <th colspan="2">Scope</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            % for key, value in sorted(item["scope"].items()):
+                                                <tr>
+                                                    <td>
+                                                        ${key | h}
+                                                    </td>
+                                                    <td class="right-no-border">
+                                                        <pre>${value | h}</pre>
+                                                    </td>
+                                                </tr>
+                                            % endfor
+                                            </tbody>
+                                        </table>
+                                    % endif
                                 </td>
                             </tr>
                             % endfor
@@ -135,3 +169,15 @@ Connecting communities, one squid at a time.</%block>
         </div>
     </div>
 </div>
+
+## JS
+
+<script>
+    $(".full thead").click(function() {
+        $(this.parentNode).children("tbody").toggle(400, "linear");
+    });
+
+    $(".full-last thead").click(function() {
+        $(this.parentNode).children("tbody").toggle(400, "linear");
+    });
+</script>

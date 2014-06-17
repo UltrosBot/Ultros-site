@@ -168,3 +168,43 @@ td {
     text-shadow: none;
     line-height: 8px;
 }
+
+.full, .full-last, .full tbody tr td, .full thead tr th, .full-last thead tr th {
+    width: 100%;
+    margin: 0;
+    border-left: 0;
+    border-right: 0;
+}
+
+.full tbody, .full-last tbody {
+    display: none;
+}
+
+.full thead tr th, .full-last thead tr th {
+    color: #888;
+    border-top: 0;
+    background-color: white;
+}
+.full tbody tr, .full-last tbody tr {
+    background-color: #EEE;
+}
+
+.full tbody tr td pre, .full-last tbody tr td pre {
+    margin: 0;
+}
+
+.full-last tbody tr td {
+    border-top: 0;
+}
+
+.right-no-border {
+    border-right: 0;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.full-outer {
+    padding: 0;
+}
