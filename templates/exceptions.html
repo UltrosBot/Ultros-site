@@ -101,7 +101,11 @@ Connecting communities, one squid at a time.</%block>
                                     <table class="hidden-body full">
                                         <thead class="pointer">
                                             <tr>
-                                                <th>Traceback</th>
+                                                <th>
+                                                    <span class="arrow-left arrow-down-left"></span>
+                                                    Traceback
+                                                    <span class="arrow arrow-down"></span>
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -116,7 +120,11 @@ Connecting communities, one squid at a time.</%block>
                                         <table class="hidden-body full-last">
                                             <thead class="pointer">
                                                 <tr>
-                                                    <th colspan="2">Scope</th>
+                                                    <th colspan="2">
+                                                        <span class="arrow-left arrow-down-left"></span>
+                                                        Scope
+                                                        <span class="arrow arrow-down"></span>
+                                                    </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -175,9 +183,19 @@ Connecting communities, one squid at a time.</%block>
 <script>
     $(".full thead").click(function() {
         $(this.parentNode).children("tbody").toggle(400, "linear");
+
+        $(this).find(".arrow").toggleClass("arrow-down");
+        $(this).find(".arrow").toggleClass("arrow-up");
+        $(this).find(".arrow-left").toggleClass("arrow-down-left");
+        $(this).find(".arrow-left").toggleClass("arrow-up-left");
     });
 
     $(".full-last thead").click(function() {
         $(this.parentNode).children("tbody").toggle(400, "linear");
+
+        $(this).find(".arrow").toggleClass("arrow-down");
+        $(this).find(".arrow").toggleClass("arrow-up");
+        $(this).find(".arrow-left").toggleClass("arrow-down-left");
+        $(this).find(".arrow-left").toggleClass("arrow-up-left");
     });
 </script>
