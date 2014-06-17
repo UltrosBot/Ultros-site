@@ -52,12 +52,14 @@ Connecting communities, one squid at a time.</%block>
                 % if cur_page > 1:
                     <div class="left">
                         <a href="${cur_page - 1}"><-- Page ${cur_page - 1}</a>
+                        <br /> &nbsp;
                     </div>
                 % endif
 
                 % if cur_page != max_page:
                     <div class="right">
                         <a href="${cur_page + 1}">Page ${cur_page + 1} --></a>
+                        <br /> &nbsp;
                     </div>
                 % endif
             </div>
