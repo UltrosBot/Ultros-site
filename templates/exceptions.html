@@ -122,10 +122,10 @@ Connecting communities, one squid at a time.</%block>
                                             <tbody>
                                             % for key, value in sorted(item["scope"].items()):
                                                 <tr>
-                                                    <td>
+                                                    <td class="bottom-no-border">
                                                         ${key | h}
                                                     </td>
-                                                    <td class="right-no-border">
+                                                    <td class="bottom-no-border right-no-border">
                                                         <pre>${value | h}</pre>
                                                     </td>
                                                 </tr>

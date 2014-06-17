@@ -186,7 +186,7 @@ td {
     background-color: white;
 }
 .full tbody tr, .full-last tbody tr {
-    background-color: #EEE;
+    background-color: rgba(0, 0, 0, 0);
 }
 
 .full tbody tr td pre, .full-last tbody tr td pre {
@@ -199,6 +199,11 @@ td {
 
 .right-no-border {
     border-right: 0;
+}
+
+.bottom-no-border {
+    border-bottom: 0;
+    border-top: 1px solid #CCC !important;
 }
 
 .pointer {
