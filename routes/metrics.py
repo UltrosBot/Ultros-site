@@ -101,7 +101,7 @@ class Routes(object):
             return template(
                 "templates/exceptions_form.html",
                 error="No exceptions have been logged for the UUID '%s'"
-                      % uuid
+                % uuid
             )
 
         return redirect("/metrics/exceptions/%s/1" % uuid)
@@ -135,7 +135,7 @@ class Routes(object):
             return template(
                 "templates/exceptions_form.html",
                 error="No exceptions have been logged for the UUID '%s'"
-                      % uuid
+                % uuid
             )
 
         pages = (int(logged_num) / 10)
