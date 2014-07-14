@@ -98,10 +98,11 @@ class Routes(object):
         }).count()
 
         if logged < 1:
-            return template("templates/exceptions_form.html",
-                            online=online, error="No exceptions have been "
-                                                 "logged for the UUID '%s'"
-                                                 % uuid)
+            return template(
+                "templates/exceptions_form.html",
+                error="No exceptions have been logged for the UUID '%s'"
+                      % uuid
+            )
 
         return redirect("/metrics/exceptions/%s/1" % uuid)
 
@@ -109,7 +110,7 @@ class Routes(object):
         uuid = to_unicode(uuid)
         try:
             page = int(page)
-        except:
+        except Exception:
             return abort(404, "Page not found")
 
         if page < 1:
@@ -131,10 +132,11 @@ class Routes(object):
         }).count()
 
         if logged_num < 1:
-            return template("templates/exceptions_form.html",
-                            online=online, error="No exceptions have been "
-                                                 "logged for the UUID '%s'"
-                                                 % uuid)
+            return template(
+                "templates/exceptions_form.html",
+                error="No exceptions have been logged for the UUID '%s'"
+                      % uuid
+            )
 
         pages = (int(logged_num) / 10)
 
