@@ -1,7 +1,7 @@
 <%inherit file="base.html"/>
 
 ## SEO Stuff
-<%block name="title">Ultros | Exceptions</%block>
+<%block name="title">Ultros | Fanart</%block>
 <%block name="description">Ultros is a highly modular, chat-focused, Python-based bot. Its purpose is to provide various services and tools to people using chat networks, in a highly extensible and protocol-agnostic way.
 
 Connecting communities, one squid at a time.</%block>
@@ -30,54 +30,76 @@ Connecting communities, one squid at a time.</%block>
         % endif
     </div>
 
-    <ul id="nav" class="main nav">
+    <ul id="nav" class="main">
         <li><a href="/">Home</a></li>
-        <li><a href="/metrics" class="active">Metrics</a></li>
+        <li><a href="/metrics">Metrics</a></li>
+        <li><a href="/fanart" class="active">Fanart</a></li>
         <li><a href="https://github.com/UltrosBot/">GitHub</a></li>
-        <li><a href="https://github.com/UltrosBot/Ultros-Contrib">Extensions</a></li>
         <li><a href="http://docs.ultros.io">Docs (beta)</a></li>
-    </ul>
-    <ul class="nav second-nav">
-        <li><span>Metrics: &nbsp;</span></li>
-        <li><a href="/metrics">Main</a></li>
-        <li><a href="/metrics/exceptions" class="active">Exceptions</a></li>
     </ul>
 </div>
 
 <div class="clear"></div>
 
-## UUID form
+## Content
+
 <div class="wrapper">
     <div class="grids top">
-        <div class="grid-16 grid">
+        <div class="grid-15 fanart">
+            <h2>Fanart</h2>
+            <p> Since the project has started, some (very kind and talented)
+                people have submitted logos and other fanart to us. If you'd
+                like to do the same, please <a href="irc://irc.esper.net/Ultros">join us on IRC</a>
+                or raise a ticket on the Ultros-Site repo!
+            </p>
+        </div>
+    </div>
 
-            <div class="grid-16 grid">
-                <p class="message info">
-                    Input a UUID to find the exceptions we have stored for it.
-                </p>
-            </div>
+    <hr />
 
-            % if error is not None:
-                <div class="grid-16 grid">
-                    <p class="message error">
-                        ${error}
-                    </p>
-                </div>
-            % endif
-
-            <div class="grid-16 grid text-center">
-                <form action="/metrics/exceptions/" method="post">
-                    <input type="text" required name="uuid" id="uuid" class="grid-13"
-                           placeholder="12345678-90ab-cdef-0123-4567890abcde"/>
-                    <input type="submit" value="Submit" class="grid-2"/>
-                </form>
-            </div>
+    <div class="grids fanart-grid">
+        <div class="grid-15 fanart">
+            <h2>Kawaii!</h2>
+            <figure>
+                <figcaption> Drawn on my whiteboard, by
+                    <a href="http://otakuzilla.deviantart.com">Emilia (AKA Cataku or Otakuzilla)</a>
+                </figcaption>
+                <img src="http://i.imgur.com/iKePl83.jpg" />
+            </figure>
+        </div>
+        <div class="grid-15 fanart">
+            <h2>Ultros hugging Ultros</h2>
+            <figure>
+                <figcaption>An interpretation by <a href="https://github.com/rakiru">rakiru</a></figcaption>
+                <img src="https://dl.dropboxusercontent.com/u/7298729/drawings/ultros.png" />
+            </figure>
+        </div>
+        <div class="grid-15 fanart">
+            <h2>Deep in the Sea of Autism</h2>
+            <figure>
+                <figcaption>A logo by PyroPyro (AKA Nihility)</figcaption>
+                <img src="http://i.imgur.com/TrMyoJE.jpg" />
+            </figure>
+        </div>
+        <div class="grid-15 fanart">
+            <h2>Shit's tight, yo</h2>
+            <figure>
+                <figcaption>Another logo by PyroPyro (AKA Nihility)</figcaption>
+                <img src="http://i.imgur.com/7SsHDd0.jpg" />
+            </figure>
+        </div>
+        <div class="grid-15 fanart">
+            <h2>Nameless</h2>
+            <figure>
+                <figcaption>A logo by Julu8</figcaption>
+                <img src="http://i.imgur.com/nJPElAp.png" />
+            </figure>
         </div>
     </div>
 </div>
 
-
 ## Footer
+
 <div class="wrapper">
     <div id="footer">
         <div class="grids">

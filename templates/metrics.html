@@ -19,7 +19,9 @@ Connecting communities, one squid at a time.</%block>
         <a href="https://travis-ci.org/UltrosBot/Ultros" title="Continuous Integration"><img src="/static/images/justvector_icons/retweet.svg" width="20" height="20" alt="bamboo"></a>
         <a href="http://webchat.esper.net/?nick=&amp;channels=Ultros" title="IRC"><img src="/static/images/justvector_icons/google_talk.svg" width="20" height="20" alt="irc"></a>
         <a href="http://steamcommunity.com/id/UltrosBot" title="Steam"><img src="/static/images/justvector_icons/steam.svg" width="20" height="20" alt="steam"></a>
-        % if online == 0:
+        % if online == "???":
+            <span class="icon-font-size"> <span class="orange-text">Error</span> bots online</span>
+        % elif online == 0:
             <span class="icon-font-size"> <span class="red-text">No</span> bots online</span>
         % elif online == 1:
             <span class="icon-font-size"> <span class="green-text">${online}</span> bot online</span>
@@ -31,7 +33,7 @@ Connecting communities, one squid at a time.</%block>
     <ul id="nav" class="main">
         <li><a href="/">Home</a></li>
         <li><a href="/metrics" class="active">Metrics</a></li>
-        <li><a href="https://github.com/UltrosBot/">GitHub</a></li>
+        <li><a href="/fanart">Fanart</a></li>
         <li><a href="https://github.com/UltrosBot/Ultros-Contrib">Extensions</a></li>
         <li><a href="http://docs.ultros.io">Docs (beta)</a></li>
     </ul>

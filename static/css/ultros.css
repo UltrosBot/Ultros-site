@@ -15,6 +15,33 @@
     padding-bottom: 0.5em;
 }
 
+.fanart {
+    border: 1px #800080 dashed;
+    border-radius: 20px;
+    padding: 2em;
+    padding-bottom: 0.5em;
+    margin-bottom: 2em !important;
+}
+
+.fanart img {
+    border: 1px #AAA solid;
+    border-radius: 5px;
+    margin: auto !important;
+}
+
+.fanart figure {
+    text-align: center;
+}
+
+.fanart figcaption {
+    font-size: 15pt;
+    margin-bottom: 0.5em;
+}
+
+.fanart-grid {
+    margin-top: 3em;
+}
+
 code {
     border: 1px #400040 dashed;
     background-color: #FFDDFF;
@@ -36,6 +63,10 @@ code {
 
 .blue-text {
     color: blue !important;
+}
+
+.orange-text {
+    color: orange !important;
 }
 
 .grid-header {
