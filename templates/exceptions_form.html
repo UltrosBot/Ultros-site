@@ -67,9 +67,11 @@ Connecting communities, one squid at a time.</%block>
 
             <div class="grid-16 grid text-center">
                 <form action="/metrics/exceptions/" method="post">
-                    <input type="text" required name="uuid" id="uuid" class="grid-13"
+                    <input type="text" required name="uuid" id="uuid" class="grid-6"
                            placeholder="12345678-90ab-cdef-0123-4567890abcde"/>
-                    <input type="submit" value="Submit" class="grid-2"/>
+                    <input type="text" name="search" id="search" class="grid-6"
+                           placeholder="Search regex (optional)"/>
+                    <input type="submit" value="Submit" class="grid-3"/>
                 </form>
             </div>
         </div>

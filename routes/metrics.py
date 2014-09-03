@@ -110,6 +110,7 @@ class Routes(object):
         if logged < 1:
             return template(
                 "templates/exceptions_form.html",
+                online=online,
                 error="No exceptions have been logged for the UUID '%s'"
                 % uuid
             )
@@ -149,8 +150,9 @@ class Routes(object):
         if logged_num < 1:
             return template(
                 "templates/exceptions_form.html",
+                online=online,
                 error="No exceptions have been logged for the UUID '%s' "
-                      "with the search string %s"
+                      "with the search string '%s'"
                 % (uuid, search)
             )
 
