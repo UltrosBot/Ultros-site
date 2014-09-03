@@ -1,3 +1,5 @@
+import urllib
+
 __author__ = 'Gareth Coles'
 
 import datetime
@@ -55,6 +57,11 @@ class Routes(object):
         route("/metrics/exceptions/<uuid>/<page>/", "GET",
               self.exceptions)
 
+        route("/metrics/exceptions/<uuid>/<page>/<search>", "GET",
+              self.exceptions_search)
+        route("/metrics/exceptions/<uuid>/<page>/<search>/", "GET",
+              self.exceptions_search)
+
         map(manager.add_api_route, ["/api/metrics/get/uuid",
                                     "/api/metrics/get/metrics",
                                     "/api/metrics/get/metrics/recent",
@@ -88,6 +95,9 @@ class Routes(object):
         }).count()
 
         uuid = request.forms.get("uuid", None)
+        search = request.forms.get("search", "")
+
+        search = urllib.quote(search, safe='').strip()
 
         if uuid is None:
             return template("templates/exceptions_form.html",
@@ -104,7 +114,68 @@ class Routes(object):
                 % uuid
             )
 
-        return redirect("/metrics/exceptions/%s/1" % uuid)
+        if not search:
+            return redirect("/metrics/exceptions/%s/1" % uuid)
+        else:
+            return redirect("/metrics/exceptions/%s/1/%s" % (uuid, search))
+
+    def exceptions_search(self, uuid, page, search):
+        uuid = to_unicode(uuid)
+        search = urllib.unquote(search)
+        try:
+            page = int(page)
+        except Exception:
+            return abort(404, "Page not found")
+
+        if page < 1:
+            return abort(404, "Page not found")
+
+        db = self.manager.mongo
+        bots = db.get_collection("bots")
+        exceptions = db.get_collection("exceptions")
+
+        now = datetime.datetime.utcnow()
+
+        last_online = now - datetime.timedelta(minutes=10)
+        online = bots.find({
+            "last_seen": {"$gt": last_online}
+        }).count()
+
+        logged_num = exceptions.find({
+            "uuid": uuid,
+            "traceback": {"$regex": search}
+        }).count()
+
+        if logged_num < 1:
+            return template(
+                "templates/exceptions_form.html",
+                error="No exceptions have been logged for the UUID '%s' "
+                      "with the search string %s"
+                % (uuid, search)
+            )
+
+        pages = (int(logged_num) / 10)
+
+        overhang = int(logged_num) % 10
+
+        if overhang > 0:
+            pages += 1
+
+        start = (page * 10) - 10
+        limit = 10
+
+        if page > pages:
+            return abort(404, "Page not found")
+
+        data = exceptions.find({
+            "uuid": uuid,
+            "traceback": {"$regex": search}
+        }, skip=start, limit=limit, sort=[("date", DESCENDING)])
+
+        return template("templates/exceptions.html",
+                        online=online, error=None,
+                        cur_page=page, max_page=pages,
+                        data=data, uuid=uuid)
 
     def exceptions(self, uuid, page):
         uuid = to_unicode(uuid)
