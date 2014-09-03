@@ -50,6 +50,13 @@ Connecting communities, one squid at a time.</%block>
 <div class="wrapper">
     <div class="grids top">
         <div class="grid-16 grid">
+            % if search:
+                <div class="grid-16 grid">
+                    <p class="message info">
+                        Search string: ${search}
+                    </p>
+                </div>
+            % endif
             <div class="grid grid-16">
                 % if cur_page > 1:
                     <div class="left">

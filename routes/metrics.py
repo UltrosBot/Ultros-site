@@ -144,7 +144,7 @@ class Routes(object):
 
         logged_num = exceptions.find({
             "uuid": uuid,
-            "traceback": {"$regex": search}
+            "traceback": {"$regex": "/%s/" % search}
         }).count()
 
         if logged_num < 1:
@@ -171,13 +171,13 @@ class Routes(object):
 
         data = exceptions.find({
             "uuid": uuid,
-            "traceback": {"$regex": search}
+            "traceback": {"$regex": "/%s/" % search}
         }, skip=start, limit=limit, sort=[("date", DESCENDING)])
 
         return template("templates/exceptions.html",
                         online=online, error=None,
                         cur_page=page, max_page=pages,
-                        data=data, uuid=uuid)
+                        data=data, uuid=uuid, search=search)
 
     def exceptions(self, uuid, page):
         uuid = to_unicode(uuid)
@@ -231,7 +231,7 @@ class Routes(object):
         return template("templates/exceptions.html",
                         online=online, error=None,
                         cur_page=page, max_page=pages,
-                        data=data, uuid=uuid)
+                        data=data, uuid=uuid, search=None)
 
     def prepare_document(self, data):
         del data["uuid"]
