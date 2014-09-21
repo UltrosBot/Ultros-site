@@ -322,8 +322,8 @@ class Routes(object):
         r = bots.find({"uuid": uuid}).count()
 
         if r:
-            bots.delete({"uuid": uuid}, multi=True)
-            exceptions.delete({"uuid": uuid}, multi=True)
+            bots.remove({"uuid": uuid}, multi=True)
+            exceptions.remove({"uuid": uuid}, multi=True)
             return {"result": "success"}
         return {"result": "unknown"}
 
