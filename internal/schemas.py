@@ -17,15 +17,6 @@ OBJ = {
     "name": unicode  # Name of object
 }
 
-USER = {
-    "username": str,  # GitHub username
-    "token": str,  # Auth token from GitHub
-    "data_user": dict,  # User data
-    "data_user_repos": dict,  # User repo data
-    "data_orgs": dict,  # User organisations
-    "data_orgs_repos": dict  # Repos for organisations
-}
-
 EXCEPTION = {
     "uuid": unicode,  # UUID of the user's exception
     "traceback": unicode,  # The exception traceback
@@ -35,9 +26,17 @@ EXCEPTION = {
     "scope": dict  # Innermost frame local scope
 }
 
+SYSTEM = {
+    "uuid": unicode,
+    "ram": float,  # Amount of RAM (in MB)
+    "cpu": unicode,
+    "os": unicode,
+    "python": unicode
+}
+
 schemas = {
     "bots": BOT,
     "objs": OBJ,
-    "users": USER,
-    "exceptions": EXCEPTION
+    "exceptions": EXCEPTION,
+    "systems": SYSTEM
 }

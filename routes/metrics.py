@@ -258,6 +258,7 @@ class Routes(object):
     def metrics_page(self):
         db = self.manager.mongo
         bots = db.get_collection("bots")
+        systems = db.get_collection("systems")
 
         now = datetime.datetime.utcnow()
 
@@ -299,6 +300,46 @@ class Routes(object):
 
         other_counts = self.get_counts()
 
+        # Stats counts
+
+        stats = systems.find()
+
+        cpu = {}
+        os = {}
+        python = {}
+        ram = {}
+
+        for element in stats:
+            if "uuid" in element:
+                del element["uuid"]
+
+            _cpu = element["cpu"]
+            _os = element["os"]
+            _python = element["python"]
+            _ram = "%.2f" % element["ram"]
+
+            cpu[_cpu] = cpu.get(_cpu, 0) + 1
+            os[_os] = os.get(_os, 0) + 1
+            python[_python] = python.get(_python, 0) + 1
+            ram[_ram] = ram.get(_ram, 0) + 1
+
+        cpu_values = []
+        os_values = []
+        python_values = []
+        ram_values = []
+
+        for x in cpu.items():
+            cpu_values.append(list(x))
+
+        for x in os.items():
+            os_values.append(list(x))
+
+        for x in python.items():
+            python_values.append(list(x))
+
+        for x in ram.items():
+            ram_values.append(list(x))
+
         kwargs = {
             "online": online, "recent": recent, "total": total,
             "online_enabled": online_enabled,
@@ -307,7 +348,11 @@ class Routes(object):
             "total_disabled": total_disabled,
             "packages": other_counts["package"],
             "protocols": other_counts["protocol"],
-            "plugins": other_counts["plugin"]
+            "plugins": other_counts["plugin"],
+            "cpu": json.dumps(cpu_values),
+            "os": json.dumps(os_values),
+            "python": json.dumps(python_values),
+            "ram": json.dumps(ram_values),
         }
 
         return template("templates/metrics.html", **kwargs)
@@ -318,12 +363,14 @@ class Routes(object):
         db = self.manager.mongo
         bots = db.get_collection("bots")
         exceptions = db.get_collection("exceptions")
+        systems = db.get_collection("systems")
 
         r = bots.find({"uuid": uuid}).count()
 
         if r:
             bots.delete({"uuid": uuid}, multi=True)
             exceptions.delete({"uuid": uuid}, multi=True)
+            systems.delete({"uuid": uuid}, multi=True)
             return {"result": "success"}
         return {"result": "unknown"}
 
@@ -515,8 +562,13 @@ class Routes(object):
 
         db = self.manager.mongo
         bots = db.get_collection("bots")
+        systems = db.get_collection("systems")
 
         bot = bots.find_one({
+            "uuid": uuid
+        })
+
+        system = systems.find_one({
             "uuid": uuid
         })
 
@@ -561,6 +613,24 @@ class Routes(object):
                     "first_seen": datetime.datetime.utcnow()
                 }
 
+                if "system" in params:
+                    __system = params["system"]
+
+                    _system = {
+                        "uuid": uuid,
+                        "cpu": __system["cpu"],
+                        "os": __system["os"],
+                        "python": __system["python"],
+                        "ram": __system["ram"],
+                    }
+
+                    if not system:
+                        systems.insert(_system)
+                    else:
+                        systems.update({
+                            "uuid": uuid
+                        }, _system)
+
             bots.insert(bot)
 
             return {"result": "created",
@@ -576,6 +646,24 @@ class Routes(object):
             bot["packages"] = packages
             bot["plugins"] = plugins
             bot["protocols"] = protocols
+
+            if "system" in params:
+                __system = params["system"]
+
+                _system = {
+                    "uuid": uuid,
+                    "cpu": __system["cpu"],
+                    "os": __system["os"],
+                    "python": __system["python"],
+                    "ram": __system["ram"],
+                }
+
+                if not system:
+                    systems.insert(_system)
+                else:
+                    systems.update({
+                        "uuid": uuid
+                    }, _system)
 
         bot["last_seen"] = datetime.datetime.utcnow()
 

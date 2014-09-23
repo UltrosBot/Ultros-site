@@ -63,6 +63,7 @@ Connecting communities, one squid at a time.</%block>
                 <li>Enabled plugins</li>
                 <li>Installed packages</li>
                 <li>Most (but not all) exceptions</li>
+                <li>System stats (CPU name, OS type, Python version, total RAM)</li>
             </ul>
             <p>
                 Metrics are collected anonymously and are easy to opt-out of. Each instance of Ultros gets a UUID, which is not public, and is the only way to identify a
@@ -87,6 +88,17 @@ Connecting communities, one squid at a time.</%block>
                 destroy your metrics as detailed above.
             </p>
         </div>
+
+        <hr style="clear: both;" />
+
+        ## Charts
+
+        <div class="grid-8" id="cpu-pie"></div>
+        <div class="grid-8" id="os-pie"></div>
+        <div class="grid-8" id="python-pie"></div>
+        <div class="grid-8" id="ram-pie"></div>
+
+        ##5
 
         <hr style="clear: both;" />
 
@@ -236,3 +248,155 @@ Connecting communities, one squid at a time.</%block>
         </div>
     </div>
 </div>
+
+## Highcharts scripts
+
+<script>
+    $(function () {
+        $('#cpu-pie').highcharts({ // CPU pie
+            chart: {
+                plotBackgroundColor: "#ffffff",
+                backgroundColor: "#fafafa",
+                plotBorderWidth: 1,//null,
+                plotShadow: false
+            },
+            title: {
+                text: 'CPU types'
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size: 10px">{series.name}</span><br/>',
+                pointFormat: '{point.name}<br/><b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    size: "75%",
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        formatter: function() {
+                            if (this.point.name.length > 10) {
+                                return "<b>" + this.point.name.substr(0, 10) + "...</b> - " + this.point.percentage + "%";
+                            } else {
+                                return "<b>" + this.point.name + "</b> - " + this.point.percentage + "%";
+                            }
+                        },
+                        style: {
+                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                        }
+                    }
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: 'CPU',
+                data: ${cpu}
+            }]
+        });
+
+        $('#os-pie').highcharts({ // OS pie
+            chart: {
+                plotBackgroundColor: "#ffffff",
+                backgroundColor: "#fafafa",
+                plotBorderWidth: 1,//null,
+                plotShadow: false
+            },
+            title: {
+                text: 'OS used'
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size: 10px">{series.name}</span><br/>',
+                pointFormat: '{point.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    size: "75%",
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}</b> - {point.percentage:.1f}%',
+                        style: {
+                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                        }
+                    }
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: 'OS',
+                data: ${os}
+            }]
+        });
+
+        $('#python-pie').highcharts({ // Python pie
+            chart: {
+                plotBackgroundColor: "#ffffff",
+                backgroundColor: "#fafafa",
+                plotBorderWidth: 1,//null,
+                plotShadow: false
+            },
+            title: {
+                text: 'Python version'
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size: 10px">{series.name}</span><br/>',
+                pointFormat: '{point.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    size: "75%",
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}</b> - {point.percentage:.1f}%',
+                        style: {
+                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                        }
+                    }
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: 'Python version',
+                data: ${python}
+            }]
+        });
+
+        $('#ram-pie').highcharts({ // RAM pie
+            chart: {
+                plotBackgroundColor: "#ffffff",
+                backgroundColor: "#fafafa",
+                plotBorderWidth: 1,//null,
+                plotShadow: false
+            },
+            title: {
+                text: 'RAM'
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size: 10px">{series.name}</span><br/>',
+                pointFormat: '{point.name}MB: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    size: "75%",
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}MB</b> - {point.percentage:.1f}%',
+                        style: {
+                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                        }
+                    }
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: 'RAM',
+                data: ${ram}
+            }]
+        });
+    });
+</script>
