@@ -399,10 +399,21 @@ Connecting communities, one squid at a time.</%block>
                 name: 'Bots',
                 data: ${ram}
             }],
+            legend: {
+                enabled: false
+            },
+            xAxis: {
+                allowDecimals: false,
+                title: {
+                    enabled: true,
+                    text: "Total RAM"
+                }
+            },
             yAxis: {
                 allowDecimals: false,
                 title: {
-                    enabled: false
+                    enabled: true,
+                    text: "Bots"
                 }
             }
         });
