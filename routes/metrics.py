@@ -618,7 +618,7 @@ class Routes(object):
 
                     _system = {
                         "uuid": uuid,
-                        "cpu": __system["cpu"],
+                        "cpu": __system["cpu"].strip() or "Unknown",
                         "os": __system["os"],
                         "python": __system["python"],
                         "ram": __system["ram"],
