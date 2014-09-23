@@ -633,8 +633,20 @@ class Routes(object):
                 if "system" in params:
                     __system = params["system"]
 
-                    release = __system.get("release", "Unknown")
+                    _release = __system.get("release", "Unknown")
                     _hash = __system.get("hash", "Unknown")
+
+                    if not (
+                        isinstance(_release, str)
+                            or isinstance(_release, unicode)
+                    ):
+                        _release = "Unknown"
+
+                    if not (
+                        isinstance(_hash, str)
+                            or isinstance(_hash, unicode)
+                    ):
+                        _hash = "Unknown"
 
                     _system = {
                         "uuid": uuid,
@@ -642,7 +654,7 @@ class Routes(object):
                         "os": __system["os"],
                         "python": __system["python"],
                         "ram": __system["ram"],
-                        "release": release,
+                        "release": _release,
                         "hash": _hash,
                     }
 
@@ -672,8 +684,18 @@ class Routes(object):
             if "system" in params:
                 __system = params["system"]
 
-                release = __system.get("release", "Unknown")
+                _release = __system.get("release", "Unknown")
                 _hash = __system.get("hash", "Unknown")
+
+                if not (
+                    isinstance(_release, str) or isinstance(_release, unicode)
+                ):
+                    _release = "Unknown"
+
+                if not (
+                    isinstance(_hash, str) or isinstance(_hash, unicode)
+                ):
+                    _hash = "Unknown"
 
                 _system = {
                     "uuid": uuid,
@@ -681,7 +703,7 @@ class Routes(object):
                     "os": __system["os"],
                     "python": __system["python"],
                     "ram": __system["ram"],
-                    "release": release,
+                    "release": _release,
                     "hash": _hash,
                 }
 
