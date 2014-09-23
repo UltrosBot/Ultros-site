@@ -633,24 +633,24 @@ class Routes(object):
                 if "system" in params:
                     __system = params["system"]
 
-                    _release = __system.get("release", "Unknown")
-                    _hash = __system.get("hash", "Unknown")
+                    _release = __system.get("release", u"Unknown")
+                    _hash = __system.get("hash", u"Unknown")
 
                     if not (
                         isinstance(_release, str)
                             or isinstance(_release, unicode)
                     ):
-                        _release = "Unknown"
+                        _release = u"Unknown"
 
                     if not (
                         isinstance(_hash, str)
                             or isinstance(_hash, unicode)
                     ):
-                        _hash = "Unknown"
+                        _hash = u"Unknown"
 
                     _system = {
                         "uuid": uuid,
-                        "cpu": __system["cpu"].strip() or "Unknown",
+                        "cpu": __system["cpu"].strip() or u"Unknown",
                         "os": __system["os"],
                         "python": __system["python"],
                         "ram": __system["ram"],
@@ -684,22 +684,22 @@ class Routes(object):
             if "system" in params:
                 __system = params["system"]
 
-                _release = __system.get("release", "Unknown")
-                _hash = __system.get("hash", "Unknown")
+                _release = __system.get("release", u"Unknown")
+                _hash = __system.get("hash", u"Unknown")
 
                 if not (
                     isinstance(_release, str) or isinstance(_release, unicode)
                 ):
-                    _release = "Unknown"
+                    _release = u"Unknown"
 
                 if not (
                     isinstance(_hash, str) or isinstance(_hash, unicode)
                 ):
-                    _hash = "Unknown"
+                    _hash = u"Unknown"
 
                 _system = {
                     "uuid": uuid,
-                    "cpu": __system["cpu"].strip() or "Unknown",
+                    "cpu": __system["cpu"].strip() or u"Unknown",
                     "os": __system["os"],
                     "python": __system["python"],
                     "ram": __system["ram"],
