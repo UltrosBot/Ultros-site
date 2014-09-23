@@ -277,10 +277,10 @@ Connecting communities, one squid at a time.</%block>
                     dataLabels: {
                         enabled: true,
                         formatter: function() {
-                            if (this.point.name.length > 7) {
-                                return "<b>" + this.point.name.substr(0, 7) + "...</b> - " + this.point.percentage.toFixed(2) + "%";
+                            if (this.point.name.length > 10) {
+                                return "<b>" + this.point.name.substr(0, 10) + "...</b>";
                             } else {
-                                return "<b>" + this.point.name + "</b> - " + this.point.percentage.toFixed(2) + "%";
+                                return "<b>" + this.point.name + "</b>";
                             }
                         },
                         style: {
@@ -319,7 +319,7 @@ Connecting communities, one squid at a time.</%block>
                     cursor: 'pointer',
                     dataLabels: {
                         enabled: true,
-                        format: '<b>{point.name}</b> - {point.percentage:.1f}%',
+                        format: '<b>{point.name}</b>',
                         style: {
                             color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
                         }
@@ -356,7 +356,7 @@ Connecting communities, one squid at a time.</%block>
                     cursor: 'pointer',
                     dataLabels: {
                         enabled: true,
-                        format: '<b>{point.name}</b> - {point.percentage:.1f}%',
+                        format: '<b>{point.name}</b>',
                         style: {
                             color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
                         }
@@ -382,7 +382,7 @@ Connecting communities, one squid at a time.</%block>
             },
             tooltip: {
                 headerFormat: '<span style="font-size: 10px">{series.name}</span><br/>',
-                pointFormat: '{point.x}MB: <b>{point.y} bots</b>'
+                pointFormat: '{point.x}MB: <b>{point.y} bot/s</b>'
             },
             plotOptions: {
                 column: {
@@ -390,11 +390,7 @@ Connecting communities, one squid at a time.</%block>
                     allowPointSelect: true,
                     cursor: 'pointer',
                     dataLabels: {
-                        enabled: false,
-                        format: '<b>{point.x}MB</b> - {point.y}bots',
-                        style: {
-                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                        }
+                        enabled: false
                     }
                 }
             },
