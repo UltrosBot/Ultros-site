@@ -1,3 +1,8 @@
+.chart {
+    overflow: visible !important;
+    text-overflow: ellipsis !important;
+}
+
 #logo {
   margin-bottom: -50px;
 }

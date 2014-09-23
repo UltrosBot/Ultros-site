@@ -316,7 +316,7 @@ class Routes(object):
             _cpu = element["cpu"]
             _os = element["os"]
             _python = element["python"]
-            _ram = "%.2f" % element["ram"]
+            _ram = int(element["ram"])
 
             cpu[_cpu] = cpu.get(_cpu, 0) + 1
             os[_os] = os.get(_os, 0) + 1

@@ -93,10 +93,10 @@ Connecting communities, one squid at a time.</%block>
 
         ## Charts
 
-        <div class="grid-8" id="cpu-pie"></div>
-        <div class="grid-8" id="os-pie"></div>
-        <div class="grid-8" id="python-pie"></div>
-        <div class="grid-8" id="ram-pie"></div>
+        <div class="grid-8 chart" id="cpu-pie"></div>
+        <div class="grid-8 chart" id="os-pie"></div>
+        <div class="grid-8 chart" id="python-pie"></div>
+        <div class="grid-8 chart" id="ram-pie"></div>
 
         ##5
 
@@ -258,7 +258,9 @@ Connecting communities, one squid at a time.</%block>
                 plotBackgroundColor: "#ffffff",
                 backgroundColor: "#fafafa",
                 plotBorderWidth: 1,//null,
-                plotShadow: false
+                plotShadow: false,
+                marginRight: 100,
+                marginLeft: 100
             },
             title: {
                 text: 'CPU types'
@@ -275,8 +277,8 @@ Connecting communities, one squid at a time.</%block>
                     dataLabels: {
                         enabled: true,
                         formatter: function() {
-                            if (this.point.name.length > 10) {
-                                return "<b>" + this.point.name.substr(0, 10) + "...</b> - " + this.point.percentage + "%";
+                            if (this.point.name.length > 7) {
+                                return "<b>" + this.point.name.substr(0, 7) + "...</b> - " + this.point.percentage + "%";
                             } else {
                                 return "<b>" + this.point.name + "</b> - " + this.point.percentage + "%";
                             }
@@ -299,7 +301,9 @@ Connecting communities, one squid at a time.</%block>
                 plotBackgroundColor: "#ffffff",
                 backgroundColor: "#fafafa",
                 plotBorderWidth: 1,//null,
-                plotShadow: false
+                plotShadow: false,
+                marginRight: 100,
+                marginLeft: 100
             },
             title: {
                 text: 'OS used'
@@ -334,7 +338,9 @@ Connecting communities, one squid at a time.</%block>
                 plotBackgroundColor: "#ffffff",
                 backgroundColor: "#fafafa",
                 plotBorderWidth: 1,//null,
-                plotShadow: false
+                plotShadow: false,
+                marginRight: 100,
+                marginLeft: 100
             },
             title: {
                 text: 'Python version'
@@ -368,7 +374,7 @@ Connecting communities, one squid at a time.</%block>
             chart: {
                 plotBackgroundColor: "#ffffff",
                 backgroundColor: "#fafafa",
-                plotBorderWidth: 1,//null,
+                plotBorderWidth: 1,
                 plotShadow: false
             },
             title: {
@@ -376,16 +382,16 @@ Connecting communities, one squid at a time.</%block>
             },
             tooltip: {
                 headerFormat: '<span style="font-size: 10px">{series.name}</span><br/>',
-                pointFormat: '{point.name}MB: <b>{point.percentage:.1f}%</b>'
+                pointFormat: '{point.x}MB: <b>{point.y} bots</b>'
             },
             plotOptions: {
-                pie: {
-                    size: "75%",
+                column: {
+##                    size: "75%",
                     allowPointSelect: true,
                     cursor: 'pointer',
                     dataLabels: {
-                        enabled: true,
-                        format: '<b>{point.name}MB</b> - {point.percentage:.1f}%',
+                        enabled: false,
+                        format: '<b>{point.x}MB</b> - {point.y}bots',
                         style: {
                             color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
                         }
@@ -393,10 +399,16 @@ Connecting communities, one squid at a time.</%block>
                 }
             },
             series: [{
-                type: 'pie',
-                name: 'RAM',
+                type: 'column',
+                name: 'Bots',
                 data: ${ram}
-            }]
+            }],
+            yAxis: {
+                allowDecimals: false,
+                title: {
+                    enabled: false
+                }
+            }
         });
     });
 </script>
