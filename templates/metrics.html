@@ -278,9 +278,9 @@ Connecting communities, one squid at a time.</%block>
                         enabled: true,
                         formatter: function() {
                             if (this.point.name.length > 7) {
-                                return "<b>" + this.point.name.substr(0, 7) + "...</b> - " + this.point.percentage + "%";
+                                return "<b>" + this.point.name.substr(0, 7) + "...</b> - " + this.point.percentage.toFixed(2) + "%";
                             } else {
-                                return "<b>" + this.point.name + "</b> - " + this.point.percentage + "%";
+                                return "<b>" + this.point.name + "</b> - " + this.point.percentage.toFixed(2) + "%";
                             }
                         },
                         style: {
