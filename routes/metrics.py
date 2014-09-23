@@ -309,6 +309,9 @@ class Routes(object):
         python = {}
         ram = {}
 
+        release = {}
+        hash = {}
+
         for element in stats:
             if "uuid" in element:
                 del element["uuid"]
@@ -317,16 +320,22 @@ class Routes(object):
             _os = element["os"]
             _python = element["python"]
             _ram = int(element["ram"])
+            _release = element.get("release", "Unknown")
+            _hash = element.get("hash", "Unknown") or "Zipball (%s)" % _release
 
             cpu[_cpu] = cpu.get(_cpu, 0) + 1
             os[_os] = os.get(_os, 0) + 1
             python[_python] = python.get(_python, 0) + 1
             ram[_ram] = ram.get(_ram, 0) + 1
+            release[_release] = release.get(_release, 0) + 1
+            hash[_hash] = hash.get(_hash, 0) + 1
 
         cpu_values = []
         os_values = []
         python_values = []
         ram_values = []
+        release_values = []
+        hash_values = []
 
         for x in cpu.items():
             cpu_values.append(list(x))
@@ -339,6 +348,12 @@ class Routes(object):
 
         for x in ram.items():
             ram_values.append(list(x))
+
+        for x in release.items():
+            release_values.append(list(x))
+
+        for x in hash.items():
+            hash_values.append(list(x))
 
         kwargs = {
             "online": online, "recent": recent, "total": total,
@@ -353,6 +368,8 @@ class Routes(object):
             "os": json.dumps(os_values),
             "python": json.dumps(python_values),
             "ram": json.dumps(ram_values),
+            "releases": json.dumps(release_values),
+            "hashes": json.dumps(hash_values)
         }
 
         return template("templates/metrics.html", **kwargs)
@@ -616,12 +633,17 @@ class Routes(object):
                 if "system" in params:
                     __system = params["system"]
 
+                    release = __system.get("release", "Unknown")
+                    _hash = __system.get("hash", "Unknown")
+
                     _system = {
                         "uuid": uuid,
                         "cpu": __system["cpu"].strip() or "Unknown",
                         "os": __system["os"],
                         "python": __system["python"],
                         "ram": __system["ram"],
+                        "release": release,
+                        "hash": _hash,
                     }
 
                     if not system:
@@ -650,12 +672,17 @@ class Routes(object):
             if "system" in params:
                 __system = params["system"]
 
+                release = __system.get("release", "Unknown")
+                _hash = __system.get("hash", "Unknown")
+
                 _system = {
                     "uuid": uuid,
-                    "cpu": __system["cpu"],
+                    "cpu": __system["cpu"].strip() or "Unknown",
                     "os": __system["os"],
                     "python": __system["python"],
                     "ram": __system["ram"],
+                    "release": release,
+                    "hash": _hash,
                 }
 
                 if not system:

@@ -31,7 +31,9 @@ SYSTEM = {
     "ram": float,  # Amount of RAM (in MB)
     "cpu": unicode,
     "os": unicode,
-    "python": unicode
+    "python": unicode,
+    "release": unicode,
+    "hash": unicode
 }
 
 schemas = {

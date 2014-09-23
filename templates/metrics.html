@@ -93,12 +93,15 @@ Connecting communities, one squid at a time.</%block>
 
         ## Charts
 
+        <div class="grid-8 chart" id="release-pie"></div>
+        <div class="grid-8 chart" id="version-pie"></div>
+
+        <hr style="clear: both;" />
+
         <div class="grid-8 chart" id="cpu-pie"></div>
         <div class="grid-8 chart" id="os-pie"></div>
         <div class="grid-8 chart" id="python-pie"></div>
         <div class="grid-8 chart" id="ram-pie"></div>
-
-        ##5
 
         <hr style="clear: both;" />
 
@@ -253,6 +256,86 @@ Connecting communities, one squid at a time.</%block>
 
 <script>
     $(function () {
+        $('#version-pie').highcharts({ // Version pie
+            chart: {
+                plotBackgroundColor: "#ffffff",
+                backgroundColor: "#fafafa",
+                plotBorderWidth: 1,//null,
+                plotShadow: false,
+                marginRight: 100,
+                marginLeft: 100
+            },
+            title: {
+                text: 'Versions'
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size: 10px">{series.name}</span><br/>',
+                pointFormat: '{point.name}<br/><b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    size: "75%",
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        formatter: function() {
+                            if (this.point.name.length > 10) {
+                                return "<b>" + this.point.name.substr(0, 10) + "...</b>";
+                            } else {
+                                return "<b>" + this.point.name + "</b>";
+                            }
+                        },
+                        style: {
+                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                        }
+                    }
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: 'Version',
+                data: ${hashes}
+            }]
+        });
+
+        $('#release-pie').highcharts({ // Release pie
+            chart: {
+                plotBackgroundColor: "#ffffff",
+                backgroundColor: "#fafafa",
+                plotBorderWidth: 1,//null,
+                plotShadow: false,
+                marginRight: 100,
+                marginLeft: 100
+            },
+            title: {
+                text: 'Releases'
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size: 10px">{series.name}</span><br/>',
+                pointFormat: '{point.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    size: "75%",
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}</b>',
+                        style: {
+                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                        }
+                    }
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: 'Release',
+                data: ${releases}
+            }]
+        });
+
         $('#cpu-pie').highcharts({ // CPU pie
             chart: {
                 plotBackgroundColor: "#ffffff",
