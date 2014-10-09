@@ -41,6 +41,15 @@
     });
     </script>
 
+    <!--Hide the hr img because of ugly borders in IE7. You can change the color of border-top to display a line -->
+    <!--[if lte IE 7]>
+        <style>
+            hr { display:block; height:1px; border:0; border-top:1px solid #fff; margin:1em 0; padding:0; }
+            .grid-4{ width:22% }
+        </style>
+    <![endif]-->
+    <%block name="header"/>
+
     ## Google analytics
     <script>
         // Google analytics
@@ -52,15 +61,6 @@
         ga('create', 'UA-55600832-1', 'auto');
         ga('send', 'pageview');
     </script>
-
-    <!--Hide the hr img because of ugly borders in IE7. You can change the color of border-top to display a line -->
-    <!--[if lte IE 7]>
-        <style>
-            hr { display:block; height:1px; border:0; border-top:1px solid #fff; margin:1em 0; padding:0; }
-            .grid-4{ width:22% }
-        </style>
-    <![endif]-->
-    <%block name="header"/>
 </head>
 <body>
 ${self.body()}
