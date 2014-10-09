@@ -41,18 +41,6 @@
     });
     </script>
 
-    <!--Hide the hr img because of ugly borders in IE7. You can change the color of border-top to display a line -->
-    <!--[if lte IE 7]>
-        <style>
-            hr { display:block; height:1px; border:0; border-top:1px solid #fff; margin:1em 0; padding:0; }
-            .grid-4{ width:22% }
-        </style>
-    <![endif]-->
-    <%block name="header"/>
-</head>
-<body>
-    ${self.body()}
-
     ## Google analytics
     <script>
         // Google analytics
@@ -65,17 +53,29 @@
         ga('send', 'pageview');
     </script>
 
-    ## JS to tell people to just upgrade you old browser already, dammit!
-    <script type="text/javascript">
-        var $buoop = {};
-        $buoop.ol = window.onload;
-        window.onload=function(){
-            try {if ($buoop.ol) $buoop.ol();} catch (e) {}
-            var e = document.createElement("script");
-            e.setAttribute("type", "text/javascript");
-            e.setAttribute("src", "//browser-update.org/update.js");
-            document.body.appendChild(e);
-        }
-    </script>
+    <!--Hide the hr img because of ugly borders in IE7. You can change the color of border-top to display a line -->
+    <!--[if lte IE 7]>
+        <style>
+            hr { display:block; height:1px; border:0; border-top:1px solid #fff; margin:1em 0; padding:0; }
+            .grid-4{ width:22% }
+        </style>
+    <![endif]-->
+    <%block name="header"/>
+</head>
+<body>
+${self.body()}
+
+## JS to tell people to just upgrade you old browser already, dammit!
+<script type="text/javascript">
+    var $buoop = {};
+    $buoop.ol = window.onload;
+    window.onload=function(){
+        try {if ($buoop.ol) $buoop.ol();} catch (e) {}
+        var e = document.createElement("script");
+        e.setAttribute("type", "text/javascript");
+        e.setAttribute("src", "//browser-update.org/update.js");
+        document.body.appendChild(e);
+    }
+</script>
 </body>
 </html>
