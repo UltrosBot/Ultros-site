@@ -28,6 +28,10 @@
 
     <script src="/static/js/jquery.flexslider-min.js" type="text/javascript"></script>
     <link rel="stylesheet" href="/static/css/flexslider.css" />
+
+    <script src="/static/js/bind-polyfill.min.js" type="text/javascript"></script>
+    <script src="/static/js/smooth-scroll.min.js" type="text/javascript"></script>
+
 ##    <link rel="stylesheet" href="/static/base.css" />
 
     <script type="text/javascript">
@@ -66,6 +70,22 @@
 <body>
 ${self.body()}
 
+
+## Footer
+
+<div class="wrapper">
+    <div id="footer">
+        <div class="grids">
+            <div class="grid-16 grid text-center">
+                <p>&copy; 2014 Gareth and Sean, based on the template by <a href="http://sg-layout.com" title="SG-Layout Webdesign">SiGa</a> with additional design work from <a href="https://github.com/chall8908">Chris Hall</a></p>
+            </div>
+            <div class="grid-16 grid text-center">
+                <p>By continuing to use this site, you are agreeing to our <a href="/tos">terms of service</a> - so you should probably read them!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
 ## JS to tell people to just upgrade you old browser already, dammit!
 <script type="text/javascript">
     var $buoop = {};
@@ -77,6 +97,11 @@ ${self.body()}
         e.setAttribute("src", "//browser-update.org/update.js");
         document.body.appendChild(e);
     }
+</script>
+
+## Smooth scroll JS
+<script>
+    smoothScroll.init();
 </script>
 </body>
 </html>

@@ -13,6 +13,7 @@ class Routes(object):
         self.manager = manager
 
         route("/", "GET", self.index)
+        route("/tos", "GET", self.tos)
         route("/fanart", "GET", self.fanart)
 
     def index(self):
@@ -30,6 +31,22 @@ class Routes(object):
             online = "???"
 
         return template("templates/index.html", online=online)
+
+    def tos(self):
+        try:
+            db = self.manager.mongo
+            bots = db.get_collection("bots")
+
+            now = datetime.datetime.utcnow()
+            last_online = now - datetime.timedelta(minutes=10)
+
+            online = bots.find({
+                "last_seen": {"$gt": last_online}
+            }).count()
+        except Exception:
+            online = "???"
+
+        return template("templates/tos.html", online=online)
 
     def fanart(self):
         try:
