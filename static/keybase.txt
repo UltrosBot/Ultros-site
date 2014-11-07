@@ -74,61 +74,57 @@ https://keybase.io/rakiru
 
 I hereby claim:
 
-  * I am an admin of http://ultros.io
+  * I am an admin of https://ultros.io
   * I am rakiru (https://keybase.io/rakiru) on keybase.
-  * I have a public key with fingerprint 7B76 080D 095C 2F3B 18D8  15CC 70A8 0004 4392 8C12
+  * I have a public key with fingerprint 215F 3605 C7D4 882C 409C  8B37 10DF 2E09 2DCA E338
 
 To claim this, I am signing this object:
 
 {
     "body": {
         "key": {
-            "fingerprint": "7b76080d095c2f3b18d815cc70a8000443928c12",
+            "fingerprint": "215f3605c7d4882c409c8b3710df2e092dcae338",
             "host": "keybase.io",
-            "key_id": "70A8000443928C12",
+            "key_id": "10df2e092dcae338",
             "uid": "9e2973d69f2531226d35facbcc6b2a00",
             "username": "rakiru"
         },
         "service": {
             "hostname": "ultros.io",
-            "protocol": "http:"
+            "protocol": "https:"
         },
         "type": "web_service_binding",
         "version": 1
     },
-    "ctime": 1395951065,
+    "ctime": 1415387696,
     "expire_in": 157680000,
-    "prev": "e9ff9b80c39d87c98ccaa168c2e4a95ab09b209e5c8b5fb9d1a1ae1834f1ae2d",
-    "seqno": 3,
+    "prev": "c667a02496866199aab8f1a5ee4ea9f0d0b109e38601439a542768fe6aa5d174",
+    "seqno": 14,
     "tag": "signature"
 }
 
 with the aforementioned key, yielding the PGP signature:
 
 -----BEGIN PGP MESSAGE-----
-Version: GnuPG v2.0.22 (MingW32)
+Version: Keybase OpenPGP v1.1.3
+Comment: https://keybase.io/crypto
 
-owGbwMvMwMSoqXJ/VVju7FuMpw+8SWIINmm9Wa2UlJ9SqWRVrZSdCqbSMvPSU4sK
-ijLzSpSslMyTzM0MLAxSDCxNk43SjJMMLVIsDE2Tk80NEi0MDAxMTIwtjSySDY2U
-dJQy8otBOoDGJCUWp+pl5gPFgJz4zBSQOQaOCPXOYPWlYAnLVCNLc+MUM8s0I1Nj
-QyMjsxRj07TE5KTkZLMko0QDA5DC4tSivMTcVKDqosTszKJSpVodJaBYWWZyKsjF
-IIuh8qU5JUX5xRC7C4ryS/KT83OAwhklJQVWIF0llQUgZeWpSfFQA+KTMvNSgF4G
-aihLLSrOzM9TsjIEqkwuyQSZaGhsaWppamhgZqqjlFpRkFmUGp8JUmFqbgbyjwHI
-mtQyoJGplmlplkkWBsnGlikW5smWFsnJiYmGZhbJRqkmiZamiUkGlklGBpappskW
-SaZpSZYphomGiamGFsYmaUDaKEUJ5KXCvHwlK2OgMxPTgUYWZ6bnJZaUFqUq1XYy
-ybAwMDIxsLEygSKNgYtTABaVjxgEGDqZT2y7cWJVZZ9kt6DBtpn68rlv/k5emHL7
-fvHC0hVlDtWtL3U1g7Qs2FginweLaJ+ICMgze7fTQq0lvkvmhlT9vmdFhlc/yauH
-lL7wDGUqm2i6IMlO+tPs3YVdwo5B6TPXpvcUXn2ptsFwzRKZvcWtmmv+var515Hq
-qxwb837J4VpmifZMCe/Jst8bFU/qR7noGtYU1z7f7fbax/7CowWJV5/Ex3Fu+RlR
-XZC/8mL8jxOLk08lq+l8LPsw9aLohTssl89W1hblXb0ko3T8zN+IDxarW2SXcdV6
-TLikp5TTwSqnuLsko3XWeYbmmdfmNr5bfHvqj4WZR5tmOiu/uL3pxsndMWK25/48
-YZtpOyvgX9m+5+vjdp/4vCniMfOU0gRHuWhO4fO6/3sm/LwXy3ycb9GRQ4tqJxXZ
-/+qYXXL6xAFuppVWXvyvvO78nJJgWC45JVE60JrxLsuzVeZLb6wP1eBmuiixmKWN
-Z/uC+1YdvHsklukp1cpprnOKOLhZfl35s8kTduzJuvGitC9GtHO/4jv7x/bxTbu4
-d9/xiJ1TbX7Xp+T0L9+j6al/p/mXTA1bHM4RzfuOYY3v+3cs8/ZY1+3+rbvvhrj1
-SnHxFT+LRUQu/lxxdWd3zI/UHObsf7P3BUlPfLm/9pwfc3K7rfp73VcRnomX+O7I
-9Zj+vHN5fd2Tdx+aXnPlHHywM36WsGizzzqJL9Hyb3JOfQMA
-=6L9O
+yMHlAnicO8LLzMDF6N7afJ8j4K8+4+kD70oZQmKlDKqVkvJTKpWsqpWyU8FUWmZe
+empRQVFmXomSlZKRoWmasZmBabJ5iomFhVGyiYFlskWSsbmhQUqaUaqBpVFKcmKq
+sbGFko5SRn4xSAfQmKTE4lS9zHygGJATn5kCFMWivhQsYZlqZGlunGJmmWZkamxo
+ZGSWYmyalpiclJxslmSUaGAAUlicWpSXmJsKVF2UmJ1ZVKpUq6MEFCvLTE4FuRhk
+MVS+NKekKL8YYndBUX5JfnJ+DlA4o6SkoNgKpK2ksgCkrjw1KR5qQnxSZl4K0M9A
+HWWpRcWZ+XlKVoZAlcklmSAjDU0MTY0tzM0szXSUUisKMotS4zNBKkzNzSwMgABk
+T2oZ0MhkMzPzRAMjE0szCzMzQ0vLxMQkizTDRNPUVJPURMs0gxSDJEMDy1RjCzMD
+QxNjy0RTEyOgEWmpZomJpimG5iZKID8V5uWDrAS6MzEdaGZxZnpeYklpUapS7aED
+MSwMjFwMbKxMoGhj4OIUgEVm22wOhtnft61S6iicvzY/zuUor+G9ki+dm5tyXFdx
+n1x2uuZlc+8zBZm8kqd7rlyKuuiuuSmiXN5b4P2/D2HXp1ssKlv4/QWzzkehK3xR
+N9X+9/Z5Mz44rqfIZKhX18TyMrTpbw6DZ06YtNKpnW7TQhhkJFo3MOjlZks+tVvR
+fKMnzOv/uX0RAR+M53yVO/Lk6C+/Jy+vf6srNO3Q5P3KPDehuGJ9k5zd3Cd/Dsyb
+qiscv7hV++yauW57W45cK1e5l7tE/d3tPRfvO99qT45NzG2cpsh8Qj2nXDltq8SP
+U7rCf3T67R/MvJ9QVz43KMH72N1Y70sVf+qsTMUfxdQEf533uVaGVbUo/+fNyfrp
+DQWPADOSEpY=
+=oX6J
 -----END PGP MESSAGE-----
 
 And finally, I am proving ownership of this host by posting or
