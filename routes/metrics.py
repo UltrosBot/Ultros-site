@@ -637,14 +637,14 @@ class Routes(object):
                     _hash = __system.get("hash", u"Unknown")
 
                     if not (
-                        isinstance(_release, str)
-                            or isinstance(_release, unicode)
+                        isinstance(_release, str) or
+                            isinstance(_release, unicode)
                     ):
                         _release = u"Unknown"
 
                     if not (
-                        isinstance(_hash, str)
-                            or isinstance(_hash, unicode)
+                        isinstance(_hash, str) or
+                            isinstance(_hash, unicode)
                     ):
                         _hash = u"Unknown"
 
