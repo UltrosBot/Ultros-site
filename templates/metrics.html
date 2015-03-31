@@ -475,11 +475,7 @@ Connecting communities, one squid at a time.</%block>
             series: [{
                 type: 'pie',
                 name: 'Total RAM',
-                data: {
-                % for key in sorted(ram):
-                    ${repr(key)}: ${repr(ram[key])}
-                % endfor
-                }
+                data: ${ram}
             }],
             legend: {
                 enabled: false

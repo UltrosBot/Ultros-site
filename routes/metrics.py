@@ -346,8 +346,8 @@ class Routes(object):
         for x in python.items():
             python_values.append(list(x))
 
-        for x in ram.items():
-            ram_values.append(list(x))
+        for key in sorted(ram.keys()):
+            ram_values.append([key, ram[key]])
 
         for x in release.items():
             release_values.append(list(x))
@@ -367,7 +367,7 @@ class Routes(object):
             "cpu": json.dumps(cpu_values),
             "os": json.dumps(os_values),
             "python": json.dumps(python_values),
-            "ram": ram_values,
+            "ram": json.dumps(ram_values),
             "releases": json.dumps(release_values),
             "hashes": json.dumps(hash_values)
         }
