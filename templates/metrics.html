@@ -459,37 +459,49 @@ Connecting communities, one squid at a time.</%block>
                 pointFormat: '{point.x}MB: <b>{point.y} bot/s</b>'
             },
             plotOptions: {
-                column: {
+                pie: {
+                    size: "75%",
                     allowPointSelect: true,
                     cursor: 'pointer',
                     dataLabels: {
-                        enabled: false
-                    },
+                        enabled: true,
+                        format: '<b>{point.name}</b>',
+                        style: {
+                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                        }
+                    }
+                },
+                //column: {
+                //    allowPointSelect: true,
+                //    cursor: 'pointer',
+                //    dataLabels: {
+                //        enabled: false
+                //    },
                     pointWidth: 10
                 }
             },
             series: [{
-                type: 'column',
-                name: 'Bots',
+                type: 'pie',
+                name: 'Total RAM',
                 data: ${ram}
             }],
             legend: {
                 enabled: false
             },
-            xAxis: {
-                allowDecimals: false,
-                title: {
-                    enabled: true,
-                    text: "Total RAM"
-                }
-            },
-            yAxis: {
-                allowDecimals: false,
-                title: {
-                    enabled: true,
-                    text: "Bots"
-                }
-            }
+            //xAxis: {
+            //    allowDecimals: false,
+            //    title: {
+            //        enabled: true,
+            //        text: "Total RAM"
+            //    }
+            //},
+            //yAxis: {
+            //    allowDecimals: false,
+            //    title: {
+            //        enabled: true,
+            //        text: "Bots"
+            //    }
+            //}
         });
     });
 </script>
