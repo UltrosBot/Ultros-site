@@ -337,23 +337,23 @@ class Routes(object):
         release_values = []
         hash_values = []
 
-        for x in cpu.items():
-            cpu_values.append(list(x))
+        for key in sorted(cpu.keys()):
+            cpu_values.append([key, cpu[key]])
 
-        for x in os.items():
-            os_values.append(list(x))
+        for key in sorted(os.keys()):
+            os_values.append([key, os[key]])
 
-        for x in python.items():
-            python_values.append(list(x))
+        for key in sorted(python.keys()):
+            python_values.append([key, python[key]])
 
         for key in sorted(ram.keys()):
             ram_values.append([key, ram[key]])
 
-        for x in release.items():
-            release_values.append(list(x))
+        for key in sorted(release.keys()):
+            release_values.append([key, release[key]])
 
-        for x in hash.items():
-            hash_values.append(list(x))
+        for key in sorted(hash.keys()):
+            hash_values.append([key, hash[key]])
 
         kwargs = {
             "online": online, "recent": recent, "total": total,
