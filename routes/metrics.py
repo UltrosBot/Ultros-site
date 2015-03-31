@@ -367,7 +367,7 @@ class Routes(object):
             "cpu": json.dumps(cpu_values),
             "os": json.dumps(os_values),
             "python": json.dumps(python_values),
-            "ram": json.dumps(ram_values),
+            "ram": ram_values,
             "releases": json.dumps(release_values),
             "hashes": json.dumps(hash_values)
         }
