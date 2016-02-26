@@ -16,7 +16,3 @@ Requirements:
 * requests
 * sqlalchemy
 * werkzeug
-
--------------------
-
-Using [GitTorrent](https://github.com/cjb/GitTorrent)? `git clone gittorrent://b5177a0bf3fdf17caaade5be2db5feb0818e0566/Ultros-site`
