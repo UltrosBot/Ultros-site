@@ -1,6 +1,8 @@
-__author__ = 'Gareth Coles'
+# coding=utf-8
 
 import datetime
+
+__author__ = 'Gareth Coles'
 
 BOT = {
     "uuid": unicode,  # Bot UUID

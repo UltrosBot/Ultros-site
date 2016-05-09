@@ -1,4 +1,4 @@
-__author__ = 'Gareth'
+# coding=utf-8
 
 import logging
 import os
@@ -10,6 +10,8 @@ from bottle import run, default_app, request, hook
 from internal.db import Db
 from internal.schemas import schemas
 from internal.util import log_request, log
+
+__author__ = 'Gareth'
 
 
 class Manager(object):

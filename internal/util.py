@@ -1,7 +1,9 @@
-__author__ = 'Gareth Coles'
+# coding=utf-8
 
 import logging
 import sys
+
+__author__ = 'Gareth Coles'
 
 logging.basicConfig(
     format="%(asctime)s | %(levelname)8s | %(message)s",

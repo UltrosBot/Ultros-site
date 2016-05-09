@@ -1,9 +1,11 @@
-__author__ = 'Gareth Coles'
+# coding=utf-8
 
 import datetime
 
 from bottle import route
 from bottle import mako_template as template
+
+__author__ = 'Gareth Coles'
 
 
 class Routes(object):

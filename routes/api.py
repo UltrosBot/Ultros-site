@@ -1,6 +1,8 @@
-__author__ = 'Gareth Coles'
+# coding=utf-8
 
 from bottle import route
+
+__author__ = 'Gareth Coles'
 
 
 class Routes(object):

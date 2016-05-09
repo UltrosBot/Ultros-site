@@ -1,4 +1,4 @@
-__author__ = 'Gareth Coles'
+# coding=utf-8
 
 import datetime
 import calendar
@@ -7,6 +7,8 @@ import pymongo
 from pymongo.collection import ObjectId
 
 from internal.singleton import Singleton
+
+__author__ = 'Gareth Coles'
 
 
 class Db(object):

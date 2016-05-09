@@ -1,6 +1,6 @@
-import urllib
+# coding=utf-8
 
-__author__ = 'Gareth Coles'
+import urllib
 
 import datetime
 import json
@@ -14,6 +14,8 @@ from kitchen.text.converters import to_unicode
 
 from pymongo.collection import ObjectId
 from pymongo import DESCENDING
+
+__author__ = 'Gareth Coles'
 
 
 class Routes(object):
