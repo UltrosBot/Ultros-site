@@ -86,19 +86,6 @@ ${self.body()}
     </div>
 </div>
 
-## JS to tell people to just upgrade you old browser already, dammit!
-<script type="text/javascript">
-    var $buoop = {};
-    $buoop.ol = window.onload;
-    window.onload=function(){
-        try {if ($buoop.ol) $buoop.ol();} catch (e) {}
-        var e = document.createElement("script");
-        e.setAttribute("type", "text/javascript");
-        e.setAttribute("src", "//browser-update.org/update.js");
-        document.body.appendChild(e);
-    }
-</script>
-
 ## Smooth scroll JS
 <script>
     smoothScroll.init();
