@@ -1,13 +1,18 @@
 # coding=utf-8
 import falcon
 
+from ultros_site.middleware.error_pages import ErrorPageMiddleware
 from ultros_site.route_manager import RouteManager
 
 __author__ = "Gareth Coles"
 
-app = falcon.API()
+manager = RouteManager()
 
-manager = RouteManager(app)
+app = falcon.API(middleware=[
+    ErrorPageMiddleware(manager)
+])
+
+manager.set_app(app)
 manager.load_routes()
 
 if __name__ == "__main__":

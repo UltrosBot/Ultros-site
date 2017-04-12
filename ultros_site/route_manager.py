@@ -23,9 +23,12 @@ else:
 
 
 class RouteManager:
-    def __init__(self, app: falcon.API):
-        self.app = app
+    def __init__(self):
+        self.app = None
         self.template_lookup = TemplateLookup(["./templates/"])
+
+    def set_app(self, app: falcon.API):
+        self.app = app
 
     def get_template(self, uri) -> Template:
         return self.template_lookup.get_template(uri)
