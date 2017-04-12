@@ -1,11 +1,2 @@
-bottle
-beaker
-cherrypy
+falcon
 mako
-pymysql
-rauth
-requests
-sqlalchemy
-werkzeug
-kitchen
-pymongo
