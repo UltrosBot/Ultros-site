@@ -123,6 +123,16 @@
                         <a href="/fanart">Fanart</a>
                     </li>
                 </ul>
+
+                <ul class="is-right">
+                    % if self.attr.tab == "about":
+                    <li class="is-active">
+                    % else:
+                    <li>
+                    % endif
+                        <a href="/about">About</a>
+                    </li>
+                </ul>
             </nav>
         </div>
     </div>

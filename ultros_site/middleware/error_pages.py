@@ -12,9 +12,11 @@ class ErrorPageMiddleware:
             return
 
         if " " in resp.status:
-            status_code = int(resp.status.split(" ", 1)[0])
+            status_code, error_description = resp.status.split(" ", 1)
+            status_code = int(status_code)
         else:
             status_code = int(resp.status)
+            error_description = "Unknown Error"
 
         if status_code < 400:
             return
@@ -38,6 +40,7 @@ class ErrorPageMiddleware:
             resp.content_type, resp.body = self.routes_manager.render_template(
                 "errors/error_generic.html",
                 code=status_code,
+                error_description=error_description,
                 req=req,
                 resp=resp
             )
