@@ -1,10 +1,16 @@
 # coding=utf-8
 import falcon
+import logging
 
 from ultros_site.middleware.error_pages import ErrorPageMiddleware
 from ultros_site.route_manager import RouteManager
 
 __author__ = "Gareth Coles"
+
+logging.basicConfig(
+    format="%(asctime)s | %(levelname)-8s | [%(name)s] %(message)s",
+    level=logging.INFO
+)
 
 manager = RouteManager()
 
@@ -17,7 +23,6 @@ manager.load_routes()
 
 if __name__ == "__main__":
     import waitress
-    import logging
 
     logger = logging.getLogger('waitress')
     logger.setLevel(logging.DEBUG)

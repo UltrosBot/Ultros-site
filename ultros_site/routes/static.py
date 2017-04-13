@@ -27,9 +27,9 @@ class StaticRoute(BaseSink):
 
         content_type = guess_type(file_path)[0]
 
-        resp.content_type = content_type
+        if content_type:
+            resp.content_type = content_type
 
-        with open(file_path, "rb") as fh:
-            resp.data = fh.read()
+        resp.stream = open(file_path, "rb")
 
         resp.status = falcon.HTTP_200
