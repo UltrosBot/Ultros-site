@@ -38,7 +38,7 @@ class RouteManager:
     def render_template(self, uri, *args, **kwargs):
         template = self.get_template(uri)
 
-        kwargs["bots"] = "N/A"
+        kwargs["bots"] = 0  # TODO, obviously
 
         return (
             guess_type(uri)[0],
