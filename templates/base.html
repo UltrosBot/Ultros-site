@@ -1,48 +1,149 @@
 <%page args="title='Ultros'"/>
 
+<%!
+    tab = "error"
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <title><%block name="title"/></title>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
 
     <!-- some meta tags, important for SEO-->
-    <meta name="description" content="<%block name="description" />" />
-    <meta name="keywords" content="<%block name="keywords" />" />
-    <meta name="revisit-after" content="7 days" />
-    <meta name="robots" content="index,follow" />
+    <meta name="description" content="<%block name="description" />"/>
+    <meta name="keywords" content="<%block name="keywords" />"/>
+    <meta name="revisit-after" content="7 days"/>
+    <meta name="robots" content="index,follow"/>
 
-    <meta name="google-site-verification" content="eDl1dh8UxU5FuKyiMJ1YJ0HR2mf6Xdx9xtRzMcIaBk0" />
+    <meta name="google-site-verification"
+          content="eDl1dh8UxU5FuKyiMJ1YJ0HR2mf6Xdx9xtRzMcIaBk0"/>
 
-    <link rel="shortcut icon" href="/static/images/ultros.png" />
-    <link rel="apple-touch-icon-precomposed" href="/static/images/ultros.png" />
+    <link rel="shortcut icon" href="/static/images/ultros.png"/>
+    <link rel="apple-touch-icon-precomposed" href="/static/images/ultros.png"/>
 
-    <link rel="stylesheet" href="/static/css/bulma.css" />
+    <link rel="stylesheet" href="/static/css/bulma.css"/>
     <link rel="stylesheet" href="/static/css/font-awesome.min.css">
 
     <%block name="header"/>
 
 </head>
 <body>
-${self.body()}
+<section class="hero is-primary">
+    <div class="hero-head">
+        <div class="container">
+            <nav class="nav">
+                <div class="nav-left" style="min-width: 150px;">
+                    <a class="nav-item" href="/metrics">
+                        Bots online: ${bots}
+                    </a>
+                </div>
+                <div class="nav-center">
+                    <a class="nav-item"
+                       href="http://github.com/UltrosBot" title="GitHub">
+                        <span class="icon">
+                            <i class="fa fa-github"></i>
+                        </span>
+                    </a>
+                    <a class="nav-item" href="http://docs.ultros.io"
+                       title="Documentation">
+                        <span class="icon">
+                            <i class="fa fa-book"></i>
+                        </span>
+                    </a>
+                    <a class="nav-item"
+                       href="https://bamboo.gserv.me/browse/ULTROS"
+                       title="Continuous Integration">
+                        <span class="icon">
+                            <i class="fa fa-retweet"></i>
+                        </span>
+                    </a>
+                    <a class="nav-item"
+                       href="http://webchat.esper.net/?nick=&channels=Ultros"
+                       title="Webchat">
+                        <span class="icon">
+                            <i class="fa fa-comment"></i>
+                        </span>
+                    </a>
+                </div>
+                <div class="nav-right">
+                    <span class="nav-item">
+                        <a class="button is-light is-outlined" href="https://github.com/UltrosBot/Ultros">
+                            <span class="icon">
+                                <i class="fa fa-code-fork"></i>
+                            </span>
+                            <span>Source Code</span>
+                        </a>
+                    </span>
+                </div>
+            </nav>
+        </div>
+    </div>
+    % if self.attr.tab == "index":
+    <div class="hero-body">
+        <div class="container is-centered">
+            <img class="image" src="/static/images/logos/rakiru-400-200.png"
+                 style="margin: auto;"/>
+            <h1 class="title is-centered" style="text-align: center">Connecting
+                communities, one squid at a time.</h1>
+        </div>
+    </div>
+    % endif
+    <div class="hero-foot">
+        <div class="container">
+            <nav class="tabs is-boxed">
+                <ul>
+                    ## Index tab
+
+                    % if self.attr.tab == "index":
+                    <li class="is-active">
+                    % else:
+                    <li>
+                    % endif
+                        <a href="/">Home</a>
+                    </li>
+
+                    ## Metrics tab
+                    % if self.attr.tab == "metrics":
+                    <li class="is-active">
+                    % else:
+                    <li>
+                    % endif
+                        <a href="/metrics">Metrics</a>
+                    </li>
+
+                    ## Fanart tab
+                    % if self.attr.tab == "fanart":
+                    <li class="is-active">
+                    % else:
+                    <li>
+                    % endif
+                        <a href="/fanart">Fanart</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+    ${self.body()}
 
 
-## Footer
+    ## Footer
 
-<div class="wrapper">
-    <div id="footer">
-        <div class="grids">
-            <div class="grid-16 grid text-center">
-                <p>&copy; 2014-2017 Gareth and Sean</p>
-            </div>
-            <div class="grid-16 grid text-center">
-                <p>This site uses <a href="http://bulma.io/">Bulma</a> by Jeremy Thomas and <a href="http://fontawesome.io">Font Awesome</a> by Dave Gandy.</p>
-            </div>
-            <div class="grid-16 grid text-center">
-                <p>By continuing to use this site, you are agreeing to our <a href="/tos">terms of service</a> - so you should probably read them!</p>
+<footer class="footer">
+    <div class="container">
+        <div class="content has-text-centered">
+            <div>
+                <i class="fa fa-copyright"></i> 2014-2017 Gareth and Sean <br/> <br/>
+                This site uses <a href="http://bulma.io/">Bulma</a> by Jeremy
+                Thomas and <a href="http://fontawesome.io">Font Awesome</a>
+                by Dave Gandy. <br />
+                By continuing to use this site, you are agreeing to our
+                <a href="/tos">terms of service</a> - so you should
+                probably read them!
             </div>
         </div>
     </div>
-</div>
+</footer>
 </body>
 </html>
