@@ -1,4 +1,4 @@
 falcon
 mako
-SQLAlchemy
+SQLAlchemy==1.1.9
 psycopg2
