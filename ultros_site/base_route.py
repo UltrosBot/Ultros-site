@@ -7,7 +7,7 @@ class BaseRoute:
     route = "/"
 
     def __init__(self, mangaer):
-        self.manager = mangaer
+        self.manager = manager
 
     def get_args(self) -> tuple:
         return (

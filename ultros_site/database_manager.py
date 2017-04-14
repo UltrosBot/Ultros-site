@@ -3,7 +3,7 @@ import logging
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from yaml import load
+import ruamel.yaml as yaml
 
 __author__ = "Gareth Coles"
 log = logging.getLogger("Database")
@@ -14,7 +14,8 @@ class DatabaseManager:
         self.engine = None
         self.make_session = None
 
-        self.config = load(open("config.yml", "r"))
+        with open("config.yml", "r") as fh:
+            self.config = yaml.load(fh)
 
     def create_engine(self):
         log.info("Creating database engine...")
