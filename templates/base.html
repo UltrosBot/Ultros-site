@@ -10,10 +10,20 @@
     <title><%block name="title"/></title>
     <meta charset="UTF-8"/>
 
+    <!-- Open Graph stuff -->
+    <meta property="og:title" content="<%block name="title"/>" />
+    <meta property="og:type" content="website" />
+    <meta property="og:description" content="<%block name="description" />" />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:site_name" content="Ultros" />
+    <meta property="og:image" content="https://ultros.io/static/images/logos/rakiru.png" />
+
     <!-- some meta tags, important for SEO-->
     <meta name="description" content="<%block name="description" />"/>
-    <meta name="keywords" content="<%block name="keywords" />"/>
-    <meta name="revisit-after" content="7 days"/>
+    <meta name="keywords"
+          content="python python3 python3k asyncio bot irc ircbot mumble mumblebot ultros squid octopus squidoctopus plugin plugins modular protocol extensible"
+    />
+    <meta name="revisit-after" content="1 day"/>
     <meta name="robots" content="index,follow"/>
 
     <meta name="google-site-verification"

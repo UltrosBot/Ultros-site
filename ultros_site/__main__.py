@@ -5,6 +5,7 @@ import logging
 from ultros_site.middleware.error_pages import ErrorPageMiddleware
 from ultros_site.route_manager import RouteManager
 
+
 __author__ = "Gareth Coles"
 
 logging.basicConfig(
