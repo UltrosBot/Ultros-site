@@ -91,7 +91,7 @@
             </nav>
         </div>
     </div>
-    % if self.attr.tab == "index":
+    % if self.attr.tab == "home":
     <div class="hero-body">
         <div class="container is-centered">
             <img class="image" src="/static/images/logos/rakiru-400-200.png"
@@ -141,6 +141,13 @@
                     <li>
                     % endif
                         <a href="/about">About</a>
+                    </li>
+                    % if self.attr.tab == "tos":
+                    <li class="is-active">
+                    % else:
+                    <li>
+                    % endif
+                        <a href="/tos">Terms of Service</a>
                     </li>
                 </ul>
             </nav>
