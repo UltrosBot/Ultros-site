@@ -1,2 +1,4 @@
 falcon
 mako
+SQLAlchemy
+psycopg2
