@@ -15,7 +15,7 @@ class DatabaseManager:
         self.make_session = None
 
         with open("config.yml", "r") as fh:
-            self.config = yaml.load(fh)
+            self.config = yaml.safe_load(fh)
 
     def create_engine(self):
         log.info("Creating database engine...")
