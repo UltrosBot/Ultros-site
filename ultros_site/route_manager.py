@@ -14,6 +14,8 @@ from mimetypes import guess_type
 from ultros_site.base_route import BaseRoute
 from ultros_site.base_sink import BaseSink
 
+from ultros_site.database_manager import DatabaseManager
+
 __author__ = "Gareth Coles"
 CURRENT_DIR = os.path.dirname(__file__)
 log = logging.getLogger("Routes")
@@ -28,6 +30,9 @@ class RouteManager:
     def __init__(self):
         self.app = None
         self.template_lookup = TemplateLookup(["./templates/"])
+
+        self.database = DatabaseManager()
+        self.database.create_engine()
 
     def set_app(self, app: falcon.API):
         self.app = app

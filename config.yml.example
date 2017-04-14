@@ -1,0 +1,5 @@
+# A standard SQLAlchemy connection URL. Please note, we only support Postgre.
+# postgresql://username:password@host:port/Database
+database_url: "postgresql://ultros:hunter2@localhost/Ultros"
+
+debug: false

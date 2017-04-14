@@ -6,8 +6,8 @@ __author__ = "Gareth Coles"
 class BaseRoute:
     route = "/"
 
-    def __init__(self, route_mangaer):
-        self.route_manager = route_mangaer
+    def __init__(self, mangaer):
+        self.manager = mangaer
 
     def get_args(self) -> tuple:
         return (
