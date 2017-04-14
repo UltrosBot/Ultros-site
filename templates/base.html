@@ -7,13 +7,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title><%block name="title"/></title>
+    <title><%block name="title" /></title>
     <meta charset="UTF-8"/>
 
     <!-- Open Graph stuff -->
-    <meta property="og:title" content="<%block name="title"/>" />
+    <meta property="og:title" content="<%block name="og_title" />" />
     <meta property="og:type" content="website" />
-    <meta property="og:description" content="<%block name="description" />" />
+    <meta property="og:description" content="<%block name="og_description" />" />
     <meta property="og:locale" content="en_GB" />
     <meta property="og:site_name" content="Ultros" />
     <meta property="og:image" content="https://ultros.io/static/images/logos/rakiru.png" />
@@ -107,7 +107,7 @@
                 <ul>
                     ## Index tab
 
-                    % if self.attr.tab == "index":
+                    % if self.attr.tab == "home":
                     <li class="is-active">
                     % else:
                     <li>
