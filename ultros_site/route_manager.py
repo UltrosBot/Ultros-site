@@ -84,14 +84,14 @@ class RouteManager:
                             if name.startswith("__") and name.endswith("__"):
                                 continue
 
-                            if BaseRoute in clazz.__mro__:
+                            if issubclass(clazz, BaseRoute):
                                 log.info("-> Loading route class: %s", name)
 
                                 route = clazz(self)
                                 args = route.get_args()
 
                                 self.app.add_route(*args)
-                            elif BaseSink in clazz.__mro__:
+                            elif issubclass(clazz, BaseSink):
                                 log.info("-> Loading sink class:  %s", name)
 
                                 route = clazz(self)
