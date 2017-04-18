@@ -1,0 +1,89 @@
+<%inherit file="base.html"/>
+
+## Current tab for navigation
+<%!
+    tab = "login"
+%>
+
+## SEO Stuff
+<%block name="title">Ultros | Home</%block>
+<%block name="description">Connecting communities, one squid at a time.</%block>
+
+<%block name="og_title">Home</%block>
+<%block name="og_description">Connecting communities, one squid at a time</%block>
+
+<section class="section">
+    <div class="container">
+        % if error:
+        <article class="message is-danger" style="margin-left: 20%; margin-right: 20%;">
+            <div class="message-header">
+                <p>Login failed</p>
+            </div>
+            <div class="message-body">
+                <p>${error}</p>
+            </div>
+        </article>
+        % endif
+        <div class="card" style="margin-left: 20%; margin-right: 20%;">
+            <form action="/login" method="post">
+                <div class="card-content">
+                    <div class="field">
+                        <p class="control has-icon">
+                            <input class="input" type="text" placeholder="Username" name="username" required>
+                            <span class="icon is-left">
+                                <i class="fa fa-user"></i>
+                            </span>
+                        </p>
+                    </div>
+                    <div class="field">
+                        <p class="control has-icon">
+                            <input class="input" type="password" placeholder="Password" name="password" required>
+                            <span class="icon is-left">
+                                <i class="fa fa-lock"></i>
+                            </span>
+                        </p>
+                    </div>
+
+                    <div class="field is-hidden-mobile">
+                        <p class="control">
+                            <input type="submit" value="Login" class="button is-primary is-centered" style="width: 50%; margin: auto; display: block">
+                        </p>
+
+                        <hr />
+
+                        <a href="/login/register" class="button" style="width: 50%">
+                            <span>
+                                Register
+                            </span>
+                        </a>
+
+                        <a href="/login/forgot" class="button pull-right" style="width: 45%">
+                            <span>
+                                Forgot Password
+                            </span>
+                        </a>
+                    </div>
+                    <div class="field is-hidden-tablet is-hidden-desktop">
+                        <p class="control">
+                            <input class="button is-primary is-fullwidth" value="Login" type="submit">
+                        </p>
+
+                        <hr />
+
+                        <a href="/login/register" class="button is-fullwidth">
+                            <span>
+                                Register
+                            </span>
+                        </a> <br/>
+
+                        <a href="/login/forgot" class="button is-fullwidth">
+                            <span>
+                                Forgot Password
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

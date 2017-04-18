@@ -50,42 +50,51 @@
                         %endif
                     </a>
                 </div>
-                <div class="nav-center">
-                    <a class="nav-item"
-                       href="http://github.com/UltrosBot" title="GitHub">
-                        <span class="icon">
-                            <i class="fa fa-github"></i>
-                        </span>
-                    </a>
-                    <a class="nav-item" href="http://docs.ultros.io"
-                       title="Documentation">
-                        <span class="icon">
-                            <i class="fa fa-book"></i>
-                        </span>
-                    </a>
-                    <a class="nav-item"
-                       href="https://bamboo.gserv.me/browse/ULTROS"
-                       title="Continuous Integration">
-                        <span class="icon">
-                            <i class="fa fa-retweet"></i>
-                        </span>
-                    </a>
-                    <a class="nav-item"
-                       href="http://webchat.esper.net/?nick=&channels=Ultros"
-                       title="Webchat">
-                        <span class="icon">
-                            <i class="fa fa-comment"></i>
-                        </span>
-                    </a>
-                </div>
+##                 <div class="nav-center">
+##                     <a class="nav-item"
+##                        href="http://github.com/UltrosBot" title="GitHub">
+##                         <span class="icon">
+##                             <i class="fa fa-github"></i>
+##                         </span>
+##                     </a>
+##                     <a class="nav-item" href="http://docs.ultros.io"
+##                        title="Documentation">
+##                         <span class="icon">
+##                             <i class="fa fa-book"></i>
+##                         </span>
+##                     </a>
+##                     <a class="nav-item"
+##                        href="https://bamboo.gserv.me/browse/ULTROS"
+##                        title="Continuous Integration">
+##                         <span class="icon">
+##                             <i class="fa fa-retweet"></i>
+##                         </span>
+##                     </a>
+##                     <a class="nav-item"
+##                        href="http://webchat.esper.net/?nick=&channels=Ultros"
+##                        title="Webchat">
+##                         <span class="icon">
+##                             <i class="fa fa-comment"></i>
+##                         </span>
+##                     </a>
+##                 </div>
                 <div class="nav-right">
                     <span class="nav-item">
-                        <a class="button is-light is-outlined" href="https://github.com/UltrosBot/Ultros">
+                        % if self.attr.tab == "login":
+                        <a class="button is-light" href="/login">
                             <span class="icon">
-                                <i class="fa fa-code-fork"></i>
+                                <i class="fa fa-user-o"></i>
                             </span>
-                            <span>Source Code</span>
+                            <span>Login / Register</span>
                         </a>
+                        % else:
+                        <a class="button is-light is-outlined" href="/login">
+                            <span class="icon">
+                                <i class="fa fa-user-o"></i>
+                            </span>
+                            <span>Login / Register</span>
+                        </a>
+                        % endif
                     </span>
                 </div>
             </nav>

@@ -17,14 +17,13 @@ logging.basicConfig(
 
 manager = RouteManager()
 
-middleware = [
-    ErrorPageMiddleware(manager)
-]
+middleware = [ErrorPageMiddleware(manager)]
 
 if "--debug" in sys.argv:
     middleware.append(OutputRequestsMiddleware())
 
 app = falcon.API(middleware=middleware)
+app.req_options.auto_parse_form_urlencoded = True
 
 manager.set_app(app)
 manager.load_routes()
