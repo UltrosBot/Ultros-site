@@ -70,7 +70,7 @@ class RouteManager:
             if module_name.endswith("__init__"):
                 continue
 
-            log.info("Loading module: {}".format(module_name))
+            log.info("Loading module: %s", module_name)
 
             try:
                 module_obj = importlib.import_module(module_name)
@@ -85,21 +85,21 @@ class RouteManager:
                                 continue
 
                             if BaseRoute in clazz.__mro__:
-                                log.info("-> Loading route class: {}".format(name))
+                                log.info("-> Loading route class: %s", name)
 
                                 route = clazz(self)
                                 args = route.get_args()
 
                                 self.app.add_route(*args)
                             elif BaseSink in clazz.__mro__:
-                                log.info("-> Loading sink class:  {}".format(name))
+                                log.info("-> Loading sink class:  %s", name)
 
                                 route = clazz(self)
                                 args = route.get_args()
 
                                 self.app.add_sink(*args)
                     except Exception as e:
-                        log.info("   -> Failed to load: {}".format(e))
+                        log.info("   -> Failed to load: %s", e)
             except Exception as e:
-                log.info("Failed to load routes: {}".format(e))
+                log.info("Failed to load routes: %s", e)
             log.info("")

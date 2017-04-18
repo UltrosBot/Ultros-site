@@ -17,13 +17,11 @@ class OutputRequestsMiddleware:
                 status_code = int(resp.status)
         except Exception as e:
             log.warning(
-                "Unable to parse status code from `{}`: {}".format(
-                    resp.status, e
-                )
+                "Unable to parse status code from `%s`: %s",
+                resp.status, e
             )
         else:
             log.info(
-                "{:<3} | {} {}".format(
-                    status_code, req.method, req.relative_uri
-                )
+                "%s-3 | %s %s",
+                status_code, req.method, req.relative_uri
             )
