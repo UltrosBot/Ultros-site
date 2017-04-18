@@ -22,6 +22,6 @@ class OutputRequestsMiddleware:
             )
         else:
             log.info(
-                "%s-3 | %s %s",
+                "%-3s | %s %s",
                 status_code, req.method, req.relative_uri
             )
