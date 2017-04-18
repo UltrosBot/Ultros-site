@@ -44,53 +44,58 @@
         <div class="container">
             <nav class="nav">
                 <div class="nav-left" style="min-width: 150px;">
-                    <a class="nav-item" href="/metrics">
-                        %if bots > 0:
-                        Bots online: ${bots}
-                        %endif
-                    </a>
+                    %if bots > 0:
+                        <span class="nav-item">
+                        % if self.attr.tab == "metrics":
+                            <a class="button is-light" href="/metrics">
+                                <span class="icon">
+                                    <i class="fa fa-pie-chart"></i>
+                                </span>
+                                <span>Bots online: ${bots}</span>
+                            </a>
+                        % else:
+                            <a class="button is-light is-outlined" href="/metrics">
+                                <span class="icon">
+                                    <i class="fa fa-pie-chart"></i>
+                                </span>
+                                <span>Bots online: ${bots}</span>
+                            </a>
+                        % endif
+                        </span>
+                    % else:
+                        <span class="nav-item">
+                    % if self.attr.tab == "metrics":
+                        <a class="button is-light" href="/metrics">
+                            <span class="icon">
+                                <i class="fa fa-pie-chart"></i>
+                            </span>
+                            <span>Metrics</span>
+                        </a>
+                    % else:
+                        <a class="button is-light is-outlined" href="/metrics">
+                            <span class="icon">
+                                <i class="fa fa-pie-chart"></i>
+                            </span>
+                            <span>Metrics</span>
+                        </a>
+                    % endif
+                    </span>
+                    %endif
                 </div>
-##                 <div class="nav-center">
-##                     <a class="nav-item"
-##                        href="http://github.com/UltrosBot" title="GitHub">
-##                         <span class="icon">
-##                             <i class="fa fa-github"></i>
-##                         </span>
-##                     </a>
-##                     <a class="nav-item" href="http://docs.ultros.io"
-##                        title="Documentation">
-##                         <span class="icon">
-##                             <i class="fa fa-book"></i>
-##                         </span>
-##                     </a>
-##                     <a class="nav-item"
-##                        href="https://bamboo.gserv.me/browse/ULTROS"
-##                        title="Continuous Integration">
-##                         <span class="icon">
-##                             <i class="fa fa-retweet"></i>
-##                         </span>
-##                     </a>
-##                     <a class="nav-item"
-##                        href="http://webchat.esper.net/?nick=&channels=Ultros"
-##                        title="Webchat">
-##                         <span class="icon">
-##                             <i class="fa fa-comment"></i>
-##                         </span>
-##                     </a>
-##                 </div>
+
                 <div class="nav-right">
                     <span class="nav-item">
                         % if self.attr.tab == "login":
                         <a class="button is-light" href="/login">
                             <span class="icon">
-                                <i class="fa fa-user-o"></i>
+                                <i class="fa fa-user"></i>
                             </span>
                             <span>Login / Register</span>
                         </a>
                         % else:
                         <a class="button is-light is-outlined" href="/login">
                             <span class="icon">
-                                <i class="fa fa-user-o"></i>
+                                <i class="fa fa-user"></i>
                             </span>
                             <span>Login / Register</span>
                         </a>
@@ -125,21 +130,21 @@
                     </li>
 
                     ## Metrics tab
-                    % if self.attr.tab == "metrics":
+                    % if self.attr.tab == "news":
                     <li class="is-active">
                     % else:
                     <li>
                     % endif
-                        <a href="/metrics">Metrics</a>
+                        <a href="/news">News</a>
                     </li>
 
                     ## Fanart tab
-                    % if self.attr.tab == "fanart":
+                    % if self.attr.tab == "plugins":
                     <li class="is-active">
                     % else:
                     <li>
                     % endif
-                        <a href="/fanart">Fanart</a>
+                        <a href="/plugins">Plugins</a>
                     </li>
                 </ul>
 
