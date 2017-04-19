@@ -32,6 +32,7 @@ class RouteManager:
         self.template_lookup = TemplateLookup(["./templates/"])
 
         self.database = DatabaseManager()
+        self.database.load_schema()
         self.database.create_engine()
 
     def set_app(self, app: falcon.API):
