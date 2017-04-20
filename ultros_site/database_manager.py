@@ -6,6 +6,8 @@ import os
 
 import ruamel.yaml as yaml
 
+from contextlib import contextmanager
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
@@ -38,11 +40,35 @@ class DatabaseManager:
             self.make_session = sessionmaker(self.engine)
             DeclarativeBase.metadata.create_all(self.engine)
         except Exception as e:
-            log.critical("Unable to set up database - {}".format(e))
+            log.critical("Unable to set up database - %s", e)
             exit(1)
 
     def create_session(self):
         return self.make_session()
+
+    @contextmanager
+    def session(self):
+        """
+        >>> with database_manager.session() as s:
+        ...     user = User(...)
+        ...     s.add(user)
+        ...
+        
+        If there's an unhandled exception, the session will be rolled back for 
+        you.
+        """
+
+        session = self.create_session()
+
+        try:
+            yield session
+            session.commit()
+        except Exception as e:
+            session.rollback()
+            log.warning("Error detected in session context manager: %s", e)
+            raise
+        finally:
+            session.close()
 
     def load_schema(self):
         log.info("Loading schema...")
