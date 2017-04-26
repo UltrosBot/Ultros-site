@@ -34,6 +34,9 @@
 
     <link rel="stylesheet" href="/static/css/bulma.css"/>
     <link rel="stylesheet" href="/static/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/css/custom.css">
+
+    <script src="/static/js/handlebars-v4.0.5.js"></script>
 
     <%block name="header"/>
 
@@ -44,6 +47,12 @@
         <div class="container">
             <nav class="nav">
                 <div class="nav-left" style="min-width: 150px;">
+                    <span class="nav-item">
+                        Ultros - Insert Logo Here
+                    </span>
+                </div>
+
+                <div class="nav-right">
                     %if bots > 0:
                         <span class="nav-item">
                         % if self.attr.tab == "metrics":
@@ -64,26 +73,23 @@
                         </span>
                     % else:
                         <span class="nav-item">
-                    % if self.attr.tab == "metrics":
+                        % if self.attr.tab == "metrics":
                         <a class="button is-light" href="/metrics">
                             <span class="icon">
                                 <i class="fa fa-pie-chart"></i>
                             </span>
                             <span>Metrics</span>
                         </a>
-                    % else:
+                        % else:
                         <a class="button is-light is-outlined" href="/metrics">
                             <span class="icon">
                                 <i class="fa fa-pie-chart"></i>
                             </span>
                             <span>Metrics</span>
                         </a>
-                    % endif
+                        % endif
                     </span>
                     %endif
-                </div>
-
-                <div class="nav-right">
                     <span class="nav-item">
                         % if self.attr.tab == "login":
                         <a class="button is-light" href="/login">
@@ -106,14 +112,14 @@
         </div>
     </div>
     % if self.attr.tab == "home":
-    <div class="hero-body">
-        <div class="container is-centered">
-            <img class="image" src="/static/images/logos/rakiru-400-200.png"
-                 style="margin: auto;"/>
-            <h1 class="title is-centered" style="text-align: center">Connecting
-                communities, one squid at a time.</h1>
-        </div>
-    </div>
+##     <div class="hero-body">
+##         <div class="container is-centered">
+##             <img class="image" src="/static/images/logos/rakiru-400-200.png"
+##                  style="margin: auto;"/>
+##             <h1 class="title is-centered" style="text-align: center">Connecting
+##                 communities, one squid at a time.</h1>
+##         </div>
+##     </div>
     % endif
     <div class="hero-foot">
         <div class="container">

@@ -91,3 +91,212 @@
         </div>
     </div>
 </section>
+
+<section class="hero is-dark">
+    <div class="hero-body">
+        <h1 class="title has-text-centered">
+            Need support?
+        </h1>
+        <div class="container is-centered has-text-centered">
+            <p>
+                If you'd like to contact us directly (or just hang out), please feel free to
+                join us on IRC at <strong>#Ultros</strong> on <strong>irc.esper.net</strong>
+                (or click the webchat button above).
+            </p>
+
+            <p>
+                Bugs and other issues may also be reported
+                <a href="https://github.com/UltrosBot/Ultros" style="text-decoration: underline">
+                    on GitHub.
+                </a>
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="columns">
+            <div class="column is-three-quarters-desktop is-three-quarters-tablet is-full-mobile">
+                <h1 class="title">News</h1>
+##                 <h2 class="subtitle">Latest posts from the team</h2>
+                <article class="message is-primary">
+                    <div class="message-header">
+                        <p>Resolving SSL problems</p>
+                        <p class="pull-right">26th April 2017 | gdude2002</p>
+                    </div>
+                    <div class="message-body">
+                        <p>
+                            If you've been having problems submitting metrics recently, please note that we seem to have
+                            resolved the issue for now. The problem related to <strong>CloudFlare's Flexible
+                            SSL</strong>
+                            feature, and we've decided to disable CloudFlare for the time being.
+                        </p>
+                        <br/>
+
+                        <p>
+                            We're unsure what the problem is exactly, but hosting our own SSL seems to have fixed the
+                            problem for now. We'll be keeping an eye out for more information on this. Additionally,
+                            some of
+                            you may have noticed that development is slow lately. While we do have plenty of new things
+                            planned for Ultros, real life must take priority, and all of the contributors are busy in
+                            respect to that. However, we haven't abandoned the project, and do make commits from time to
+                            time, so please keep an eye on the GitHub repository.
+                        </p>
+                        <br/>
+
+                        <p>
+                            Please note that we <strong>highly recommend</strong> using virtualenv and the included
+                            daemonizing scripts in
+                            the <code>bin/</code> directory.
+                        </p>
+                    </div>
+                </article>
+            </div>
+            <div class="column is-one-quarter-desktop is-one-quarter-tablet is-full-mobile">
+                <h1 class="title"><a href="https://github.com/UltrosBot/Ultros3K/commits/master">Commits</a></h1>
+                <div id="commits-column">
+                    <div class="notification is-primary">
+                        Feel free to browse the full list of commits <a href="https://github.com/UltrosBot/Ultros3K/commits/master">on GitHub</a>.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script id="commit-template" type="text/x-handlebars/template">
+    <div class="notification is-primary">
+        <article class="media">
+            <figure class="media-left">
+                <a href="{{profile_url}}">
+                    <p class="image is-64x64">
+                        <img src="{{avatar_url}}" title="{{profile_username}}"/>
+                    </p>
+                </a>
+            </figure>
+            <div class="media-content">
+                <div class="content">
+                    <div style="border-bottom: solid #aaa 2px; padding-bottom: 3px; margin-bottom: 3px;">
+                        {{commit_message}}
+                    </div>
+                    <a class="link-hover" style="text-decoration: none" href="{{commit_url}}">
+                        {{commit_date}}
+
+                        <span class="icon pull-right">
+                        <i class="fa fa-github"></i>
+                    </span>
+                    </a>
+                </div>
+            </div>
+        </article>
+    </div>
+</script>
+
+<script id="commit-error-template" type="text/x-handlebars/template">
+    <div class="notification is-danger">
+        <div class="content">
+            Unfortunately, we were unable to load the list of commits.
+            Feel free to browse the full list of commits
+            <a href="https://github.com/UltrosBot/Ultros3K/commits/master">on GitHub</a>
+            instead.
+        </div>
+    </div>
+</script>
+
+<script type="application/javascript">
+    const months = [
+        "January", "February", "March",
+        "April", "May", "June", "July",
+        "August", "September", "October",
+        "November", "December"
+    ];
+
+    function getJSON(url, callback) {
+        let xhr = new XMLHttpRequest();
+        xhr.open("GET", url, true);
+        xhr.responseType = "json";
+        xhr.onload = function () {
+            let status = xhr.status;
+            if (status === 200) {
+                callback(null, xhr.response);
+            } else {
+                callback(status)
+            }
+        };
+
+        xhr.send();
+    }
+
+    function formatDate(date_string) {
+        let date = new Date(Date.parse(date_string));
+
+        console.log(date);
+
+        let day = date.getDate();
+        let monthIndex = date.getMonth();
+        let year = date.getFullYear();
+
+        let dateEnding = day % 10;
+        let dateSuffix = "";
+
+        switch (dateEnding) {
+            case 1:
+                if (day !== 11) {
+                    dateSuffix = "st";
+                } else {
+                    dateSuffix = "th";
+                }
+                break;
+            case 2:
+                dateSuffix = "nd";
+                break;
+            case 3:
+                dateSuffix = "rd";
+                break;
+            default:
+                dateSuffix = "th";
+                break;
+        }
+
+        return "" + day + dateSuffix + " " + months[monthIndex] + " " + year;
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        // Get GitHub commits
+
+        let source   = document.getElementById("commit-template").textContent;
+        let template = Handlebars.compile(source);
+
+        let error_source   = document.getElementById("commit-error-template").textContent;
+        let error_template = Handlebars.compile(error_source);
+
+        getJSON("https://api.github.com/repos/UltrosBot/Ultros/commits",
+            function(err, data){
+                let content = "";
+
+                if (err) {
+                    content += error_template();
+                    console.error(err);
+                } else {
+                    for (let commit of data) {
+                        console.log(commit);
+
+                        content += template({
+                            "profile_url": commit.author.html_url,
+                            "avatar_url": commit.author.avatar_url,
+                            "profile_username": commit.author.login,
+                            "commit_url": commit.html_url,
+                            "commit_message": commit.commit.message.split("\n")[0],
+                            "commit_date": formatDate(commit.commit.author.date)
+                        });
+                    }
+                }
+
+                content += "<br />";
+                document.getElementById("commits-column").innerHTML = content
+
+            }
+        );
+    });
+</script>
