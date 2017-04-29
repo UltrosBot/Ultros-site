@@ -1,3 +1,12 @@
 .link-hover:hover {
     color: #ddd !important;
 }
+
+.is-fanart {
+    padding: 0 !important;
+}
+
+.is-hidden-fanart {
+    border: 0 !important;
+    box-shadow: none !important;
+}
