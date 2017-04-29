@@ -300,9 +300,7 @@
 
                         for (let word of words) {
                             if (word.match(tag_regex)) {
-                                commit_message = (
-                                    tags.push(word)
-                                );
+                                tags.push(word)
                             } else {
                                 commit_message = (
                                     commit_message + " " + word + " "
