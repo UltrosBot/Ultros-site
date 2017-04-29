@@ -183,7 +183,7 @@
             <div class="media-content">
                 <div class="content">
                     <div style="border-bottom: solid #aaa 2px; padding-bottom: 3px; margin-bottom: 3px;">
-                        {{commit_message}}
+                        {{{tags}}} {{commit_message}}
                     </div>
                     <a class="link-hover" style="text-decoration: none" href="{{commit_url}}">
                         {{commit_date}}
@@ -279,6 +279,11 @@
         getJSON("https://api.github.com/repos/UltrosBot/Ultros/commits",
             function(err, data){
                 let content = "";
+                let commit_message = "";
+                let tags_string = "";
+                let words = [];
+                let tags = [];
+                let tag_regex = /\[[^\s]+]/i;
 
                 if (err) {
                     content += error_template();
@@ -287,12 +292,37 @@
                     for (let commit of data) {
                         console.log(commit);
 
+                        commit_message = commit.commit.message.split("\n")[0];
+                        words = commit_message.split(" ");
+                        tags = [];
+                        commit_message = "";
+                        tags_string = "";
+
+                        for (let word of words) {
+                            if (word.match(tag_regex)) {
+                                commit_message = (
+                                    tags.push(word)
+                                );
+                            } else {
+                                commit_message = (
+                                    commit_message + " " + word + " "
+                                );
+                            }
+                        }
+
+                        for (let tag of tags) {
+                            tags_string = (
+                                tags_string + "<span class=\"tag is-dark\">" + tag.substr(1, tag.length - 2) + "</span> "
+                            )
+                        }
+
                         content += template({
                             "profile_url": commit.author.html_url,
                             "avatar_url": commit.author.avatar_url,
                             "profile_username": commit.author.login,
                             "commit_url": commit.html_url,
-                            "commit_message": commit.commit.message.split("\n")[0],
+                            "tags": tags_string,
+                            "commit_message": commit_message,
                             "commit_date": formatDate(commit.commit.author.date)
                         });
                     }
