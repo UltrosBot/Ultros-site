@@ -276,7 +276,7 @@
         let error_source   = document.getElementById("commit-error-template").textContent;
         let error_template = Handlebars.compile(error_source);
 
-        getJSON("https://api.github.com/repos/UltrosBot/Ultros/commits",
+        getJSON("https://api.github.com/repos/UltrosBot/Ultros3k/commits",
             function(err, data){
                 let content = "";
                 let commit_message = "";
