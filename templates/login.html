@@ -26,6 +26,7 @@
         % endif
         <div class="card" style="margin-left: 20%; margin-right: 20%;">
             <form action="/login" method="post">
+                <input type="hidden" name="_csrf" value="${csrf}" />
                 <div class="card-content">
                     <div class="field">
                         <p class="control has-icon">
