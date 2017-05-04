@@ -3,8 +3,10 @@ import falcon
 import logging
 import sys
 
+from ultros_site.middleware.database import DatabaseMiddleware
 from ultros_site.middleware.error_pages import ErrorPageMiddleware
 from ultros_site.middleware.output_requests import OutputRequestsMiddleware
+from ultros_site.middleware.session import SessionMiddleware
 from ultros_site.route_manager import RouteManager
 
 
@@ -17,7 +19,11 @@ logging.basicConfig(
 
 manager = RouteManager()
 
-middleware = [ErrorPageMiddleware(manager)]
+middleware = [
+    DatabaseMiddleware(manager.database),
+    SessionMiddleware(),
+    ErrorPageMiddleware(manager),
+]
 
 if "--debug" in sys.argv:
     middleware.append(OutputRequestsMiddleware())

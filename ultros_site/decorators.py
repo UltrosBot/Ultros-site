@@ -1,7 +1,7 @@
 # coding=utf-8
-from falcon import HTTPBadRequest
+import secrets
 
-from ultros_site.tools import make_token
+from falcon import HTTPBadRequest
 
 __author__ = "Gareth Coles"
 
@@ -37,7 +37,7 @@ def check_csrf(func):
 
 def add_csrf(func):
     def inner(self, req, resp, *args, **kwargs):
-        token = make_token()
+        token = secrets.token_urlsafe(32)
 
         resp.set_cookie("_csrf", token, secure=False)
         resp.csrf = token
