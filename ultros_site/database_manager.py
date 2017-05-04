@@ -38,7 +38,6 @@ class DatabaseManager:
         try:
             self.engine = create_engine(url, echo=self.config.get("debug", False))
             self.make_session = sessionmaker(self.engine)
-            DeclarativeBase.metadata.create_all(self.engine)
         except Exception as e:
             log.critical("Unable to set up database - %s", e)
             exit(1)
