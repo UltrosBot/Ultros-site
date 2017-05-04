@@ -4,3 +4,6 @@ SQLAlchemy==1.1.9
 psycopg2
 ruamel.yaml
 alembic
+pyotp
+pillow
+qrcode
