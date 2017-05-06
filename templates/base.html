@@ -174,10 +174,25 @@
         </div>
     </div>
 </section>
-    ${self.body()}
 
+% if message:
+<section class="section" style="padding-bottom: 0;">
+    <div class="container">
+        <article class="message is-${message.css_class}" style="margin-left: 20%; margin-right: 20%;">
+            <div class="message-header">
+                <p>${message.header}</p>
+            </div>
+            <div class="message-body">
+                <p>${message.body}</p>
+            </div>
+        </article>
+    </div>
+</section>
+% endif
 
-    ## Footer
+${self.body()}
+
+## Footer
 
 <footer class="footer">
     <div class="container">

@@ -45,6 +45,7 @@ class RouteManager:
         template = self.get_template(uri)
 
         kwargs["bots"] = 0  # TODO, obviously
+        kwargs["message"] = kwargs.get("message")  # Will be None if not present
 
         return (
             guess_type(uri)[0],

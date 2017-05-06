@@ -7,3 +7,4 @@ alembic
 pyotp
 pillow
 qrcode
+bcrypt

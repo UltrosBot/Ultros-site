@@ -12,7 +12,7 @@ class Session(DeclarativeBase):
 
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey("user.id"))
-    user = relationship("User", back_populates="children")
+    user = relationship("User", back_populates="sessions")
     token = Column(String(length=32), unique=True)
     expires = Column(DateTime)
     awaiting_mfa = Column(Boolean)

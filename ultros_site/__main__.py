@@ -14,7 +14,7 @@ __author__ = "Gareth Coles"
 
 logging.basicConfig(
     format="%(asctime)s | %(levelname)-8s | %(name)-10s | %(message)s",
-    level=logging.INFO
+    level=logging.DEBUG if "--debug" in sys.argv else logging.INFO
 )
 
 manager = RouteManager()

@@ -3,3 +3,18 @@
 database_url: "postgresql://ultros:hunter2@localhost/ultros"
 
 debug: false
+
+email:
+    # If set to False, user accounts will not require email verification
+    # You probably want to be using this in production
+    use: True
+
+    # SMTP details for sending email
+    host: localhost
+    port: 25
+
+    user: "a@b.c"
+    password: "hunter2"
+
+    # May be False, True, or "starttls"
+    ssl: False

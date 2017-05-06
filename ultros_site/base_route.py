@@ -18,3 +18,11 @@ class BaseRoute:
             self.route,
             self
         )
+
+    def render_template(self, resp, template, **kwargs):
+        content_type, body = self.manager.render_template(
+            template, **kwargs
+        )
+
+        resp.content_type = content_type
+        resp.body = body

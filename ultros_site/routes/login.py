@@ -1,6 +1,14 @@
 # coding=utf-8
+import base64
+import hashlib
+
+import bcrypt
+from sqlalchemy.orm.exc import NoResultFound
+
 from ultros_site.base_route import BaseRoute
+from ultros_site.database.schema.user import User
 from ultros_site.decorators import check_csrf, add_csrf
+from ultros_site.message import Message
 
 __author__ = "Gareth Coles"
 
@@ -20,13 +28,42 @@ class LoginRoute(BaseRoute):
     @check_csrf
     @add_csrf
     def on_post(self, req, resp):
-        # print(req.content_type)
-        # print(req.get_param("username"))
-        # print(req.get_param("password"))
+        params = {}
 
-        content_type, body = self.manager.render_template(
-            "login.html", error="The login system is currently not implemented.", csrf=resp.csrf
-        )
+        if not req.get_param("username", store=params) or not req.get_param("password", store=params):
+            return self.render_template(
+                resp, "login.html",
+                message=Message("danger", "Login failed", "Please enter both a username and password."),
+                csrf=resp.csrf
+            )
 
-        resp.content_type = content_type
-        resp.body = body
+        params["password"] = base64.b64encode(hashlib.sha256(params["password"].encode("utf-8")).digest())
+
+        db_session = req.context["db_session"]
+
+        try:
+            user = db_session.query(User).filter_by(username=params["username"]).one()
+        except NoResultFound:
+            return self.render_template(
+                resp, "login.html",
+                message=Message("danger", "Login failed", "Incorrect username or password - please try again."),
+                csrf=resp.csrf
+            )
+        else:
+            if not bcrypt.checkpw(params["password"], user.password):
+                return self.render_template(
+                    resp, "login.html",
+                    message=Message("danger", "Login failed", "Incorrect username or password - please try again."),
+                    csrf=resp.csrf
+                )
+            if not user.email_verified:
+                return self.render_template(
+                    resp, "login.html",
+                    message=Message(
+                        "danger",
+                        "Login failed",
+                        "This user account has not been verified - please check your email for more information, or "
+                        "contact one of the developers for help."
+                    ),
+                    csrf=resp.csrf
+                )
