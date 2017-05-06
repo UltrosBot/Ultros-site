@@ -29,7 +29,7 @@ else:
 class RouteManager:
     def __init__(self):
         self.app = None
-        self.template_lookup = TemplateLookup(["./templates/"])
+        self.template_lookup = TemplateLookup(["./templates/site/"])
 
         self.database = DatabaseManager()
         self.database.load_schema()
