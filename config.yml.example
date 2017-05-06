@@ -16,5 +16,7 @@ email:
     user: "a@b.c"
     password: "hunter2"
 
+    from: "a@b.c"
+
     # May be False, True, or "starttls"
     ssl: False
