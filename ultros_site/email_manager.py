@@ -1,14 +1,19 @@
 # coding=utf-8
+import logging
 import smtplib
+
+import premailer
 
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 from mako.lookup import TemplateLookup
 from mako.template import Template
+
 from ruamel import yaml
 
 __author__ = "Gareth Coles"
+log = logging.getLogger("Emails")
 
 
 class EmailManager:
@@ -19,25 +24,35 @@ class EmailManager:
         ssl = self.config["ssl"]
 
         if ssl is True:
+            log.info("SMTP connection will use SSL")
+
             self._connection = self._connection_ssl
         elif ssl is False:
+            log.warning("SMTP connection will not be encrypted")
+
             self._connection = self._connection_plain
         elif str(ssl).lower() == "starttls":
+            log.info("SMTP connection will use StartTLS")
+
             self._connection = self._connection_starttls
         else:
             raise RuntimeError(
                 "Unknown SSL mode '{}' - must be True, False or 'startssl'.".format(ssl)
             )
 
-        self.template_lookup = TemplateLookup(["./templates/email/"])
+        log.info("Sending email as {}".format(self.config["from"]))
+        self.template_lookup = TemplateLookup(directories=["./templates/email/", "./static/css/"])
 
     def send_email(self, template, recipient, subject, **kwargs):
+        log.debug("Sending '{}' email to '{}'".format(template, recipient))
         plain_template = self.render_template(
             "plain/{}.txt".format(template), **kwargs
         )
 
-        html_template = self.render_template(
-            "html/{}.html".format(template), **kwargs
+        html_template = self.transform_html(
+            self.render_template(
+                "html/{}.html".format(template), **kwargs
+            )
         )
 
         message = MIMEMultipart("alternative")
@@ -52,6 +67,15 @@ class EmailManager:
         connection = self.get_connection()
         connection.sendmail(self.config["from"], recipient, message.as_string())
         connection.quit()
+        log.debug("'{}' email to '{}' sent".format(template, recipient))
+
+    def transform_html(self, html):
+        p = premailer.Premailer(
+            html=html,
+            base_url="https://ultros.io/"
+        )
+
+        return p.transform(pretty_print=False)
 
     def get_connection(self):
         connection = self._connection()
