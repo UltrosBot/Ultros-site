@@ -75,7 +75,7 @@ class LoginRoute(BaseRoute):
             expires = datetime.datetime.now() + datetime.timedelta(days=30)
 
             session = Session(user=user, token=token, expires=expires, awaiting_mfa=False)  # TODO: MFA
-            db_session.save(session)
+            db_session.add(session)
 
             req.set_cookie("token", token, expires=expires)
             req.context["user"] = user
