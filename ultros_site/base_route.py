@@ -19,7 +19,8 @@ class BaseRoute:
             self
         )
 
-    def render_template(self, resp, template, **kwargs):
+    def render_template(self, req, resp, template, **kwargs):
+        kwargs["_context"] = req.context
         content_type, body = self.manager.render_template(
             template, **kwargs
         )

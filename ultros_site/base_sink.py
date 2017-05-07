@@ -18,3 +18,12 @@ class BaseSink:
             self,
             self.route
         )
+
+    def render_template(self, req, resp, template, **kwargs):
+        kwargs["_context"] = req.context
+        content_type, body = self.manager.render_template(
+            template, **kwargs
+        )
+
+        resp.content_type = content_type
+        resp.body = body
