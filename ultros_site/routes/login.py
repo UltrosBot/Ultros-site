@@ -21,12 +21,10 @@ class LoginRoute(BaseRoute):
 
     @add_csrf
     def on_get(self, req, resp):
-        content_type, body = self.manager.render_template(
+        self.render_template(
+            req, resp,
             "login.html", error=None, csrf=resp.csrf
         )
-
-        resp.content_type = content_type
-        resp.body = body
 
     @check_csrf
     @add_csrf

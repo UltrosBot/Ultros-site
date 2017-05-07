@@ -12,7 +12,7 @@ class EmailCode(DeclarativeBase):
 
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey("user.id"), unique=True)
-    user = relationship("User", back_populates="parent")
+    user = relationship("User", back_populates="email_code")
 
     code = Column(String, unique=True)
 
