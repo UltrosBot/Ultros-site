@@ -18,6 +18,8 @@ class User(DeclarativeBase):
     email = Column(String)
     email_verified = Column(Boolean, default=False)
 
+    mfa_token = Column(String(length=16), nullable=True)
+
     sessions = relationship("Session", back_populates="user")
     email_code = relationship("EmailCode", back_populates="user", uselist=False)
 
