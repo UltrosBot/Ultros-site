@@ -16,8 +16,7 @@ class SessionMiddleware:
             log.debug("Ignoring static file request")
             return
 
-        req.context["user_id"] = None
-        req.context["username"] = None
+        req.context["user"] = None
 
         cookies = req.cookies
 

@@ -8,7 +8,7 @@ class AboutRoute(BaseRoute):
     route = "/about"
 
     def on_get(self, req, resp):
-        content_type, body = self.manager.render_template("about.html")
+        content_type, body = self.render_template(req, resp, "about.html")
 
         resp.content_type = content_type
         resp.body = body

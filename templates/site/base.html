@@ -91,20 +91,38 @@
                     </span>
                     %endif
                     <span class="nav-item">
-                        % if self.attr.tab == "login":
+                        % if _context["user"] is None:
+                            % if self.attr.tab == "login":
                         <a class="button is-light" href="/login">
                             <span class="icon">
                                 <i class="fa fa-user"></i>
                             </span>
                             <span>Login / Register</span>
                         </a>
-                        % else:
+                            % else:
                         <a class="button is-light is-outlined" href="/login">
                             <span class="icon">
                                 <i class="fa fa-user"></i>
                             </span>
                             <span>Login / Register</span>
                         </a>
+                            % endif
+                        % else:
+                            % if self.attr.tab == "login":
+                        <a class="button is-light" href="/logout">
+                            <span class="icon">
+                                <i class="fa fa-unlock"></i>
+                            </span>
+                            <span>${_context["user"].username}</span>
+                        </a>
+                            % else:
+                        <a class="button is-light is-outlined" href="/logout">
+                            <span class="icon">
+                                <i class="fa fa-unlock"></i>
+                            </span>
+                            <span>${_context["user"].username}</span>
+                        </a>
+                            % endif
                         % endif
                     </span>
                 </div>

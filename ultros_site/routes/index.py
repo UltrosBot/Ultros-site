@@ -8,7 +8,7 @@ class IndexRoute(BaseRoute):
     route = "/"
 
     def on_get(self, req, resp):
-        content_type, body = self.manager.render_template("index.html")
+        content_type, body = self.render_template(req, resp, "index.html")
 
         resp.content_type = content_type
         resp.body = body
