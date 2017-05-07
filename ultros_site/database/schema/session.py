@@ -18,6 +18,7 @@ class Session(DeclarativeBase):
     awaiting_mfa = Column(Boolean)
 
     def __repr__(self):
-        return "<Session(id={}, user={}, expires={})>".format(
+        return "<{}(id={}, user={}, expires={})>".format(
+            self.__class__.__name__,
             self.id, self.user.username, self.expires
         )

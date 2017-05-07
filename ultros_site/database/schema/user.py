@@ -22,6 +22,7 @@ class User(DeclarativeBase):
     email_code = relationship("EmailCode", back_populates="user", uselist=False)
 
     def __repr__(self):
-        return "<User(id={}, username={}, email={}, verified={}, sessions={})>".format(
+        return "<{}(id={}, username={}, email={}, verified={}, sessions={})>".format(
+            self.__class__.__name__,
             self.id, self.username, self.email, self.email_verified, len(self.sessions)
         )

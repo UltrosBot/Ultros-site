@@ -17,6 +17,7 @@ class EmailCode(DeclarativeBase):
     code = Column(String, unique=True)
 
     def __repr__(self):
-        return "<EmailCode(user={})>".format(
+        return "<{}(user={})>".format(
+            self.__class__.__name__,
             self.user.username
         )
