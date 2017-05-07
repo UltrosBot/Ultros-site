@@ -14,9 +14,9 @@ class EmailCode(DeclarativeBase):
     user_id = Column(Integer, ForeignKey("user.id"), unique=True)
     user = relationship("User", back_populates="parent")
 
-    code = Column(String)
+    code = Column(String, unique=True)
 
     def __repr__(self):
-        return "<Session(id={}, user={}, expires={})>".format(
-            self.id, self.user.username, self.expires
+        return "<EmailCode(user={})>".format(
+            self.user.username
         )
