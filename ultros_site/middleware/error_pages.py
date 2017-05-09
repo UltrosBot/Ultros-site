@@ -24,6 +24,7 @@ class ErrorPageMiddleware:
         try:
             resp.content_type, resp.body = self.routes_manager.render_template(
                 "errors/error_{}.html".format(status_code),
+                _context=req.context,
                 code=status_code,
                 req=req,
                 resp=resp
@@ -39,6 +40,7 @@ class ErrorPageMiddleware:
         try:
             resp.content_type, resp.body = self.routes_manager.render_template(
                 "errors/error_generic.html",
+                _context=req.context,
                 code=status_code,
                 error_description=error_description,
                 req=req,

@@ -43,15 +43,15 @@ class EmailManager:
         log.info("Sending email as {}".format(self.config["from"]))
         self.template_lookup = TemplateLookup(directories=["./templates/email/", "./static/css/"])
 
-    def send_email(self, template, recipient, subject, **kwargs):
+    def send_email(self, template, recipient, subject, *args, **kwargs):
         log.debug("Sending '{}' email to '{}'".format(template, recipient))
         plain_template = self.render_template(
-            "plain/{}.txt".format(template), **kwargs
+            "plain/{}.txt".format(template), *args, **kwargs
         )
 
         html_template = self.transform_html(
             self.render_template(
-                "html/{}.html".format(template), **kwargs
+                "html/{}.html".format(template), *args, **kwargs
             )
         )
 
