@@ -7,8 +7,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title><%block name="title" /></title>
     <meta charset="UTF-8"/>
+    <title><%block name="title" /></title>
+
+    <meta name="description" content="<%block name="description" />"/>
+    <meta name="revisit-after" content="1 day"/>
+    <meta name="robots" content="index,follow"/>
+
+    <meta name="google-site-verification"
+          content="eDl1dh8UxU5FuKyiMJ1YJ0HR2mf6Xdx9xtRzMcIaBk0"/>
 
     <!-- Open Graph stuff -->
     <meta property="og:title" content="<%block name="og_title" />" />
@@ -17,14 +24,6 @@
     <meta property="og:locale" content="en_GB" />
     <meta property="og:site_name" content="Ultros" />
     <meta property="og:image" content="https://ultros.io/static/images/logos/rakiru.png" />
-
-    <!-- some meta tags, important for SEO-->
-    <meta name="description" content="<%block name="description" />"/>
-    <meta name="revisit-after" content="1 day"/>
-    <meta name="robots" content="index,follow"/>
-
-    <meta name="google-site-verification"
-          content="eDl1dh8UxU5FuKyiMJ1YJ0HR2mf6Xdx9xtRzMcIaBk0"/>
 
     <link rel="shortcut icon" href="/static/images/ultros.png"/>
     <link rel="apple-touch-icon-precomposed" href="/static/images/ultros.png"/>
