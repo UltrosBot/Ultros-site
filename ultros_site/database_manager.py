@@ -52,8 +52,8 @@ class DatabaseManager:
         ...     user = User(...)
         ...     s.add(user)
         ...
-        
-        If there's an unhandled exception, the session will be rolled back for 
+
+        If there's an unhandled exception, the session will be rolled back for
         you.
         """
 
