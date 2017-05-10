@@ -51,7 +51,6 @@ class LoginRoute(BaseRoute):
                 csrf=resp.csrf
             )
         else:
-            print("Real PW: ", user.password)
             if not bcrypt.checkpw(params["password"], user.password.encode("UTF-8")):
                 return self.render_template(
                     req, resp, "login.html",

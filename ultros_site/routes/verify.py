@@ -15,19 +15,22 @@ class VerifyRoute(BaseSink):
 
     def __call__(self, req, resp, key):
         db_session = req.context["db_session"]
+        resp.append_header("Refresh", "5;url=/")
 
         try:
             code = db_session.query(EmailCode).filter_by(code=key).one()
         except NoResultFound:
             return self.render_template(
-                req, resp, "index.html",
-                message=Message("danger", "Unable to verify", "Your account has expired or already been verified"),
+                req, resp, "message_gate.html",
+                gate_message=Message("danger", "Unable to verify", "Your account has expired or already been verified"),
+                redirect_uri="/"
             )
         else:
             code.user.email_verified = True
             db_session.delete(code)
 
             return self.render_template(
-                req, resp, "index.html",
-                message=Message("info", "Email verified", "You account has been verified - you may now log in."),
+                req, resp, "message_gate.html",
+                gate_message=Message("info", "Email verified", "You account has been verified - you may now log in."),
+                redirect_uri="/"
             )
