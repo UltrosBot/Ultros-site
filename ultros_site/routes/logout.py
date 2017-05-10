@@ -25,7 +25,7 @@ class LoginRoute(BaseRoute):
         if not req.context["user"]:
             return self.render_template(
                 req, resp, "message_gate.html",
-                gate_message=Message("danger", "You are not logged in", "Redirecting..."),
+                gate_message=Message("danger", "Error", "You are not logged in"),
                 redirect_uri="/"
             )
 
@@ -37,7 +37,7 @@ class LoginRoute(BaseRoute):
         except NoResultFound:
             return self.render_template(
                 req, resp, "message_gate.html",
-                gate_message=Message("danger", "You are not logged in", "Redirecting..."),
+                gate_message=Message("danger", "Error", "You are not logged in"),
                 redirect_uri="/"
             )
         else:
@@ -46,6 +46,6 @@ class LoginRoute(BaseRoute):
 
             return self.render_template(
                 req, resp, "message_gate.html",
-                gate_message=Message("info", "Logged out", "You have been logged out. Redirecting..."),
+                gate_message=Message("info", "Logged out", "You have been logged out."),
                 redirect_uri="/"
             )

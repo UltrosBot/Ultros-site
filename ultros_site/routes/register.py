@@ -126,11 +126,12 @@ class RegisterRoute(BaseRoute):
             verify_url="https://ultros.io/login/verify/{}".format(key)
         )
 
+        resp.append_header("Refresh", "10;url=/")
+
         return self.render_template(
-            req, resp, "index.html",
-            message=Message(
-                "info", "Account created",
-                "Your account has been created - check your email for an activation link. "
-                "Please note that unverified accounts expire after 24 hours and are removed."
+            req, resp, "message_gate.html",
+            gate_message=Message(
+                "info", "Registered", "Your account has been registered - please check your email to verify it!"
             ),
+            redirect_uri="/"
         )

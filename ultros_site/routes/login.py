@@ -83,6 +83,6 @@ class LoginRoute(BaseRoute):
 
             return self.render_template(
                 req, resp, "message_gate.html",
-                gate_message=Message("info", "Logged in", "You have been logged in successfully. Redirecting..."),
+                gate_message=Message("info", "Logged in", "You have been logged in successfully."),
                 redirect_uri="/"
             )
