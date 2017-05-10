@@ -62,7 +62,7 @@ class RouteManager:
         for filename in os.listdir(ROUTES_DIR):
             path = ROUTES_DIR + filename
 
-            if path.startswith(".") or path.startswith("__"):
+            if path.endswith(".") or path.endswith("__"):
                 continue
 
             if not path.endswith(".py") and not os.path.isdir(path):
