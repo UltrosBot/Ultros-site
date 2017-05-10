@@ -6,7 +6,7 @@
 %>
 
 
-<section class="hero is-dark">
+<section class="hero is-black">
     <div class="hero-foot">
         <div class="container">
             <nav class="tabs is-boxed">
@@ -19,20 +19,20 @@
                         <a href="/admin">Home</a>
                     </li>
 
-                    % if self.attr.tab == "admin_users":
-                    <li class="is-active">
-                    % else:
-                    <li>
-                    % endif
-                        <a href="/admin/users">Users</a>
-                    </li>
-
                     % if self.attr.tab == "admin_news":
                     <li class="is-active">
                     % else:
                     <li>
                     % endif
                         <a href="/admin/news">News</a>
+                    </li>
+
+                    % if self.attr.tab == "admin_users":
+                    <li class="is-active">
+                    % else:
+                    <li>
+                    % endif
+                        <a href="/admin/users">Users</a>
                     </li>
                 </ul>
             </nav>

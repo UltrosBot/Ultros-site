@@ -23,3 +23,11 @@
 .tabs ul li a {
     border-radius: 0 !important;
 }
+
+.icon.is-danger {
+    color: #ff3860;
+}
+
+.icon.is-success {
+    color: #23d160;
+}
