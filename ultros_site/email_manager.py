@@ -1,6 +1,7 @@
 # coding=utf-8
 import logging
 import smtplib
+import re
 
 import premailer
 
@@ -14,6 +15,8 @@ from ruamel import yaml
 
 __author__ = "Gareth Coles"
 log = logging.getLogger("Emails")
+
+EMAIL_REGEX = re.compile(r".*@[^@]+\.[^@]+", re.IGNORECASE)
 
 
 class EmailManager:
@@ -42,6 +45,13 @@ class EmailManager:
 
         log.info("Sending email as {}".format(self.config["from"]))
         self.template_lookup = TemplateLookup(directories=["./templates/email/", "./static/css/"])
+
+    @property
+    def enabled(self):
+        return self.config["use"]
+
+    def is_valid(self, email):
+        return bool(EMAIL_REGEX.match(email))
 
     def send_email(self, template, recipient, subject, *args, **kwargs):
         log.debug("Sending '{}' email to '{}'".format(template, recipient))
@@ -123,7 +133,3 @@ class EmailManager:
 
     def render_template(self, uri, *args, **kwargs):
         return self.get_template(uri).render(*args, **kwargs)
-
-    @property
-    def enabled(self):
-        return self.config["use"]

@@ -10,3 +10,12 @@
     border: 0 !important;
     box-shadow: none !important;
 }
+
+.g-recaptcha {
+    margin-top: 1.5rem !important;
+    margin-bottom: 2rem !important;
+}
+
+.g-recaptcha div{
+    margin: auto;
+}

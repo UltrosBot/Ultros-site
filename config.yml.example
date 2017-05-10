@@ -1,6 +1,13 @@
-# A standard SQLAlchemy connection URL. Please note, we only support Postgre.
+# A standard SQLAlchemy connection URL. Please note, we only support Postgres.
 # postgresql://username:password@host:port/Database
 database_url: "postgresql://ultros:hunter2@localhost/ultros"
+
+# A user account created with this username will be given admin access automatically, so remember to change this
+# option
+admin_username: admin
+
+# ReCaptcha Secret from https://google.com/recaptcha
+recaptcha_secret: ""
 
 debug: false
 

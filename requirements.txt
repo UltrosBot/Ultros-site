@@ -11,3 +11,4 @@ bcrypt
 lxml
 premailer
 python-mimeparse
+requests

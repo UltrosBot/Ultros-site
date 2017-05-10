@@ -1,0 +1,86 @@
+<%inherit file="base.html"/>
+
+## Current tab for navigation
+<%!
+    tab = "login"
+%>
+
+## SEO Stuff
+<%block name="title">Ultros | Register</%block>
+<%block name="description">Register an account</%block>
+
+<%block name="og_title">Register</%block>
+<%block name="og_description">Register an account</%block>
+
+<%block name="header">
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+    <script type="text/javascript">
+        function onSubmitRecaptcha(token) {
+            let buttons = document.getElementsByClassName("submit-button");
+            for (let i = 0; i < buttons.length; i += 1) {
+                buttons[i].disabled = false;
+            }
+        }
+    </script>
+</%block>
+
+<section class="section">
+    <div class="container">
+        <div class="card" style="margin-left: 20%; margin-right: 20%;">
+            <form action="/login/register" method="post" id="register-form">
+                <input type="hidden" name="_csrf" value="${csrf}" />
+                <div class="card-content">
+                    <div class="field">
+                        <p class="control has-icon">
+                            <input class="input" type="text" placeholder="Username" name="username" required>
+                            <span class="icon is-left">
+                                <i class="fa fa-user"></i>
+                            </span>
+                        </p>
+                    </div>
+                    <div class="field">
+                        <p class="control has-icon">
+                            <input class="input" type="text" placeholder="Email" name="email" required>
+                            <span class="icon is-left">
+                                @
+                            </span>
+                        </p>
+                    </div>
+
+                    <br />
+                    <div class="field">
+                        <p class="control has-icon">
+                            <input class="input" type="password" placeholder="Password" name="password" required>
+                            <span class="icon is-left">
+                                <i class="fa fa-lock"></i>
+                            </span>
+                        </p>
+                    </div>
+                    <div class="field">
+                        <p class="control has-icon">
+                            <input class="input" type="password" placeholder="Confirm Password" name="confirm_password" required>
+                            <span class="icon is-left">
+                                <i class="fa fa-lock"></i>
+                            </span>
+                        </p>
+                    </div>
+
+                    <div class="g-recaptcha" style="margin: auto;" data-sitekey="6LcwxyAUAAAAAF2CB87NKFJfcA8mXcoXFfYNCqXG"
+                        data-callback="onSubmitRecaptcha">
+                    </div>
+
+                    <div class="field is-hidden-mobile">
+                        <p class="control">
+                            <input type="submit" value="Register" class="button is-primary is-centered submit-button" disabled style="width: 50%; margin: auto; display: block">
+                        </p>
+                    </div>
+                    <div class="field is-hidden-tablet is-hidden-desktop">
+                        <p class="control">
+                            <input class="button is-primary is-fullwidth submit-button" disabled value="Register" type="submit">
+                        </p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

@@ -42,3 +42,6 @@ class SessionMiddleware:
                 log.debug("Extending session")
                 session_obj.expires = now + datetime.timedelta(days=30)
                 req.context["user"] = session_obj.user
+                age = datetime.timedelta(days=30).seconds
+
+                resp.set_cookie("token", token, max_age=age, secure=False)

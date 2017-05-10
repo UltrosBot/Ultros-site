@@ -51,7 +51,8 @@ class LoginRoute(BaseRoute):
                 csrf=resp.csrf
             )
         else:
-            if not bcrypt.checkpw(params["password"], user.password):
+            print("Real PW: ", user.password)
+            if not bcrypt.checkpw(params["password"], user.password.encode("UTF-8")):
                 return self.render_template(
                     req, resp, "login.html",
                     message=Message("danger", "Login failed", "Incorrect username or password - please try again."),
@@ -69,16 +70,19 @@ class LoginRoute(BaseRoute):
                     csrf=resp.csrf
                 )
             # Login is OK!
-            token = secrets.token_urlsafe(32)
+            token = secrets.token_urlsafe(24)
             expires = datetime.datetime.now() + datetime.timedelta(days=30)
+            age = (expires - datetime.datetime.now()).seconds
 
             session = Session(user=user, token=token, expires=expires, awaiting_mfa=False)  # TODO: MFA
             db_session.add(session)
 
-            req.set_cookie("token", token, expires=expires)
+            resp.set_cookie("token", token, max_age=age, secure=False)
             req.context["user"] = user
+            resp.append_header("Refresh", "5;url=/")
 
             return self.render_template(
-                req, resp, "index.html",
-                message=Message("info", "Logged in", "You have been logged in successfully."),
+                req, resp, "message_gate.html",
+                gate_message=Message("info", "Logged in", "You have been logged in successfully. Redirecting..."),
+                redirect_uri="/"
             )

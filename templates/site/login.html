@@ -14,16 +14,6 @@
 
 <section class="section">
     <div class="container">
-        % if error:
-        <article class="message is-danger" style="margin-left: 20%; margin-right: 20%;">
-            <div class="message-header">
-                <p>Login failed</p>
-            </div>
-            <div class="message-body">
-                <p>${error}</p>
-            </div>
-        </article>
-        % endif
         <div class="card" style="margin-left: 20%; margin-right: 20%;">
             <form action="/login" method="post">
                 <input type="hidden" name="_csrf" value="${csrf}" />

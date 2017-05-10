@@ -14,14 +14,15 @@ class User(DeclarativeBase):
     username = Column(String, unique=True)
     password = Column(String)
     created = Column(DateTime)
+    admin = Column(Boolean)
 
-    email = Column(String)
+    email = Column(String, unique=True)
     email_verified = Column(Boolean, default=False)
 
     mfa_token = Column(String(length=16), nullable=True)
 
-    sessions = relationship("Session", back_populates="user")
-    email_code = relationship("EmailCode", back_populates="user", uselist=False)
+    sessions = relationship("Session", back_populates="user", cascade="all, delete, delete-orphan")
+    email_code = relationship("EmailCode", back_populates="user", uselist=False, cascade="all, delete, delete-orphan")
 
     def __repr__(self):
         return "<{}(id={}, username={}, email={}, verified={}, sessions={})>".format(
