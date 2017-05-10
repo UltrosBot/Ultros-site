@@ -35,6 +35,7 @@ class LoginRoute(BaseRoute):
         else:
             db_session.delete(session)
             resp.unset_cookie("token")
+            req.context["user"] = None
 
             return self.render_template(
                 req, resp, "message_gate.html",
