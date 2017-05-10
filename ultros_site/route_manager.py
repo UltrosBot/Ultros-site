@@ -62,17 +62,17 @@ class RouteManager:
         for filename in os.listdir(ROUTES_DIR):
             path = ROUTES_DIR + filename
 
-            if not os.path.isfile(path):
+            if path.startswith(".") or path.startswith("__"):
                 continue
 
-            if not path.endswith(".py"):
+            if not path.endswith(".py") and not os.path.isdir(path):
                 continue
 
             module_name = "ultros_site.routes.{}".format(
                 os.path.basename(path).split(".py", 1)[0]
             )
 
-            if module_name.endswith("__init__"):
+            if module_name.endswith("__"):
                 continue
 
             log.info("Loading module: %s", module_name)

@@ -19,3 +19,7 @@
 .g-recaptcha div{
     margin: auto;
 }
+
+.tabs ul li a {
+    border-radius: 0 !important;
+}

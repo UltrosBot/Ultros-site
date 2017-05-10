@@ -49,7 +49,7 @@
                 </div>
 
                 <div class="nav-right">
-                    %if bots > 0:
+                    % if bots > 0:
                         <span class="nav-item">
                         % if self.attr.tab == "metrics":
                             <a class="button is-light" href="/metrics">
@@ -124,6 +124,7 @@
                 </div>
             </nav>
         </div>
+        <%block name="hero_head_end"/>
     </div>
 ##     % if self.attr.tab == "home":
 ##     <div class="hero-body">
@@ -183,9 +184,25 @@
                     % endif
                         <a href="/tos">Terms of Service</a>
                     </li>
+                    % if _context["user"] is not None:
+                        % if _context["user"].admin:
+                            % if self.attr.tab.startswith("admin"):
+                                <li class="is-active">
+                            % else:
+                                <li>
+                            % endif
+                                    <a href="/admin" title="Admin Area">
+                                        <span class="icon">
+                                            <i class="fa fa-wrench"></i>
+                                        </span>
+                                    </a>
+                                </li>
+                        % endif
+                    % endif
                 </ul>
             </nav>
         </div>
+        <%block name="hero_foot_end"/>
     </div>
 </section>
 
@@ -204,7 +221,7 @@
 </section>
 % endif
 
-${self.body()}
+${next.body()}
 
 ## Footer
 
