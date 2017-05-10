@@ -17,10 +17,16 @@ __author__ = "Gareth Coles"
 log = logging.getLogger("Emails")
 
 EMAIL_REGEX = re.compile(r".*@[^@]+\.[^@]+", re.IGNORECASE)
+RENDER_TEMPLATES = [
+    "email_verification"
+]
+CSSUTILS_LOGGER = logging.getLogger("CSSutils")
 
 
 class EmailManager:
     def __init__(self):
+        self.cache = {}
+
         with open("config.yml", "r") as fh:
             self.config = yaml.safe_load(fh)["email"]
 
@@ -46,6 +52,12 @@ class EmailManager:
         log.info("Sending email as {}".format(self.config["from"]))
         self.template_lookup = TemplateLookup(directories=["./templates/email/", "./static/css/"])
 
+        log.info("Rendering templates...")
+
+        for template in RENDER_TEMPLATES:
+            self.get_html_template(template)
+            log.info("> Rendered: {}".format(template))
+
     @property
     def enabled(self):
         return self.config["use"]
@@ -53,17 +65,25 @@ class EmailManager:
     def is_valid(self, email):
         return bool(EMAIL_REGEX.match(email))
 
+    def get_html_template(self, template):
+        if template not in self.cache:
+            rendered = self.transform_html(
+                self.render_template(
+                    "html/{}.html".format(template)
+                )
+            )
+
+            self.cache[template] = Template(rendered)
+
+        return self.cache[template]
+
     def send_email(self, template, recipient, subject, *args, **kwargs):
         log.debug("Sending '{}' email to '{}'".format(template, recipient))
         plain_template = self.render_template(
             "plain/{}.txt".format(template), *args, **kwargs
         )
 
-        html_template = self.transform_html(
-            self.render_template(
-                "html/{}.html".format(template), *args, **kwargs
-            )
-        )
+        html_template = self.get_html_template(template).render(*args, **kwargs)
 
         message = MIMEMultipart("alternative")
 
@@ -82,7 +102,9 @@ class EmailManager:
     def transform_html(self, html):
         p = premailer.Premailer(
             html=html,
-            base_url="https://ultros.io/"
+            base_url="https://ultros.io/",
+            cssutils_logging_handler=CSSUTILS_LOGGER,
+            cssutils_logging_level=logging.CRITICAL
         )
 
         return p.transform(pretty_print=False)
