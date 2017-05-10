@@ -55,8 +55,12 @@ class EmailManager:
         log.info("Rendering templates...")
 
         for template in RENDER_TEMPLATES:
-            self.get_html_template(template)
-            log.info("> Rendered: {}".format(template))
+            try:
+                self.get_html_template(template)
+            except Exception as e:
+                log.error("Failed to render template '{}': {}".format(template, e))
+            else:
+                log.info("> Rendered: {}".format(template))
 
     @property
     def enabled(self):
@@ -100,14 +104,20 @@ class EmailManager:
         log.debug("'{}' email to '{}' sent".format(template, recipient))
 
     def transform_html(self, html):
+        kwargs = {
+            "html": html,
+            "cssutils_logging_handler": CSSUTILS_LOGGER,
+            "cssutils_logging_level": logging.CRITICAL,
+            "base_url": "https://beta.ultros.io/"
+        }
+
         p = premailer.Premailer(
-            html=html,
-            base_url="https://ultros.io/",
-            cssutils_logging_handler=CSSUTILS_LOGGER,
-            cssutils_logging_level=logging.CRITICAL
+            **kwargs
         )
 
-        return p.transform(pretty_print=False)
+        transformed = p.transform(pretty_print=False)
+        transformed = transformed.replace("%24%7B", "${")
+        return transformed.replace("%7D", "}")
 
     def get_connection(self):
         connection = self._connection()

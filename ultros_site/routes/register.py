@@ -123,7 +123,7 @@ class RegisterRoute(BaseRoute):
 
         self.manager.emails.send_email(
             "email_verification", user.email, "Email verification",
-            verify_url="https://ultros.io/login/verify/{}".format(key)
+            verify_url="/login/verify/{}".format(key)
         )
 
         resp.append_header("Refresh", "10;url=/")
