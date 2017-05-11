@@ -68,7 +68,7 @@
                     % endif
                 </td>
                 <td>
-                    % if user.id == _context["user"].id:
+                    % if user.id == _context["user"].id or user.username == immune_user:
                     <a class="button is-danger is-small" disabled>
                         <span class="icon">
                             <i class="fa fa-trash"></i>
