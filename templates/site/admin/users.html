@@ -68,17 +68,26 @@
                     % endif
                 </td>
                 <td>
-                    <a class="button is-danger is-small">
+                    % if user.id == _context["user"].id:
+                    <a class="button is-danger is-small" disabled>
                         <span class="icon">
                             <i class="fa fa-trash"></i>
                         </span>
                         <span>&nbsp;Delete</span>
                     </a>
+                    % else:
+                    <a class="button is-danger is-small" href="/admin/users/delete/${user.id}?_csrf=${csrf}">
+                        <span class="icon">
+                            <i class="fa fa-trash"></i>
+                        </span>
+                        <span>&nbsp;Delete</span>
+                    </a>
+                    % endif
 
                     &nbsp;
 
                     % if not user.admin:
-                    <a class="button is-info is-small">
+                    <a class="button is-info is-small" href="/admin/users/promote/${user.id}?_csrf=${csrf}">
                         <span class="icon">
                             <i class="fa fa-arrow-up"></i>
                         </span>
@@ -86,7 +95,7 @@
                     </a>
                     % else:
                         % if user.username != immune_user and user.id != _context["user"].id:
-                            <a class="button is-info is-small">
+                            <a class="button is-info is-small" href="/admin/users/demote/${user.id}?_csrf=${csrf}">
                                 <span class="icon">
                                     <i class="fa fa-arrow-down"></i>
                                 </span>
@@ -105,7 +114,7 @@
                     &nbsp;
 
                     % if user.mfa_token:
-                    <a class="button is-warning is-small">
+                    <a class="button is-warning is-small" href="/admin/users/disable_mfa/${user.id}?_csrf=${csrf}">
                         <span class="icon">
                             <i class="fa fa-times"></i>
                         </span>
@@ -123,7 +132,7 @@
                     &nbsp;
 
                     % if not user.email_verified:
-                    <a class="button is-success is-small">
+                    <a class="button is-success is-small" href="/admin/users/verify/${user.id}?_csrf=${csrf}">
                         <span class="icon">
                             <i class="fa fa-refresh"></i>
                         </span>

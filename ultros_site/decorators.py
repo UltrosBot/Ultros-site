@@ -2,7 +2,7 @@
 import logging
 import secrets
 
-from falcon import HTTPBadRequest
+from falcon import HTTPBadRequest, HTTPForbidden
 
 __author__ = "Gareth Coles"
 log = logging.getLogger("Decorators")
@@ -42,7 +42,7 @@ def check_csrf(func):
                 "The CSRF tokens do not match."
             )
 
-        func(self, req, *args, **kwargs)
+        return func(self, req, *args, **kwargs)
     return inner
 
 
@@ -53,5 +53,16 @@ def add_csrf(func):
         resp.set_cookie("_csrf", token, secure=False)
         resp.csrf = token
 
-        func(self, req, resp, *args, **kwargs)
+        return func(self, req, resp, *args, **kwargs)
+    return inner
+
+
+def check_admin(func):
+    def inner(self, req, resp, *args, **kwargs):
+        user = req.context["user"]
+
+        if user and user.admin:
+            return func(self, req, resp, *args, **kwargs)
+
+        raise HTTPForbidden()
     return inner

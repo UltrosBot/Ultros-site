@@ -2,6 +2,7 @@
 from falcon import HTTPForbidden
 
 from ultros_site.base_route import BaseRoute
+from ultros_site.decorators import check_admin
 
 __author__ = "Gareth Coles"
 
@@ -9,10 +10,6 @@ __author__ = "Gareth Coles"
 class NewsRoute(BaseRoute):
     route = "/admin/news"
 
+    @check_admin
     def on_get(self, req, resp):
-        user = req.context["user"]
-
-        if user and user.admin:
-            self.render_template(req, resp, "admin/news.html")
-        else:
-            raise HTTPForbidden()
+        self.render_template(req, resp, "admin/news.html")
