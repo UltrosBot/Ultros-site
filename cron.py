@@ -24,7 +24,7 @@ db_session = manager.create_session()
 
 try:
     for session in db_session.query(Session).all():
-        if session.expires > now:
+        if now > session.expires:
             db_session.delete(session)
             sessions += 1
 except Exception as e:
