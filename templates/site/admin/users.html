@@ -134,14 +134,14 @@
                     % if not user.email_verified:
                     <a class="button is-success is-small" href="/admin/users/verify/${user.id}?_csrf=${csrf}">
                         <span class="icon">
-                            <i class="fa fa-refresh"></i>
+                            <i class="fa fa-check"></i>
                         </span>
                         <span>&nbsp;Verify</span>
                     </a>
                     % else:
                     <a class="button is-success is-small is-disabled" disabled>
                         <span class="icon">
-                            <i class="fa fa-refresh"></i>
+                            <i class="fa fa-check"></i>
                         </span>
                         <span>&nbsp;Verify</span>
                     </a>
