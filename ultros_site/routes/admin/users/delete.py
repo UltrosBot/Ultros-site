@@ -47,6 +47,15 @@ class DeleteUserRoute(BaseSink):
                 redirect_uri="/admin/users"
             )
         else:
+            if db_user.username == self.manager.database.config["admin_username"]:
+                return self.render_template(
+                    req, resp, "admin/message_gate.html",
+                    gate_message=Message(
+                        "info", "What?", "You may not delete the protected admin."
+                    ),
+                    redirect_uri="/admin/users"
+                )
+
             db_session.delete(db_user)
             resp.append_header("Refresh", "5;url=/admin/users")
 
