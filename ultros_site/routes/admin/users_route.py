@@ -1,5 +1,4 @@
 # coding=utf-8
-from falcon import HTTPForbidden
 from sqlalchemy import func
 
 from ultros_site.base_route import BaseRoute
