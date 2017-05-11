@@ -9,7 +9,7 @@ import ruamel.yaml as yaml
 from contextlib import contextmanager
 
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, Session
 
 from ultros_site.database.common import DeclarativeBase
 
@@ -42,7 +42,7 @@ class DatabaseManager:
             log.critical("Unable to set up database - %s", e)
             exit(1)
 
-    def create_session(self):
+    def create_session(self) -> Session:
         return self.make_session()
 
     @contextmanager
