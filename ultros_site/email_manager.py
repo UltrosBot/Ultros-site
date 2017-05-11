@@ -108,7 +108,7 @@ class EmailManager:
             "html": html,
             "cssutils_logging_handler": CSSUTILS_LOGGER,
             "cssutils_logging_level": logging.CRITICAL,
-            "base_url": "https://beta.ultros.io/"
+            "base_url": "https://beta.ultros.io"
         }
 
         p = premailer.Premailer(
