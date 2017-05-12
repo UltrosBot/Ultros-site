@@ -1,5 +1,11 @@
 # coding=utf-8
-import logging
+
+try:
+    logging
+    print("Not running under Celery")
+except NameError:
+    import logging
+
 import smtplib
 import re
 
