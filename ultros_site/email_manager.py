@@ -1,11 +1,5 @@
 # coding=utf-8
 
-try:
-    logging
-    print("Not running under Celery")
-except NameError:
-    import logging
-
 import smtplib
 import re
 
@@ -18,6 +12,12 @@ from mako.lookup import TemplateLookup
 from mako.template import Template
 
 from ruamel import yaml
+
+
+if "logging" not in locals():
+    # If we're running under Celery, `logging` already exists
+    import logging
+
 
 __author__ = "Gareth Coles"
 log = logging.getLogger("Emails")

@@ -23,9 +23,11 @@ class User(DeclarativeBase):
 
     sessions = relationship("Session", back_populates="user", cascade="all, delete, delete-orphan")
     email_code = relationship("EmailCode", back_populates="user", uselist=False, cascade="all, delete, delete-orphan")
+    news_posts = relationship("NewsPost", back_populates="user", cascade="all, delete, delete-orphan")
 
     def __repr__(self):
-        return "<{}(id={}, username={}, email={}, verified={}, sessions={})>".format(
+        return "<{}(id={}, username={}, email={}, verified={}, sessions={}, news_posts={})>".format(
             self.__class__.__name__,
-            self.id, self.username, self.email, self.email_verified, len(self.sessions)
+            self.id, self.username, self.email, self.email_verified, len(self.sessions),
+            len(self.news_posts)
         )

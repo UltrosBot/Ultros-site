@@ -116,42 +116,26 @@
 <section class="section">
     <div class="container">
         <div class="columns">
-            <div class="column is-three-quarters-desktop is-three-quarters-tablet is-full-mobile">
+            <div class="column is-two-thirds-desktop is-two-thirds-tablet is-full-mobile">
                 <h1 class="title">News</h1>
+                % if len(news_posts):
+                    % for post in news_posts:
                 <article class="message is-primary">
                     <div class="message-header">
-                        <p>Resolving SSL problems</p>
-                        <p class="pull-right">26th April 2017 | gdude2002</p>
+                        <p>${post.title}</p>
+                        <p class="pull-right">${format_date(post.posted)} | ${post.user.username}</p>
                     </div>
-                    <div class="message-body">
-                        <p>
-                            If you've been having problems submitting metrics recently, please note that we seem to have
-                            resolved the issue for now. The problem related to <strong>CloudFlare's Flexible
-                            SSL</strong>
-                            feature, and we've decided to disable CloudFlare for the time being.
-                        </p>
-                        <br/>
-
-                        <p>
-                            We're unsure what the problem is exactly, but hosting our own SSL seems to have fixed the
-                            problem for now. We'll be keeping an eye out for more information on this. Additionally,
-                            some of
-                            you may have noticed that development is slow lately. While we do have plenty of new things
-                            planned for Ultros, real life must take priority, and all of the contributors are busy in
-                            respect to that. However, we haven't abandoned the project, and do make commits from time to
-                            time, so please keep an eye on the GitHub repository.
-                        </p>
-                        <br/>
-
-                        <p>
-                            Please note that we <strong>highly recommend</strong> using virtualenv and the included
-                            daemonizing scripts in
-                            the <code>bin/</code> directory.
-                        </p>
+                    <div class="message-body news-post-body">
+                        ${post.html}
                     </div>
                 </article>
+                    % endfor
+                % else:
+                    <h2 class="subtitle">No news posts were found.</h2>
+
+                % endif
             </div>
-            <div class="column is-one-quarter-desktop is-one-quarter-tablet is-full-mobile">
+            <div class="column is-one-third-desktop is-one-third-tablet is-full-mobile">
                 <h1 class="title">
                     Commits
                     <a href="https://github.com/UltrosBot/Ultros3K/commits/master">

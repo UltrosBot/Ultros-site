@@ -1,4 +1,5 @@
 # coding=utf-8
+from ultros_site.utils import format_date_frontend
 
 __author__ = "Gareth Coles"
 
@@ -21,6 +22,11 @@ class BaseSink:
 
     def render_template(self, req, resp, template, **kwargs):
         kwargs["_context"] = req.context
+        kwargs["format_date"] = format_date_frontend
+
+        if hasattr(resp, "csrf"):
+            kwargs["csrf"] = resp.csrf
+
         content_type, body = self.manager.render_template(
             template, **kwargs
         )

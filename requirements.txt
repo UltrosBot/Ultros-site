@@ -13,3 +13,7 @@ premailer
 python-mimeparse
 requests
 celery
+markdown2
+pygments
+beautifulsoup4
+inflect

@@ -31,3 +31,26 @@
 .icon.is-success {
     color: #23d160;
 }
+
+#editor {
+    min-height: 20rem;
+}
+
+#editor-columns {
+    border-top: 1px solid black;
+    border-left: 1px solid black;
+}
+
+#editor-columns .column {
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+#publish-button.is-pulled-right {
+    margin-left: 1rem;
+}
+
+.news-post-body p {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
