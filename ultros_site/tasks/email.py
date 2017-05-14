@@ -16,9 +16,12 @@ class EmailTask(Task):
             level=logging.INFO
         )
 
+        logging.getLogger("CSSUTILS").setLevel(logging.CRITICAL)
+
         self.email = EmailManager()
 
 
-@app.task(base=EmailTask)
+@app.task(base=EmailTask, name="send_email")
 def send_email(template, recipient, subject, *args, **kwargs):
     send_email.email.send_email(template, recipient, subject, *args, **kwargs)
+    return True

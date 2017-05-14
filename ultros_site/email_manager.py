@@ -1,9 +1,10 @@
 # coding=utf-8
-
 import smtplib
 import re
 
 import premailer
+
+from celery.utils.log import get_task_logger
 
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -13,20 +14,14 @@ from mako.template import Template
 
 from ruamel import yaml
 
-
-if "logging" not in locals():
-    # If we're running under Celery, `logging` already exists
-    import logging
-
-
 __author__ = "Gareth Coles"
-log = logging.getLogger("Emails")
 
 EMAIL_REGEX = re.compile(r".*@[^@]+\.[^@]+", re.IGNORECASE)
 RENDER_TEMPLATES = [
     "email_verification"
 ]
-CSSUTILS_LOGGER = logging.getLogger("CSSutils")
+
+log = get_task_logger("Emails")
 
 
 class EmailManager:
@@ -112,8 +107,6 @@ class EmailManager:
     def transform_html(self, html):
         kwargs = {
             "html": html,
-            "cssutils_logging_handler": CSSUTILS_LOGGER,
-            "cssutils_logging_level": logging.CRITICAL,
             "base_url": "https://beta.ultros.io"
         }
 

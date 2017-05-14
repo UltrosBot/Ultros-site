@@ -12,7 +12,7 @@ lxml
 premailer
 python-mimeparse
 requests
-celery
+celery[redis]
 markdown2
 pygments
 beautifulsoup4

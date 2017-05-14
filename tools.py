@@ -26,6 +26,7 @@ def create_migrations(args):
     sp = subprocess.Popen(["alembic", "revision", "--autogenerate", "-m", message], env=env)
     sp.wait()
 
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         prog="tools.py"
@@ -33,10 +34,14 @@ if __name__ == "__main__":
 
     subparsers = parser.add_subparsers()
 
+    # Alembic: Run Migrations
+
     parser_run_migrations = subparsers.add_parser(
         "run-migrations", help="Run latest migrations"
     )
     parser_run_migrations.set_defaults(func=run_migrations)
+
+    # Alembic: Create Migrations
 
     parser_create_migrations = subparsers.add_parser(
         "create-migrations", help="Create a migrations revision"
