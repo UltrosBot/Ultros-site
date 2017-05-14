@@ -14,6 +14,7 @@ from ultros_site.database.schema.email_code import EmailCode
 from ultros_site.database.schema.user import User
 from ultros_site.decorators import check_csrf, add_csrf
 from ultros_site.message import Message
+from ultros_site.tasks.__main__ import app as celery
 
 __author__ = "Gareth Coles"
 RECAPTCHA_URL = "https://www.google.com/recaptcha/api/siteverify"
@@ -143,9 +144,10 @@ class RegisterRoute(BaseRoute):
         db_session.add(user)
         db_session.add(email_code)
 
-        self.manager.emails.send_email(
-            "email_verification", user.email, "Email verification",
-            verify_url="/login/verify/{}".format(key)
+        celery.send_task(
+            "send_email",
+            args=["email_verification", user.email, "Email verification"],
+            kwargs={"verify_url": "/login/verify/{}".format(key)}
         )
 
         resp.append_header("Refresh", "10;url=/")
