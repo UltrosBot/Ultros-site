@@ -54,3 +54,23 @@
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
 }
+
+.message-body ul {
+    list-style: disc outside;
+    margin-left: 2rem;
+}
+
+.message-body ul ul {
+    list-style: circle;
+    margin-left: 2rem;
+}
+
+.message-body ul ul ul {
+    list-style: square;
+    margin-left: 2rem;
+}
+
+.message-body ol {
+    list-style: decimal outside;
+    margin-left: 1rem;
+}
