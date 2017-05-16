@@ -122,7 +122,9 @@
                     % for post in news_posts:
                 <article class="message is-primary">
                     <div class="message-header">
-                        <p>${post.title}</p>
+                        <a href="/news/${post.id}">
+                            <p>${post.title}</p>
+                        </a>
                         <p class="pull-right">${format_date(post.posted)} | ${post.user.username}</p>
                     </div>
                     <div class="message-body news-post-body">
