@@ -10,11 +10,15 @@ __author__ = "Gareth Coles"
 
 
 def notify_post(post: NewsPost, url: str):
+    md = post.markdown
+    md = md.replace("\n\n", "\r")
+    md = md.replace("\n", "")
+    md = md.replace("\r", "\n\n")
+
     discord_embed = {
         "title": post.title,
-        "description": post.markdown,
+        "description": md,
         "url": "https://beta.ultros.io/news/{}".format(post.id),
-        "timestamp": format_datetime(post.posted),
         "author": {
             "name": post.user.username,
             "url": "https://beta.ultros.io/"
@@ -35,6 +39,6 @@ def send_discord(hook_url: str, embed: None):
         embeds = [embed]
 
     session = requests.session()
-    session.post(hook_url, json={
+    return session.post(hook_url, json={
         "embeds": embeds
     })
