@@ -9,7 +9,8 @@ app = Celery(
     broker="amqp://",
     backend="redis://localhost:6379/0",
     include=[
-        "ultros_site.tasks.email"
+        "ultros_site.tasks.email",
+        "ultros_site.tasks.notify"
     ]
 )
 

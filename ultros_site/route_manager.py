@@ -15,7 +15,6 @@ from ultros_site.base_route import BaseRoute
 from ultros_site.base_sink import BaseSink
 
 from ultros_site.database_manager import DatabaseManager
-from ultros_site.email_manager import EmailManager
 
 __author__ = "Gareth Coles"
 CURRENT_DIR = os.path.dirname(__file__)
@@ -35,8 +34,6 @@ class RouteManager:
         self.database = DatabaseManager()
         self.database.load_schema()
         self.database.create_engine()
-
-        self.emails = EmailManager()
 
     def set_app(self, app: falcon.API):
         self.app = app

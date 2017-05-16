@@ -8,6 +8,7 @@ from ultros_site.database.schema.news_post import NewsPost
 from ultros_site.decorators import check_admin, add_csrf, check_csrf
 from ultros_site.markdown import Markdown
 from ultros_site.message import Message
+from ultros_site.tasks.notify import notify_post
 
 __author__ = "Gareth Coles"
 
@@ -53,6 +54,8 @@ class CreateNewsRoute(BaseRoute):
             )
 
             db_session.add(post)
+
+            notify_post(post, self.manager.database.config["notifications"]["discord"])
 
             return self.render_template(
                 req, resp, "admin/message_gate.html",
