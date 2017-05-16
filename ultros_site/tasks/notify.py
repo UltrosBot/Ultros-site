@@ -1,8 +1,6 @@
 # coding=utf-8
 import requests
 
-from email.utils import format_datetime
-
 from ultros_site.database.schema.news_post import NewsPost
 from ultros_site.tasks.__main__ import app
 
