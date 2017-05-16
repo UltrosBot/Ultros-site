@@ -10,4 +10,4 @@ if __name__ == "__main__":
     logger = logging.getLogger('waitress')
     logger.setLevel(logging.DEBUG)
 
-    waitress.serve(app, host="0.0.0.0", port=8080)
+    waitress.serve(app, host="0.0.0.0", port=8090)

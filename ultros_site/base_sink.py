@@ -1,4 +1,5 @@
 # coding=utf-8
+from email.utils import format_datetime
 from ultros_site.utils import format_date_frontend
 
 __author__ = "Gareth Coles"
@@ -23,6 +24,7 @@ class BaseSink:
     def render_template(self, req, resp, template, **kwargs):
         kwargs["_context"] = req.context
         kwargs["format_date"] = format_date_frontend
+        kwargs["rfc2822"] = format_datetime
 
         if hasattr(resp, "csrf"):
             kwargs["csrf"] = resp.csrf
