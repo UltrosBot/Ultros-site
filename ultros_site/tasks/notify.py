@@ -8,10 +8,13 @@ __author__ = "Gareth Coles"
 
 
 def notify_post(post: NewsPost, url: str):
-    md = post.markdown
-    md = md.replace("\n\n", "\r")
-    md = md.replace("\n", "")
-    md = md.replace("\r", "\n\n")
+    md = post.markdown.replace("\r", "")
+
+    if "\n\n" in md:
+        md = md.split("\n\n")[0].replace("\n", "")
+
+    md += "\n\n"
+    md += "[Click here for more](https://beta.ultros.io/news/{})".format(post.id)
 
     discord_embed = {
         "title": post.title,
