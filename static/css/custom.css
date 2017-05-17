@@ -75,6 +75,10 @@
     margin-left: 1rem;
 }
 
-#feeds-rows .button {
+.feeds-row .button {
     margin-left: 1rem;
+}
+
+.feeds-row {
+    margin-bottom: 2rem;
 }
