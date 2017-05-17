@@ -52,56 +52,68 @@ class RouteManager:
             template.render(*args, **kwargs)
         )
 
-    def load_routes(self):
-        log.info("Loading routes...")
+    def load_module(self, module_name):
+        log.info("Loading module: %s", module_name)
+
+        try:
+            module_obj = importlib.import_module(module_name)
+
+            for name, clazz in inspect.getmembers(module_obj):
+                try:
+                    if inspect.isclass(clazz):
+                        if clazz == BaseRoute or clazz == BaseSink:
+                            continue
+
+                        if name.startswith("__") and name.endswith("__"):
+                            continue
+
+                        if issubclass(clazz, BaseRoute):
+                            log.info("-> Loading route class: %s", name)
+
+                            route = clazz(self)
+                            args = route.get_args()
+
+                            self.app.add_route(*args)
+                        elif issubclass(clazz, BaseSink):
+                            log.info("-> Loading sink class:  %s", name)
+
+                            route = clazz(self)
+                            args = route.get_args()
+
+                            self.app.add_sink(*args)
+                except Exception as e:
+                    log.info("   -> Failed to load: %s", e)
+        except Exception as e:
+            log.info("Failed to load routes: %s", e)
         log.info("")
 
-        for filename in os.listdir(ROUTES_DIR):
-            path = ROUTES_DIR + filename
+    def load_modules(self, folder):
+        if folder[-1] != "/":
+            folder += "/"
+
+        for filename in os.listdir(folder):
+            path = os.path.join(folder, filename)
 
             if path.endswith(".") or path.endswith("__"):
                 continue
 
-            if not path.endswith(".py") and not os.path.isdir(path):
+            if os.path.isdir(path):
+                self.load_modules(path)
                 continue
 
-            module_name = "ultros_site.routes.{}".format(
-                os.path.basename(path).split(".py", 1)[0]
-            )
+            if not path.endswith(".py"):
+                continue
+
+            module_name = os.path.relpath(path).replace("/", ".").split(".py", 1)[0]
+            # module_name = "ultros_site.routes.{}".format(module_fragment)
 
             if module_name.endswith("__"):
                 continue
 
-            log.info("Loading module: %s", module_name)
+            self.load_module(module_name)
 
-            try:
-                module_obj = importlib.import_module(module_name)
+    def load_routes(self):
+        log.info("Loading routes...")
+        log.info("")
 
-                for name, clazz in inspect.getmembers(module_obj):
-                    try:
-                        if inspect.isclass(clazz):
-                            if clazz == BaseRoute or clazz == BaseSink:
-                                continue
-
-                            if name.startswith("__") and name.endswith("__"):
-                                continue
-
-                            if issubclass(clazz, BaseRoute):
-                                log.info("-> Loading route class: %s", name)
-
-                                route = clazz(self)
-                                args = route.get_args()
-
-                                self.app.add_route(*args)
-                            elif issubclass(clazz, BaseSink):
-                                log.info("-> Loading sink class:  %s", name)
-
-                                route = clazz(self)
-                                args = route.get_args()
-
-                                self.app.add_sink(*args)
-                    except Exception as e:
-                        log.info("   -> Failed to load: %s", e)
-            except Exception as e:
-                log.info("Failed to load routes: %s", e)
-            log.info("")
+        self.load_modules(ROUTES_DIR)
