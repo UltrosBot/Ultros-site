@@ -1,6 +1,5 @@
 # coding=utf-8
 from ultros_site.base_route import BaseRoute
-from ultros_site.database.schema.news_post import NewsPost
 
 __author__ = "Gareth Coles"
 
