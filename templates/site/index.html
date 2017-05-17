@@ -117,7 +117,15 @@
     <div class="container">
         <div class="columns">
             <div class="column is-two-thirds-desktop is-two-thirds-tablet is-full-mobile">
-                <h1 class="title">News</h1>
+                <h1 class="title">
+                    News
+                    <a class="button is-primary pull-right" href="/feeds">
+                        <span class="icon" style="margin-top: 4px;">
+                            <i class="fa fa-rss"></i>
+                        </span>
+                    </a>
+                </h1>
+
                 % if len(news_posts):
                     % for post in news_posts:
                 <article class="message is-primary">
@@ -140,8 +148,8 @@
             <div class="column is-one-third-desktop is-one-third-tablet is-full-mobile">
                 <h1 class="title">
                     Commits
-                    <a href="https://github.com/UltrosBot/Ultros3K/commits/master">
-                        <span class="pull-right icon is-medium" style="margin-top: 4px;">
+                    <a class="button is-primary pull-right" href="https://github.com/UltrosBot/Ultros3K/commits/master">
+                        <span class="icon" style="margin-top: 4px;">
                             <i class="fa fa-link"></i>
                         </span>
                     </a>

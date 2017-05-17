@@ -74,3 +74,7 @@
     list-style: decimal outside;
     margin-left: 1rem;
 }
+
+#feeds-rows .button {
+    margin-left: 1rem;
+}

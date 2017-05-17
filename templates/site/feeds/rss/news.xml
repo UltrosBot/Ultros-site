@@ -9,6 +9,7 @@
         <lastBuildDate>${date}</lastBuildDate>
         <docs>http://cyber.harvard.edu/rss/rss.html</docs>
         <generator>beta.ultros.io (Powered by Falcon and Mako on Python 3)</generator>
+
         % for post in news_posts:
         <item>
             <title>${post.title}</title>

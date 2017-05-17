@@ -1,0 +1,57 @@
+<%inherit file="base.html"/>
+
+## Current tab for navigation
+<%!
+    tab = "feeds"
+%>
+
+## SEO Stuff
+<%block name="title">Ultros | Feeds</%block>
+<%block name="description">Atom and RSS feeds for your feed reader</%block>
+
+<%block name="og_title">Feeds</%block>
+<%block name="og_description">Atom and RSS feeds for your feed reader</%block>
+
+<section class="section">
+    <div class="container">
+        <h1 class="title">
+            Atom/RSS Feeds
+        </h1>
+        <div class="tile is-ancestor" id="feeds-rows">
+            <div class="tile is-parent">
+                <div class="tile is-parent notification is-primary">
+                    <div class="tile is-child is-vertical">
+                        <p class="title">News</p>
+                    </div>
+
+                    <div class="tile is-child is-vertical">
+                        <a href="/feeds/rss/news" class="button is-outlined is-light is-pulled-right">
+                            <span class="icon">
+                                <i class="fa fa-rss"></i>
+                            </span>
+                            <span>
+                                RSS
+                            </span>
+                        </a>
+                        <a href="/feeds/atom/news" class="button is-outlined is-light is-pulled-right">
+                            <span class="icon">
+                                <i class="fa fa-rss"></i>
+                            </span>
+                            <span>
+                                Atom
+                            </span>
+                        </a>
+                        <a href="/news" class="button is-outlined is-light is-pulled-right">
+                            <span class="icon">
+                                <i class="fa fa-link"></i>
+                            </span>
+                            <span>
+                                View
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

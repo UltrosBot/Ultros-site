@@ -7,8 +7,8 @@ from ultros_site.database.schema.news_post import NewsPost
 __author__ = "Gareth Coles"
 
 
-class RSSNewsRoute(BaseRoute):
-    route = "/rss/news"
+class AtomNewsRoute(BaseRoute):
+    route = "/feeds/atom/news"
 
     def on_get(self, req, resp):
         db_session = req.context["db_session"]
@@ -16,7 +16,9 @@ class RSSNewsRoute(BaseRoute):
         date = format_datetime(news_posts[0].posted)
 
         self.render_template(
-            req, resp, "rss/news.xml",
+            req, resp, "feeds/atom/news.xml",
             news_posts=news_posts,
             date=date
         )
+
+        resp.content_type = "application/atom+xml"
