@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <rss version="2.0">
     <channel>
-        <title>Ultros</title>
-        <link>https://beta.ultros.io/</link>
+        <title>Ultros: News</title>
+        <link>https://beta.ultros.io/news</link>
         <description>Connecting communities, one squid at a time</description>
         <language>en-gb</language>
         <pubDate>${date}</pubDate>

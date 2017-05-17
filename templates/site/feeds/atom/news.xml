@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-    <title>Ultros</title>
+    <title>Ultros: News</title>
     <link rel="self" href="https://beta.ultros.io/feeds/atom/news" />
     <updated>${date}</updated>
     <id>https://beta.ultros.io/news</id>
