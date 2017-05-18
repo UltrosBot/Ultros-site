@@ -32,6 +32,24 @@
     color: #23d160;
 }
 
+th.is-primary {
+    background-color: #9f83b9 !important;
+    color: white !important;
+}
+
+td.is-primary {
+    background-color: #9f83b9 !important;
+    color: white !important;
+}
+
+th.is-grey {
+    background-color: #dbdbdb !important;
+}
+
+td.is-grey {
+    background-color: #dbdbdb !important;
+}
+
 #editor {
     min-height: 20rem;
 }
@@ -81,4 +99,8 @@
 
 .feeds-row {
     margin-bottom: 2rem;
+}
+
+.mono {
+    font-family: monospace;
 }

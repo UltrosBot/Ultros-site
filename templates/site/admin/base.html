@@ -34,6 +34,14 @@
                     % endif
                         <a href="/admin/users">Users</a>
                     </li>
+
+                    % if self.attr.tab == "admin_celery":
+                    <li class="is-active">
+                    % else:
+                    <li>
+                    % endif
+                        <a href="/admin/celery">Celery</a>
+                    </li>
                 </ul>
             </nav>
         </div>
