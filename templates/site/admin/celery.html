@@ -284,12 +284,18 @@
                             </th>
                         </tr>
 
+                        % if totals:
                         % for task, runs in totals.items():
                             <tr>
                                 <th class="mono">${task}</th>
                                 <td>${runs}</td>
                             </tr>
                         % endfor
+                        % else:
+                            <td colspan="2">
+                                No tasks run yet
+                            </td>
+                        % endif
 
                         </tbody>
                     </table>
