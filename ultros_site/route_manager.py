@@ -6,6 +6,8 @@ import logging
 
 import falcon
 
+from pprint import pformat
+
 from mako.template import Template
 from mako.lookup import TemplateLookup
 
@@ -46,6 +48,7 @@ class RouteManager:
 
         kwargs["bots"] = 0  # TODO, obviously
         kwargs["message"] = kwargs.get("message")  # Will be None if not present
+        kwargs["pformat"] = pformat
 
         return (
             guess_type(uri)[0],

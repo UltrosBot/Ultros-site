@@ -74,6 +74,47 @@
     <div class="container">
         <h1 class="title">Celery worker stats</h1>
 
+        % if not stats:
+        <div class="notification is-danger">
+            <h1 class="title">No Celery workers found</h1>
+            <p>
+                This means that Celery is probably not running - delayed tasks such as sending email and posting
+                notifications for news posts will not work!
+            </p>
+        </div>
+
+        <h1 class="title">Debug information</h1>
+        <h2 class="subtitle is-4">Stats</h2>
+
+        <pre class="notification">
+${pformat(stats)}
+        </pre>
+
+        <h2 class="subtitle is-4">Scheduled</h2>
+
+        <pre class="notification">
+${pformat(scheduled)}
+        </pre>
+
+        <h2 class="subtitle is-4">Active</h2>
+
+        <pre class="notification">
+${pformat(active)}
+        </pre>
+
+        <h2 class="subtitle is-4">Reserved</h2>
+
+        <pre class="notification">
+${pformat(reserved)}
+        </pre>
+
+        <h2 class="subtitle is-4">Registered</h2>
+
+        <pre class="notification">
+${pformat(registered)}
+        </pre>
+
+        % else:
         <table class="table is-bordered" id="overall-celery-stats-table">
             <tbody>
             % for worker, stats_dict in stats.items():
@@ -109,6 +150,7 @@
                             % else:
                             <td></td>
                             % endif
+
                         </tr>
 
                         <tr>
@@ -302,7 +344,10 @@
                 </td>
             </tr>
             % endfor
+
             </tbody>
         </table>
+        % endif
+
     </div>
 </section>
