@@ -22,14 +22,14 @@ class LoginRoute(BaseRoute):
     @add_csrf
     def on_get(self, req, resp):
         if req.context["user"]:
-            resp.append_header("Refresh", "5;url=/")
+            resp.append_header("Refresh", "5;url=/profile")
             return self.render_template(
                 req, resp, "message_gate.html",
                 gate_message=Message(
                     "danger", "Already logged in",
                     "You're already logged in!"
                 ),
-                redirect_uri="/"
+                redirect_uri="/profile"
             )
 
         self.render_template(

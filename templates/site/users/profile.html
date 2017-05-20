@@ -1,0 +1,69 @@
+<%inherit file="../base.html"/>
+
+## Current tab for navigation
+<%!
+    tab = "profile"
+%>
+
+## SEO Stuff
+<%block name="title">Ultros | ${user.username}</%block>
+<%block name="description">Who we are, and how you get in contact</%block>
+
+<%block name="og_title">${user.username}</%block>
+<%block name="og_description">Who we are, and how you get in contact</%block>
+
+<section class="section">
+    <div class="container">
+        <div class="columns">
+            <div class="card column is-half is-offset-one-quarter">
+                <div class="card-content">
+                    % if user.admin:
+                    <h1 class="title has-text-centered">
+                        ${user.username}
+
+                        <span class="icon is-medium has-text-info" title="Admin">
+                            <i class="fa fa-gears"></i>
+                        </span>
+                    </h1>
+                    % else:
+                    <h1 class="title has-text-centered">${user.username}</h1>
+                    % endif
+                    <h2 class="subtitle has-text-centered">Created: ${format_date(user.created)}</h2>
+
+                    <figure class="box image is-128x128" style="margin: auto; padding: 0">
+                        <img src="${avatar}" />
+                    </figure>
+
+                    % if len(user.news_posts):
+                    <br />
+                    <h2 class="subtitle has-text-centered">News posts: ${len(user.news_posts)}</h2>
+                    % endif
+
+                    % if user.id == _context["user"].id:
+                    <hr />
+
+                    <div class="has-text-centered">
+                        <a class="button is-danger" href="/logout">
+                            <span class="icon">
+                                <i class="fa fa-unlock"></i>
+                            </span>
+                            <span>
+                                Log Out
+                            </span>
+                        </a>
+                        &nbsp;
+                        <a class="button is-info" href="/settings">
+                            <span class="icon">
+                                <i class="fa fa-gear"></i>
+                            </span>
+                            <span>
+                                Settings
+                            </span>
+                        </a>
+                    </div>
+                    % endif
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
