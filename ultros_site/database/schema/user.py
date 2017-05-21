@@ -20,8 +20,10 @@ class User(DeclarativeBase):
     email_verified = Column(Boolean, default=False)
 
     mfa_token = Column(String(length=16), nullable=True)
+    mfa_enabled = Column(Boolean, default=False)
 
     sessions = relationship("Session", back_populates="user", cascade="all, delete, delete-orphan")
+    backup_codes = relationship("BackupCode", back_populates="user", cascade="all, delete, delete-orphan")
     email_code = relationship("EmailCode", back_populates="user", uselist=False, cascade="all, delete, delete-orphan")
     news_posts = relationship("NewsPost", back_populates="user", cascade="all, delete, delete-orphan")
 
