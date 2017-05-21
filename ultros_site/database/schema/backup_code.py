@@ -1,5 +1,5 @@
 # coding=utf-8
-from sqlalchemy import Column, Integer, ForeignKey, DateTime, String, Boolean
+from sqlalchemy import Column, Integer, ForeignKey, String
 from sqlalchemy.orm import relationship
 
 from ultros_site.database.common import DeclarativeBase
