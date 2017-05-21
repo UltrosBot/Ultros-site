@@ -106,6 +106,14 @@ class SettingsRoute(BaseRoute):
             )
 
         if updated:
+            updated = ", ".join(updated)
+
+            celery.send_task(
+                "send_email",
+                args=["settings_changed", user_email, "Settings Changed"],
+                kwargs={"settings": updated}
+            )
+
             resp.append_header("Refresh", "10;url=/profile")
 
             return self.render_template(
@@ -113,7 +121,7 @@ class SettingsRoute(BaseRoute):
                 gate_message=Message(
                     "info", "Updated",
                     "You have updated the following settings: {}<br />If you updated your email, "
-                    "remember to verify it - or you won't be able to log in!".format(", ".join(updated))
+                    "remember to verify it - or you won't be able to log in!".format(updated)
                 ),
                 redirect_uri="/profile"
             )
