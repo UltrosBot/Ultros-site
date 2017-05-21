@@ -31,6 +31,6 @@ class VerifyRoute(BaseSink):
 
             return self.render_template(
                 req, resp, "message_gate.html",
-                gate_message=Message("info", "Email verified", "You account has been verified - you may now log in."),
+                gate_message=Message("info", "Email verified", "Your account has been verified - you may now log in."),
                 redirect_uri="/"
             )
