@@ -27,7 +27,7 @@ class PromoteUserRoute(BaseSink):
             return self.render_template(
                 req, resp, "admin/message_gate.html",
                 gate_message=Message(
-                    "danger", "Nice try", "You can't promote yourself! Aren't you already promoted?"
+                    "danger", "Error", "You may not promote yourself."
                 ),
                 redirect_uri="/admin/users"
             )
@@ -42,7 +42,7 @@ class PromoteUserRoute(BaseSink):
             return self.render_template(
                 req, resp, "admin/message_gate.html",
                 gate_message=Message(
-                    "danger", "What?", "We couldn't find that user!"
+                    "danger", "Unknown user", "User with ID <code>{}</code> not found.".format(user_id)
                 ),
                 redirect_uri="/admin/users"
             )
@@ -55,7 +55,7 @@ class PromoteUserRoute(BaseSink):
                 return self.render_template(
                     req, resp, "admin/message_gate.html",
                     gate_message=Message(
-                        "info", "Explosions!", "That user has been promoted."
+                        "success", "User promoted", "That user has been promoted."
                     ),
                     redirect_uri="/admin/users"
                 )
@@ -63,7 +63,7 @@ class PromoteUserRoute(BaseSink):
                 return self.render_template(
                     req, resp, "admin/message_gate.html",
                     gate_message=Message(
-                        "info", "What?", "That user is already an admin!"
+                        "danger", "Error", "That user is already an admin!"
                     ),
                     redirect_uri="/admin/users"
                 )

@@ -27,7 +27,7 @@ class DeleteUserRoute(BaseSink):
             return self.render_template(
                 req, resp, "admin/message_gate.html",
                 gate_message=Message(
-                    "danger", "Seppuku", "You can't delete your own account!"
+                    "danger", "Error", "You may not delete your own account."
                 ),
                 redirect_uri="/admin/users"
             )
@@ -42,7 +42,7 @@ class DeleteUserRoute(BaseSink):
             return self.render_template(
                 req, resp, "admin/message_gate.html",
                 gate_message=Message(
-                    "danger", "What?", "We couldn't find that user!"
+                    "danger", "Unknown user", "User with ID <code>{}</code> not found.".format(user_id)
                 ),
                 redirect_uri="/admin/users"
             )
@@ -51,7 +51,7 @@ class DeleteUserRoute(BaseSink):
                 return self.render_template(
                     req, resp, "admin/message_gate.html",
                     gate_message=Message(
-                        "info", "What?", "You may not delete the protected admin."
+                        "danger", "Error", "You may not delete the configured default admin account."
                     ),
                     redirect_uri="/admin/users"
                 )
@@ -62,7 +62,7 @@ class DeleteUserRoute(BaseSink):
             return self.render_template(
                 req, resp, "admin/message_gate.html",
                 gate_message=Message(
-                    "info", "Explosions!", "That user has been deleted."
+                    "success", "User deleted", "That user has been deleted."
                 ),
                 redirect_uri="/admin/users"
             )

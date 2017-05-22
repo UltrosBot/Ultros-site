@@ -27,7 +27,7 @@ class DemoteUserRoute(BaseSink):
             return self.render_template(
                 req, resp, "admin/message_gate.html",
                 gate_message=Message(
-                    "danger", "Seppuku", "You can't demote yourself!"
+                    "danger", "Error", "You may not demote yourself."
                 ),
                 redirect_uri="/admin/users"
             )
@@ -42,7 +42,7 @@ class DemoteUserRoute(BaseSink):
             return self.render_template(
                 req, resp, "admin/message_gate.html",
                 gate_message=Message(
-                    "danger", "What?", "We couldn't find that user!"
+                    "danger", "Unknown user", "User with ID <code>{}</code> not found.".format(user_id)
                 ),
                 redirect_uri="/admin/users"
             )
@@ -53,7 +53,7 @@ class DemoteUserRoute(BaseSink):
                 return self.render_template(
                     req, resp, "admin/message_gate.html",
                     gate_message=Message(
-                        "info", "What?", "You may not demote the protected admin."
+                        "danger", "Error", "You may not demote the configured default admin account."
                     ),
                     redirect_uri="/admin/users"
                 )
@@ -64,7 +64,7 @@ class DemoteUserRoute(BaseSink):
                 return self.render_template(
                     req, resp, "admin/message_gate.html",
                     gate_message=Message(
-                        "info", "Explosions!", "That user has been demoted."
+                        "success", "User demoted", "That user has been demoted."
                     ),
                     redirect_uri="/admin/users"
                 )
@@ -72,7 +72,7 @@ class DemoteUserRoute(BaseSink):
                 return self.render_template(
                     req, resp, "admin/message_gate.html",
                     gate_message=Message(
-                        "info", "What?", "That user is not an admin!"
+                        "danger", "Error", "That user is not an admin!"
                     ),
                     redirect_uri="/admin/users"
                 )

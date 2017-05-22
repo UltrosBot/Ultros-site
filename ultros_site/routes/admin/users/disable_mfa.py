@@ -4,6 +4,7 @@ import re
 from sqlalchemy.orm.exc import NoResultFound
 
 from ultros_site.base_sink import BaseSink
+from ultros_site.database.schema.backup_code import BackupCode
 from ultros_site.database.schema.user import User
 from ultros_site.decorators import check_csrf, check_admin
 from ultros_site.message import Message
@@ -28,7 +29,7 @@ class DisableUserMFARoute(BaseSink):
             return self.render_template(
                 req, resp, "admin/message_gate.html",
                 gate_message=Message(
-                    "danger", "What?", "We couldn't find that user!"
+                    "danger", "Unknown user", "User with ID <code>{}</code> not found.".format(user_id)
                 ),
                 redirect_uri="/admin/users"
             )
@@ -36,12 +37,16 @@ class DisableUserMFARoute(BaseSink):
             resp.append_header("Refresh", "5;url=/admin/users")
 
             if db_user.mfa_token:
+                for code in db_session.query(BackupCode).filter_by(user=db_user):
+                    db_session.delete(code)
+
                 db_user.mfa_token = None
+                db_user.mfa_enabled = False
 
                 return self.render_template(
                     req, resp, "admin/message_gate.html",
                     gate_message=Message(
-                        "info", "Explosions!", "That user's MFA token has been deleted."
+                        "success", "MFA disabled", "You have disabled MFA for {}".format(db_user.username)
                     ),
                     redirect_uri="/admin/users"
                 )
@@ -49,7 +54,7 @@ class DisableUserMFARoute(BaseSink):
                 return self.render_template(
                     req, resp, "admin/message_gate.html",
                     gate_message=Message(
-                        "info", "What?", "That user does not have MFA enabled!"
+                        "warning", "MFA already disabled", "That user does not have MFA enabled."
                     ),
                     redirect_uri="/admin/users"
                 )
