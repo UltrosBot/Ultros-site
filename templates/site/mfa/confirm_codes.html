@@ -14,7 +14,8 @@
                 <div class="card-content">
                     <h1 class="title has-text-centered">Confirmation</h1>
                     <h2 class="subtitle has-text-centered">Are you sure you'd like to regenerate your backup codes?</h2>
-                    <p>This will invalidate your old backup codes.</p>
+                    <p class="has-text-centered">This will invalidate your old backup codes.</p>
+                    <br />
 
                     <form action="/mfa/new_codes" method="post">
                         <input type="hidden" name="_csrf" value="${csrf}" />
@@ -29,6 +30,7 @@
                                 <input class="button is-primary is-fullwidth submit-button" value="Confirm" type="submit">
                             </p>
                         </div>
+                    </form>
                 </div>
             </div>
         </div>
