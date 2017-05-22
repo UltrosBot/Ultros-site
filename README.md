@@ -6,13 +6,8 @@ Ultros-site
 This is the code for the new version of our site at 
 [https://ultros.io](https://ultros.io).
 
-Requirements (so far):
-* Falcon
-* Mako
-* psycopg2
-* ruamel.yaml
-* SQLAlchemy
-* Alembic
+This project uses the Ace editor in the admin interface. The license for Ace
+can be found in [LICENSE_ACE](https://github.com/UltrosBot/Ultros-Site/blob/falcon/LICENSE_ACE).
 
 Setting up
 ----------
@@ -20,15 +15,17 @@ Setting up
 1. Fill out your `config.yml` based on `config.example.yml`
     * Ensure the database you gave above exists
 2. Run `python3 tools.py run-migrations`
-3. Set up your WSGI server of choice; the app is `ultros_site.__main__.app`
-4. On your webserver, make sure you serve `/static` directly instead of proxying it to the WSGI app
+3. Install and set up [Celery](http://www.celeryproject.org/)
+    * You can give `ultros_site.tasks.__main__:app` for the Celery app
+4. Set up your WSGI server of choice; the app is `ultros_site.__main__.app`
+5. On your webserver, make sure you serve `/static` directly instead of proxying it to the WSGI app
 
 Running migrations
 ------------------
 
 Simply run `python3 tools.py run-migrations` again to make sure your database is up to date after every pull.
 
-Developmers: Modifying the database
+Developers: Modifying the database
 -----------------------------------
 
 If you're going to change the database, do the following:
