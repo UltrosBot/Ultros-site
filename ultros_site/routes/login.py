@@ -84,15 +84,19 @@ class LoginRoute(BaseRoute):
             expires = datetime.datetime.now() + datetime.timedelta(days=30)
             age = (expires - datetime.datetime.now()).seconds
 
-            session = Session(user=user, token=token, expires=expires, awaiting_mfa=False)  # TODO: MFA
+            session = Session(user=user, token=token, expires=expires, awaiting_mfa=user.mfa_enabled)
             db_session.add(session)
 
             resp.set_cookie("token", token, max_age=age, secure=False)
             req.context["user"] = user
-            resp.append_header("Refresh", "5;url=/")
 
-            return self.render_template(
-                req, resp, "message_gate.html",
-                gate_message=Message("info", "Logged in", "You have been logged in successfully."),
-                redirect_uri="/"
-            )
+            if not user.mfa_enabled:
+                resp.append_header("Refresh", "5;url=/")
+
+                return self.render_template(
+                    req, resp, "message_gate.html",
+                    gate_message=Message("info", "Logged in", "You have been logged in successfully."),
+                    redirect_uri="/"
+                )
+            else:
+                return self.render_template(req, resp, "mfa/challenge.html")

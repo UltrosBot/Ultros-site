@@ -1,7 +1,7 @@
 Backup codes
 ============
 
-ou have just set up multi-factor authentication. Please keep a
+You have just set up multi-factor authentication. Please keep a
 record of these backup codes, as you will need them if you lose
 the device you used to set up MFA.
 

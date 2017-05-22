@@ -83,7 +83,7 @@
 
                         <div class="field">
                             % if not user.mfa_token:
-                            <a class="button is-success" disabled> <!-- href="/mfa/step_one" -->
+                            <a class="button is-success" href="/mfa/setup">
                                 <span class="icon">
                                     <i class="fa fa-lock"></i>
                                 </span>
@@ -97,7 +97,7 @@
                                 <span>Disable MFA</span>
                             </a>
                             &nbsp;
-                            <a class="button is-warning" href="/mfa/backup_codes">
+                            <a class="button is-warning" href="/mfa/new_codes">
                                 <span class="icon">
                                     <i class="fa fa-pencil"></i>
                                 </span>

@@ -2,6 +2,7 @@
 import datetime
 import logging
 
+from falcon import HTTPSeeOther
 from sqlalchemy.orm.exc import NoResultFound
 
 from ultros_site.database.schema.session import Session
@@ -17,6 +18,7 @@ class SessionMiddleware:
             return
 
         req.context["user"] = None
+        req.context["session"] = None
 
         cookies = req.cookies
 
@@ -42,6 +44,11 @@ class SessionMiddleware:
                 log.debug("Extending session")
                 session_obj.expires = now + datetime.timedelta(days=30)
                 req.context["user"] = session_obj.user
+                req.context["session"] = session_obj
                 age = datetime.timedelta(days=30).seconds
 
                 resp.set_cookie("token", token, max_age=age, secure=False)
+
+                if session_obj.awaiting_mfa:
+                    if req.path not in ["/mfa/challenge", "/logout"]:
+                        raise HTTPSeeOther("/mfa/challenge")
