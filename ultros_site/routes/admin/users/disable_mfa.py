@@ -37,8 +37,7 @@ class DisableUserMFARoute(BaseSink):
             resp.append_header("Refresh", "5;url=/admin/users")
 
             if db_user.mfa_token:
-                for code in db_session.query(BackupCode).filter_by(user=db_user):
-                    db_session.delete(code)
+                db_session.query(BackupCode).filter_by(user=db_user).delete(synchronize_session="fetch")
 
                 db_user.mfa_token = None
                 db_user.mfa_enabled = False

@@ -40,8 +40,7 @@ class MFADisableRoute(BaseRoute):
         user = req.context["user"]
         db_session = req.context["db_session"]
 
-        for code in db_session.query(BackupCode).filter_by(user=user):
-            db_session.delete(code)
+        db_session.query(BackupCode).filter_by(user=user).delete(synchronize_session="fetch")
 
         user.mfa_enabled = False
         user.mfa_token = None
