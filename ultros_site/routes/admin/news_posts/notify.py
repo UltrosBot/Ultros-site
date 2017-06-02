@@ -42,7 +42,7 @@ class NotifyNewsRoute(BaseRoute):
                 redirect_uri="/admin/news"
             )
         else:
-            notify_post(post, self.manager.database.config["notifications"]["discord"])
+            notify_post(post)
 
             return self.render_template(
                 req, resp, "admin/message_gate.html",

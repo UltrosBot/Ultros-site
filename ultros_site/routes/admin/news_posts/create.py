@@ -54,8 +54,9 @@ class CreateNewsRoute(BaseRoute):
             )
 
             db_session.add(post)
+            db_session.commit()
 
-            notify_post(post, self.manager.database.config["notifications"]["discord"])
+            notify_post(post)
 
             return self.render_template(
                 req, resp, "admin/message_gate.html",

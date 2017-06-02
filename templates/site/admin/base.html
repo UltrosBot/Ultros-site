@@ -43,6 +43,16 @@
                         <a href="/admin/celery">Celery</a>
                     </li>
                 </ul>
+
+                <ul class="is-right">
+                    % if self.attr.tab == "admin_settings":
+                    <li class="is-active">
+                    % else:
+                    <li>
+                    % endif
+                        <a href="/admin/settings"><span class="icon"><i class="fa fa-wrench"></i></span></a>
+                    </li>
+                </ul>
             </nav>
         </div>
     </div>
