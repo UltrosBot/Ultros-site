@@ -80,7 +80,7 @@ class SettingsRoute(BaseSink):
                 settings["twitter_app_key"], settings["twitter_app_secret"]
             )
 
-            callback_url = "http://localhost:8080/admin/oauth/twitter/auth"
+            callback_url = "https://beta.ultros.io/admin/oauth/twitter/auth"
 
             # "twitter_oauth_token", "twitter_oauth_token_secret"
 
