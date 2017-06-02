@@ -11,9 +11,6 @@ recaptcha_secret: ""
 
 debug: false
 
-notifications:
-    discord: ""  # Webhook URL here
-
 email:
     # If set to False, user accounts will not require email verification
     # You probably want to be using this in production
