@@ -92,6 +92,8 @@ class MFAChallengeRoute(BaseRoute):
                 req.context["session"].awaiting_mfa = False
                 db_session.delete(backup_code)
 
+                resp.append_header("Refresh", "30;url=/")
+
                 return self.render_template(
                     req, resp, "message_gate.html",
                     gate_message=Message(
