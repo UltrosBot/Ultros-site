@@ -1,8 +1,10 @@
 # coding=utf-8
 import pyotp
 from falcon import HTTPBadRequest
+from sqlalchemy.orm.exc import NoResultFound
 
 from ultros_site.base_route import BaseRoute
+from ultros_site.database.schema.backup_code import BackupCode
 from ultros_site.decorators import add_csrf, check_csrf
 from ultros_site.message import Message
 
@@ -74,10 +76,29 @@ class MFAChallengeRoute(BaseRoute):
                 redirect_uri="/"
             )
         else:
-            return self.render_template(
-                req, resp, "mfa/challenge.html",
-                message=Message(
-                    "danger", "Invalid code",
-                    "The code you entered was invalid. Please try again!"
+            db_session = req.context["db_session"]
+
+            try:
+                backup_code = db_session.query(BackupCode).filter_by(code=code).one()
+            except NoResultFound:
+                return self.render_template(
+                    req, resp, "mfa/challenge.html",
+                    message=Message(
+                        "danger", "Invalid code",
+                        "The code you entered was invalid. Please try again!"
+                    )
                 )
-            )
+            else:
+                req.context["session"].awaiting_mfa = False
+                db_session.delete(backup_code)
+
+                return self.render_template(
+                    req, resp, "message_gate.html",
+                    gate_message=Message(
+                        "success", "Authenticated",
+                        "You have logged in with a backup code. Please note that backup codes are single-use and this "
+                        "one has been invalidated. Remember to keep track of the codes you've used, and regenerate "
+                        "them as necessary!"
+                    ),
+                    redirect_uri="/"
+                )
