@@ -53,43 +53,43 @@
                 </div>
 
                 <div class="nav-right">
-                    % if bots > 0:
-                        <span class="nav-item">
-                        % if self.attr.tab == "metrics":
-                            <a class="button is-light" href="/metrics">
-                                <span class="icon">
-                                    <i class="fa fa-pie-chart"></i>
-                                </span>
-                                <span>Bots online: ${bots}</span>
-                            </a>
-                        % else:
-                            <a class="button is-light is-outlined" href="/metrics">
-                                <span class="icon">
-                                    <i class="fa fa-pie-chart"></i>
-                                </span>
-                                <span>Bots online: ${bots}</span>
-                            </a>
-                        % endif
-                        </span>
-                    % else:
-                        <span class="nav-item">
-                        % if self.attr.tab == "metrics":
-                        <a class="button is-light" href="/metrics">
-                            <span class="icon">
-                                <i class="fa fa-pie-chart"></i>
-                            </span>
-                            <span>Metrics</span>
-                        </a>
-                        % else:
-                        <a class="button is-light is-outlined" href="/metrics">
-                            <span class="icon">
-                                <i class="fa fa-pie-chart"></i>
-                            </span>
-                            <span>Metrics</span>
-                        </a>
-                        % endif
-                    </span>
-                    %endif
+##                     % if bots > 0:
+##                         <span class="nav-item">
+##                         % if self.attr.tab == "metrics":
+##                             <a class="button is-light" href="/metrics">
+##                                 <span class="icon">
+##                                     <i class="fa fa-pie-chart"></i>
+##                                 </span>
+##                                 <span>Bots online: ${bots}</span>
+##                             </a>
+##                         % else:
+##                             <a class="button is-light is-outlined" href="/metrics">
+##                                 <span class="icon">
+##                                     <i class="fa fa-pie-chart"></i>
+##                                 </span>
+##                                 <span>Bots online: ${bots}</span>
+##                             </a>
+##                         % endif
+##                         </span>
+##                     % else:
+##                         <span class="nav-item">
+##                         % if self.attr.tab == "metrics":
+##                         <a class="button is-light" href="/metrics">
+##                             <span class="icon">
+##                                 <i class="fa fa-pie-chart"></i>
+##                             </span>
+##                             <span>Metrics</span>
+##                         </a>
+##                         % else:
+##                         <a class="button is-light is-outlined" href="/metrics">
+##                             <span class="icon">
+##                                 <i class="fa fa-pie-chart"></i>
+##                             </span>
+##                             <span>Metrics</span>
+##                         </a>
+##                         % endif
+##                     </span>
+##                     %endif
                     <span class="nav-item">
                         % if _context["user"] is None:
                             % if self.attr.tab == "login":
