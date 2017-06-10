@@ -2,18 +2,18 @@
 <rss version="2.0">
     <channel>
         <title>Ultros: News</title>
-        <link>https://beta.ultros.io/news</link>
+        <link>https://ultros.io/news</link>
         <description>Connecting communities, one squid at a time</description>
         <language>en-gb</language>
         <pubDate>${date}</pubDate>
         <lastBuildDate>${date}</lastBuildDate>
         <docs>http://cyber.harvard.edu/rss/rss.html</docs>
-        <generator>beta.ultros.io (Powered by Falcon and Mako on Python 3)</generator>
+        <generator>ultros.io (Powered by Falcon and Mako on Python 3)</generator>
 
         % for post in news_posts:
         <item>
             <title>${post.title}</title>
-            <link>https://beta.ultros.io/news/${post.id}</link>
+            <link>https://ultros.io/news/${post.id}</link>
             <description>${post.html}</description>
             <author>${post.user.username}</author>
             <pubdate>${rfc2822(post.posted)}</pubdate>

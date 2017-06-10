@@ -31,7 +31,7 @@ class NotifyTask(Task):
 
 
 def notify_post(post: NewsPost):
-    post_url = "https://beta.ultros.io/news/{}".format(post.id)
+    post_url = "https://ultros.io/news/{}".format(post.id)
 
     # Discord
 
@@ -49,7 +49,7 @@ def notify_post(post: NewsPost):
         "url": post_url,
         "author": {
             "name": post.user.username,
-            "url": "https://beta.ultros.io/"
+            "url": "https://ultros.io/"
         }
     }
 

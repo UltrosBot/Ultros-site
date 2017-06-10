@@ -107,7 +107,7 @@ class EmailManager:
     def transform_html(self, html):
         kwargs = {
             "html": html,
-            "base_url": "https://beta.ultros.io"
+            "base_url": "https://ultros.io"
         }
 
         p = premailer.Premailer(
