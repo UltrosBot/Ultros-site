@@ -1,0 +1,217 @@
+<%inherit file="base.html"/>
+
+## Current tab for navigation
+<%!
+    tab = "admin_users"
+%>
+
+## SEO Stuff
+<%block name="title">Ultros | Admin/Users</%block>
+<%block name="description">Administration area - Users</%block>
+
+<%block name="og_title">Admin/Users</%block>
+<%block name="og_description">Administration area - Users</%block>
+
+<section class="section">
+    <div class="container">
+        <h1 class="title">User list</h1>
+        <table class="table is-bordered is-striped">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Created</th>
+                <th>Verified</th>
+                <th>Admin</th>
+                <th>MFA</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            % for user in users:
+            <tr>
+                <td><strong>${user.id}</strong></td>
+                <td>${user.username}</td>
+                <td>${user.email}</td>
+                <td>${user.created.strftime("%x at %X")}</td>
+                <td>
+                    % if user.email_verified:
+                        <span class="icon is-success">
+                            <i class="fa fa-check"></i>
+                        </span>
+                    % else:
+                        <span class="icon is-danger">
+                            <i class="fa fa-times"></i>
+                        </span>
+                    % endif
+                </td>
+                <td>
+                    % if user.admin:
+                        <span class="icon is-success">
+                            <i class="fa fa-check"></i>
+                        </span>
+                    % else:
+                        <span class="icon is-danger">
+                            <i class="fa fa-times"></i>
+                        </span>
+                    % endif
+                </td>
+                <td>
+                    % if user.mfa_token:
+                        <span class="icon is-success">
+                            <i class="fa fa-check"></i>
+                        </span>
+                    % else:
+                        <span class="icon is-danger">
+                            <i class="fa fa-times"></i>
+                        </span>
+                    % endif
+                </td>
+                <td>
+                    % if user.id == _context["user"].id or user.username == immune_user:
+                    <a class="button is-danger is-small" disabled>
+                        <span class="icon">
+                            <i class="fa fa-trash"></i>
+                        </span>
+                        <span>&nbsp;Delete</span>
+                    </a>
+                    % else:
+                    <a class="button is-danger is-small" href="/admin/users/delete/${user.id}?_csrf=${csrf}">
+                        <span class="icon">
+                            <i class="fa fa-trash"></i>
+                        </span>
+                        <span>&nbsp;Delete</span>
+                    </a>
+                    % endif
+
+                    &nbsp;
+
+                    % if not user.admin:
+                    <a class="button is-info is-small" href="/admin/users/promote/${user.id}?_csrf=${csrf}">
+                        <span class="icon">
+                            <i class="fa fa-arrow-up"></i>
+                        </span>
+                        <span>&nbsp;Promote</span>
+                    </a>
+                    % else:
+                        % if user.username != immune_user and user.id != _context["user"].id:
+                            <a class="button is-info is-small" href="/admin/users/demote/${user.id}?_csrf=${csrf}">
+                                <span class="icon">
+                                    <i class="fa fa-arrow-down"></i>
+                                </span>
+                                <span>&nbsp;Demote&nbsp;</span>
+                            </a>
+                        % else:
+                            <a class="button is-info is-small is-disabled" disabled>
+                                <span class="icon">
+                                    <i class="fa fa-arrow-down"></i>
+                                </span>
+                                <span>&nbsp;Demote&nbsp;</span>
+                            </a>
+                        % endif
+                    % endif
+
+                    &nbsp;
+
+                    % if user.mfa_token:
+                    <a class="button is-warning is-small" href="/admin/users/disable_mfa/${user.id}?_csrf=${csrf}">
+                        <span class="icon">
+                            <i class="fa fa-times"></i>
+                        </span>
+                        <span>&nbsp;Disable MFA</span>
+                    </a>
+                    % else:
+                    <a class="button is-warning is-small is-disabled" disabled>
+                        <span class="icon">
+                            <i class="fa fa-times"></i>
+                        </span>
+                        <span>&nbsp;Disable MFA</span>
+                    </a>
+                    % endif
+
+                    &nbsp;
+
+                    % if not user.email_verified:
+                    <a class="button is-success is-small" href="/admin/users/verify/${user.id}?_csrf=${csrf}">
+                        <span class="icon">
+                            <i class="fa fa-check"></i>
+                        </span>
+                        <span>&nbsp;Verify</span>
+                    </a>
+                    % else:
+                    <a class="button is-success is-small is-disabled" disabled>
+                        <span class="icon">
+                            <i class="fa fa-check"></i>
+                        </span>
+                        <span>&nbsp;Verify</span>
+                    </a>
+                    % endif
+                </td>
+            </tr>
+            % endfor
+            </tbody>
+            <tfoot>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Created</th>
+                <th>Verified</th>
+                <th>Admin</th>
+                <th>MFA</th>
+                <th>Actions</th>
+            </tr>
+            </tfoot>
+        </table>
+
+        <nav class="pagination is-centered">
+            % if page > 1:
+            <a class="pagination-previous" href="/admin/users?page=${(page - 1)}">Previous page</a>
+            % else:
+            <a class="pagination-previous" disabled>Previous page</a>
+            % endif
+
+            % if page < pages:
+            <a class="pagination-next" href="/admin/users?page=${(page + 1)}">Next page</a>
+            % else:
+            <a class="pagination-next" disabled>Next page</a>
+            % endif
+
+            <ul class="pagination-list">
+                % if page > 1:
+                <li>
+                    <a class="pagination-link" href="/admin/users?page=1">1</a>
+                </li>
+                <li>
+                    <span class="pagination-ellipsis">&hellip;</span>
+                </li>
+                % endif
+
+                % if page - 1 > 1:
+                <li>
+                    <a class="pagination-link" href="/admin/users?page=${(page - 1)}">${(page - 1)}</a>
+                </li>
+                % endif
+                <li>
+                    <a class="pagination-link is-current">${page}</a>
+                </li>
+                % if page + 1 < pages:
+                <li>
+                    <a class="pagination-link" href="/admin/users?page=${(page +1)}">${(page +1)}</a>
+                </li>
+                % endif
+
+                % if page < pages:
+                <li>
+                    <span class="pagination-ellipsis">&hellip;</span>
+                </li>
+
+                <li>
+                    <a class="pagination-link" href="/admin/users?page=${pages}">${pages}</a>
+                </li>
+                % endif
+              </ul>
+        </nav>
+    </div>
+</section>

@@ -1,0 +1,5 @@
+python-targets:
+- 3
+pylint:
+  disable:
+  - unused-argument

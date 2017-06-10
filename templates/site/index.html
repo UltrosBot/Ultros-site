@@ -1,0 +1,329 @@
+<%inherit file="base.html"/>
+
+## Current tab for navigation
+<%!
+    tab = "home"
+%>
+
+## SEO Stuff
+<%block name="title">Ultros | Home</%block>
+<%block name="description">Connecting communities, one squid at a time.</%block>
+
+<%block name="og_title">Home</%block>
+<%block name="og_description">Connecting communities, one squid at a time</%block>
+
+<section class="section">
+    <div class="container">
+        <h2 class="title has-text-centered">
+            What is Ultros?
+        </h2>
+        <p>
+            Ultros is a chat bot designed using Python 3 and AsyncIO &mdash;
+            with modularity, ease of use and efficiency in mind. It can provide
+            various services, tools and other features to users of chat
+            networks in a protocol-agnostic way, which allows it to work
+            seamlessly on multiple types of chat network at once.
+        </p>
+        <br/>
+        <div class="tabs is-toggle is-fullwidth is-hidden-mobile" style="margin-left: 20%; margin-right: 20%;">
+            <ul>
+                <li class="is-active" style="width: 10rem">
+                    <a href="https://github.com/UltrosBot/Ultros3K">
+                        <span class="icon"><i class="fa fa-code-fork"></i></span>
+                        <span>Source Code</span>
+                    </a>
+                </li>
+                <li style="width: 10rem; padding-left: 1rem;">
+                    <a href="https://github.com/UltrosBot/Ultros3K/archive/master.zip">
+                        <span class="icon"><i class="fa fa-file-zip-o"></i></span>
+                        <span>Download Zip</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="tabs is-toggle is-fullwidth is-hidden-mobile" style="margin-left: 20%; margin-right: 20%;">
+            <ul>
+                <li style="width: 10rem;">
+                    <a href="http://docs.ultros.io">
+                        <span class="icon"><i class="fa fa-book"></i></span>
+                        <span>Documentation</span>
+                    </a>
+                </li>
+                <li style="width: 10rem; padding-left: 1rem;">
+                    <a href="/about#contact">
+                        <span class="icon"><i class="fa fa-comment"></i></span>
+                        <span>Contact</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="tabs is-toggle is-fullwidth is-hidden-desktop is-hidden-tablet">
+            <ul>
+                <li class="is-active" style="width: 5rem; ">
+                    <a href="https://github.com/UltrosBot/Ultros3K">
+                        <span class="icon"><i class="fa fa-code-fork"></i></span>
+                        <span>Source Code</span>
+                    </a>
+                </li>
+                <li style="width: 5rem; padding-left: 1rem;">
+                    <a href="https://github.com/UltrosBot/Ultros3K/archive/master.zip">
+                        <span class="icon"><i class="fa fa-file-zip-o"></i></span>
+                        <span>Download Zip</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="tabs is-toggle is-fullwidth is-hidden-desktop is-hidden-tablet">
+            <ul>
+                <li style="width: 5rem;">
+                    <a href="http://docs.ultros.io">
+                        <span class="icon"><i class="fa fa-book"></i></span>
+                        <span>Documentation</span>
+                    </a>
+                </li>
+                <li style="width: 5rem; padding-left: 1rem;">
+                    <a href="/about#contact">
+                        <span class="icon"><i class="fa fa-comment"></i></span>
+                        <span>Contact</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="hero is-dark">
+    <div class="hero-body">
+        <h1 class="title has-text-centered">
+            Need support?
+        </h1>
+        <div class="container is-centered has-text-centered">
+            <p>
+                If you'd need help or have questions, please feel free to
+                <a href="/about#contact" style="text-decoration: underline">chat with us directly</a>.
+            </p>
+
+            <p>
+                Bugs and other issues may also be reported
+                <a href="https://github.com/UltrosBot/Ultros3K" style="text-decoration: underline">
+                    on GitHub.
+                </a>
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="columns">
+            <div class="column is-two-thirds-desktop is-two-thirds-tablet is-full-mobile">
+                <h1 class="title">
+                    News
+                    <a class="button is-primary pull-right" href="/feeds">
+                        <span class="icon" style="margin-top: 4px;">
+                            <i class="fa fa-rss"></i>
+                        </span>
+                    </a>
+                </h1>
+
+                % if len(news_posts):
+                    % for post in news_posts:
+                <article class="message is-primary">
+                    <div class="message-header">
+                        <a href="/news/${post.id}">
+                            <p>${post.title}</p>
+                        </a>
+                        <p class="pull-right">${format_date(post.posted)} | ${post.user.username}</p>
+                    </div>
+                    <div class="message-body news-post-body">
+                        ${post.html}
+                    </div>
+                </article>
+                    % endfor
+                % else:
+                    <h2 class="subtitle">No news posts were found.</h2>
+
+                % endif
+            </div>
+            <div class="column is-one-third-desktop is-one-third-tablet is-full-mobile">
+                <h1 class="title">
+                    Commits
+                    <a class="button is-primary pull-right" href="https://github.com/UltrosBot/Ultros3K/commits/master">
+                        <span class="icon" style="margin-top: 4px;">
+                            <i class="fa fa-link"></i>
+                        </span>
+                    </a>
+                </h1>
+                <div id="commits-column">
+                    <div class="notification is-primary">
+                        Feel free to browse the full list of commits <a href="https://github.com/UltrosBot/Ultros3K/commits/master">on GitHub</a>.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script id="commit-template" type="text/x-handlebars/template">
+    <div class="notification is-primary">
+        <article class="media">
+            <figure class="media-left">
+                <a href="{{profile_url}}">
+                    <p class="image is-64x64">
+                        <img src="{{avatar_url}}" title="{{profile_username}}"/>
+                    </p>
+                </a>
+            </figure>
+            <div class="media-content">
+                <div class="content">
+                    <div style="border-bottom: solid #aaa 2px; padding-bottom: 3px; margin-bottom: 3px;">
+                        {{{tags}}} {{commit_message}}
+                    </div>
+                    <a class="link-hover" style="text-decoration: none" href="{{commit_url}}">
+                        {{commit_date}}
+
+                        <span class="icon pull-right">
+                        <i class="fa fa-github"></i>
+                    </span>
+                    </a>
+                </div>
+            </div>
+        </article>
+    </div>
+</script>
+
+<script id="commit-error-template" type="text/x-handlebars/template">
+    <div class="notification is-danger">
+        <div class="content">
+            Unfortunately, we were unable to load the list of commits.
+            Feel free to browse the full list of commits
+            <a href="https://github.com/UltrosBot/Ultros3K/commits/master">on GitHub</a>
+            instead.
+        </div>
+    </div>
+</script>
+
+<script type="application/javascript">
+    const months = [
+        "January", "February", "March",
+        "April", "May", "June", "July",
+        "August", "September", "October",
+        "November", "December"
+    ];
+
+    function getJSON(url, callback) {
+        let xhr = new XMLHttpRequest();
+        xhr.open("GET", url, true);
+        xhr.responseType = "json";
+        xhr.onload = function () {
+            let status = xhr.status;
+            if (status === 200) {
+                callback(null, xhr.response);
+            } else {
+                callback(status)
+            }
+        };
+
+        xhr.send();
+    }
+
+    function formatDate(date_string) {
+        let date = new Date(Date.parse(date_string));
+
+        console.log(date);
+
+        let day = date.getDate();
+        let monthIndex = date.getMonth();
+        let year = date.getFullYear();
+
+        let dateEnding = day % 10;
+        let dateSuffix = "";
+
+        switch (dateEnding) {
+            case 1:
+                if (day !== 11) {
+                    dateSuffix = "st";
+                } else {
+                    dateSuffix = "th";
+                }
+                break;
+            case 2:
+                dateSuffix = "nd";
+                break;
+            case 3:
+                dateSuffix = "rd";
+                break;
+            default:
+                dateSuffix = "th";
+                break;
+        }
+
+        return "" + day + dateSuffix + " " + months[monthIndex] + " " + year;
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        // Get GitHub commits
+
+        let source   = document.getElementById("commit-template").textContent;
+        let template = Handlebars.compile(source);
+
+        let error_source   = document.getElementById("commit-error-template").textContent;
+        let error_template = Handlebars.compile(error_source);
+
+        getJSON("https://api.github.com/repos/UltrosBot/Ultros3k/commits",
+            function(err, data){
+                let content = "";
+                let commit_message = "";
+                let tags_string = "";
+                let words = [];
+                let tags = [];
+                let tag_regex = /\[[^\s]+]/i;
+
+                if (err) {
+                    content += error_template();
+                    console.error(err);
+                } else {
+                    for (let commit of data) {
+                        console.log(commit);
+
+                        commit_message = commit.commit.message.split("\n")[0];
+                        words = commit_message.split(" ");
+                        tags = [];
+                        commit_message = "";
+                        tags_string = "";
+
+                        for (let word of words) {
+                            if (word.match(tag_regex)) {
+                                tags.push(word)
+                            } else {
+                                commit_message = (
+                                    commit_message + " " + word + " "
+                                );
+                            }
+                        }
+
+                        for (let tag of tags) {
+                            tags_string = (
+                                tags_string + "<span class=\"tag is-dark\">" + tag.substr(1, tag.length - 2) + "</span> "
+                            )
+                        }
+
+                        content += template({
+                            "profile_url": commit.author.html_url,
+                            "avatar_url": commit.author.avatar_url,
+                            "profile_username": commit.author.login,
+                            "commit_url": commit.html_url,
+                            "tags": tags_string,
+                            "commit_message": commit_message,
+                            "commit_date": formatDate(commit.commit.author.date)
+                        });
+                    }
+                }
+
+                content += "<br />";
+                document.getElementById("commits-column").innerHTML = content
+
+            }
+        );
+    });
+</script>

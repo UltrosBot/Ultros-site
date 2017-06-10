@@ -1,0 +1,29 @@
+<%inherit file="base.html"/>
+
+## Current tab for navigation
+<%!
+    tab = "news"
+%>
+
+## SEO Stuff
+<%block name="title">Ultros | ${post.title}</%block>
+<%block name="description">${post.title}</%block>
+
+<%block name="og_title">${post.title}</%block>
+<%block name="og_description">${post.title}</%block>
+
+<section class="section">
+    <div class="container">
+        <article class="message is-primary">
+            <div class="message-header">
+                <a href="/news/${post.id}">
+                    <p>${post.title}</p>
+                </a>
+                <p class="pull-right">${format_date(post.posted)} | ${post.user.username}</p>
+            </div>
+            <div class="message-body news-post-body">
+                ${post.html}
+            </div>
+        </article>
+    </div>
+</section>

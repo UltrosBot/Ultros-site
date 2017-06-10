@@ -1,0 +1,97 @@
+<%inherit file="base.html"/>
+
+## Current tab for navigation
+<%!
+    tab = "admin_settings"
+%>
+
+## SEO Stuff
+<%block name="title">Ultros | Admin/Settings</%block>
+<%block name="description">Administration area - Settings</%block>
+
+<%block name="og_title">Admin/Settings</%block>
+<%block name="og_description">Administration area - Settings</%block>
+
+<section class="section">
+    <div class="container">
+        <div class="columns">
+            <div class="box card column is-half is-offset-one-quarter">
+                <div class="card-content">
+                    <h1 class="title has-text-centered">
+                        Social Media
+                    </h1>
+
+                    <hr />
+
+                    <form action="/admin/settings" method="post" id="settings-form">
+                        <input type="hidden" name="_csrf" value="${csrf}" />
+
+                        % if "twitter_username" in settings:
+                        <a class="button is-pulled-right is-danger" href="/admin/oauth/twitter/unlink?_csrf=${csrf}">
+                            <span class="icon"><i class="fa fa-twitter"></i></span>
+                            <span>Unlink @${settings["twitter_username"]}</span>
+                        </a>
+                        % else:
+                        <a class="button is-pulled-right is-info" href="/admin/oauth/twitter/link">
+                            <span class="icon"><i class="fa fa-twitter"></i></span>
+                            <span>Link Account</span>
+                        </a>
+                        % endif
+
+                        <h2 class="subtitle is-4">Twitter</h2>
+
+                        <div class="field">
+                            <label class="label" for="twitter_app_key">Application Key</label>
+                            <p class="control">
+                                % if "twitter_app_key" in settings:
+                                <input class="input" type="text" name="twitter_app_key" id="twitter_app_key" value="${settings["twitter_app_key"]}" />
+                                % else:
+                                <input class="input" type="text" name="twitter_app_key" id="twitter_app_key" />
+                                % endif
+                            </p>
+                        </div>
+
+                        <div class="field">
+                            <label class="label" for="twitter_app_secret">Application Secret</label>
+                            <p class="control">
+                                % if "twitter_app_secret" in settings:
+                                <input class="input" type="text" name="twitter_app_secret" id="twitter_app_secret" value="${settings["twitter_app_secret"]}" />
+                                % else:
+                                <input class="input" type="text" name="twitter_app_secret" id="twitter_app_secret" />
+                                % endif
+                            </p>
+                        </div>
+
+                        <hr />
+
+                        <h2 class="subtitle is-4">Discord</h2>
+
+                        <div class="field">
+                            <label class="label" for="discord_webhook_url">Webhook URL</label>
+                            <p class="control">
+                                % if "discord_webhook_url" in settings:
+                                <input class="input" type="text" name="discord_webhook_url" id="discord_webhook_url" value="${settings["discord_webhook_url"]}" />
+                                % else:
+                                <input class="input" type="text" name="discord_webhook_url" id="discord_webhook_url" />
+                                % endif
+                            </p>
+                        </div>
+
+                        <hr />
+
+                        <div class="field is-hidden-mobile">
+                            <p class="control">
+                                <input type="submit" value="Save" class="button is-primary is-centered submit-button" style="width: 50%; margin: auto; display: block">
+                            </p>
+                        </div>
+                        <div class="field is-hidden-tablet is-hidden-desktop">
+                            <p class="control">
+                                <input class="button is-primary is-fullwidth submit-button" value="Save" type="submit">
+                            </p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

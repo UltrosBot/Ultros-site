@@ -1,0 +1,49 @@
+<%inherit file="base.html"/>
+
+## Current tab for navigation
+<%!
+    tab = "feeds"
+%>
+
+## SEO Stuff
+<%block name="title">Ultros | Feeds</%block>
+<%block name="description">Atom and RSS feeds for your feed reader</%block>
+
+<%block name="og_title">Feeds</%block>
+<%block name="og_description">Atom and RSS feeds for your feed reader</%block>
+
+<section class="section">
+    <div class="container">
+        <h1 class="title">
+            Atom/RSS Feeds
+        </h1>
+        <div class="notification box is-primary feeds-row">
+            <a href="/feeds/rss/news" class="button is-outlined is-light is-pulled-right">
+                <span class="icon">
+                    <i class="fa fa-rss"></i>
+                </span>
+                <span>
+                    RSS
+                </span>
+            </a>
+            <a href="/feeds/atom/news" class="button is-outlined is-light is-pulled-right">
+                <span class="icon">
+                    <i class="fa fa-rss"></i>
+                </span>
+                <span>
+                    Atom
+                </span>
+            </a>
+            <a href="/news" class="button is-outlined is-light is-pulled-right">
+                <span class="icon">
+                    <i class="fa fa-link"></i>
+                </span>
+                <span>
+                    View
+                </span>
+            </a>
+
+            <h1 class="title">News</h1>
+        </div>
+    </div>
+</section>

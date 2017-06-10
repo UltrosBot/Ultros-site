@@ -1,0 +1,145 @@
+<%inherit file="base.html"/>
+
+## Current tab for navigation
+<%!
+    tab = "news"
+%>
+
+## SEO Stuff
+<%block name="title">Ultros | News</%block>
+<%block name="description">The latest news for the project</%block>
+
+<%block name="og_title">News</%block>
+<%block name="og_description">The latest news for the project</%block>
+
+<section class="section">
+    <div class="container">
+        <a href="/feeds" class="button is-primary is-pulled-right">
+            <span class="icon">
+                <i class="fa fa-rss"></i>
+            </span>
+        </a>
+        <h1 class="title">
+            News
+        </h1>
+
+        <nav class="pagination is-centered">
+            % if page > 1:
+            <a class="pagination-previous" href="/news?page=${(page - 1)}">Newer posts</a>
+            % else:
+            <a class="pagination-previous" disabled>Newer posts</a>
+            % endif
+
+            % if page < pages:
+            <a class="pagination-next" href="/news?page=${(page + 1)}">Older posts</a>
+            % else:
+            <a class="pagination-next" disabled>Older posts</a>
+            % endif
+
+            <ul class="pagination-list">
+                % if page > 1:
+                <li>
+                    <a class="pagination-link" href="/news?page=1">1</a>
+                </li>
+                <li>
+                    <span class="pagination-ellipsis">&hellip;</span>
+                </li>
+                % endif
+
+                % if page - 1 > 1:
+                <li>
+                    <a class="pagination-link" href="/news?page=${(page - 1)}">${(page - 1)}</a>
+                </li>
+                % endif
+                <li>
+                    <a class="pagination-link is-current">${page}</a>
+                </li>
+                % if page + 1 < pages:
+                <li>
+                    <a class="pagination-link" href="/news?page=${(page +1)}">${(page +1)}</a>
+                </li>
+                % endif
+
+                % if page < pages:
+                <li>
+                    <span class="pagination-ellipsis">&hellip;</span>
+                </li>
+
+                <li>
+                    <a class="pagination-link" href="/news?page=${pages}">${pages}</a>
+                </li>
+                % endif
+              </ul>
+        </nav>
+
+        <br />
+
+        % if len(news_posts):
+            % for post in news_posts:
+        <article class="message is-primary">
+            <div class="message-header">
+                <a href="/news/${post.id}">
+                    <p>${post.title}</p>
+                </a>
+                <p class="pull-right">${format_date(post.posted)} | ${post.user.username}</p>
+            </div>
+            <div class="message-body news-post-body">
+                ${post.html}
+            </div>
+        </article>
+            % endfor
+        % else:
+            <h2 class="subtitle">No news posts were found.</h2>
+
+        % endif
+
+    <nav class="pagination is-centered">
+            % if page > 1:
+            <a class="pagination-previous" href="/news?page=${(page - 1)}">Newer posts</a>
+            % else:
+            <a class="pagination-previous" disabled>Newer posts</a>
+            % endif
+
+            % if page < pages:
+            <a class="pagination-next" href="/news?page=${(page + 1)}">Older posts</a>
+            % else:
+            <a class="pagination-next" disabled>Older posts</a>
+            % endif
+
+            <ul class="pagination-list">
+                % if page > 1:
+                <li>
+                    <a class="pagination-link" href="/news?page=1">1</a>
+                </li>
+                <li>
+                    <span class="pagination-ellipsis">&hellip;</span>
+                </li>
+                % endif
+
+                % if page - 1 > 1:
+                <li>
+                    <a class="pagination-link" href="/news?page=${(page - 1)}">${(page - 1)}</a>
+                </li>
+                % endif
+                <li>
+                    <a class="pagination-link is-current">${page}</a>
+                </li>
+                % if page + 1 < pages:
+                <li>
+                    <a class="pagination-link" href="/news?page=${(page +1)}">${(page +1)}</a>
+                </li>
+                % endif
+
+                % if page < pages:
+                <li>
+                    <span class="pagination-ellipsis">&hellip;</span>
+                </li>
+
+                <li>
+                    <a class="pagination-link" href="/news?page=${pages}">${pages}</a>
+                </li>
+                % endif
+              </ul>
+        </nav>
+    </div>
+</section>
