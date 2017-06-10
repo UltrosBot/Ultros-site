@@ -181,13 +181,13 @@
                     % endif
                         <a href="/about">About</a>
                     </li>
-                    % if self.attr.tab == "tos":
-                    <li class="is-active">
-                    % else:
-                    <li>
-                    % endif
-                        <a href="/tos">Terms of Service</a>
-                    </li>
+##                     % if self.attr.tab == "tos":
+##                     <li class="is-active">
+##                     % else:
+##                     <li>
+##                     % endif
+##                         <a href="/tos">Terms of Service</a>
+##                     </li>
                     % if _context["user"] is not None:
                         % if _context["user"].admin:
                             % if self.attr.tab.startswith("admin"):
@@ -234,7 +234,7 @@ ${next.body()}
         <div class="content has-text-centered">
             <p>
                 &copy; 2014-2017 Gareth Coles and Sean Gordon <br/>
-                <a href="/tos">Terms of service</a>
+##                 <a href="/tos">Terms of service</a>
             </p>
         </div>
     </div>
