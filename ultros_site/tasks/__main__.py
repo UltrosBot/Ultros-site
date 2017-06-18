@@ -6,8 +6,8 @@ __author__ = "Gareth Coles"
 
 app = Celery(
     "ultros_site",
-    broker="amqp://storage:5672",
-    backend="redis://storage:6379/0",
+    broker="amqp://storage:5672/ultros",
+    backend="redis://storage:6379/1",
     include=[
         "ultros_site.tasks.email",
         "ultros_site.tasks.notify"
