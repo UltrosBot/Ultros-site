@@ -120,7 +120,7 @@ class EmailManager:
     def get_connection(self):
         connection = self._connection()
 
-        user = self.config.get("user")
+        user = self.config["user"]
 
         if user:
             connection.login(user, self.config["password"])

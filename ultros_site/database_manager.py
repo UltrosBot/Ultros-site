@@ -34,7 +34,7 @@ class DatabaseManager:
         url = self.config["database_url"]
 
         try:
-            self.engine = create_engine(url, echo=self.config.get("debug", False))
+            self.engine = create_engine(url, echo=self.config["debug"])
             self.make_session = sessionmaker(self.engine)
         except Exception as e:
             log.critical("Unable to set up database - %s", e)
