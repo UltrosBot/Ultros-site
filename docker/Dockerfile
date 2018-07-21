@@ -9,6 +9,7 @@ COPY . /app
 WORKDIR /app
 
 RUN pip install -r requirements.txt
+RUN python tools.py run-migrations
 
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["/usr/bin/supervisord"]
