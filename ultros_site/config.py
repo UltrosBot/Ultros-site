@@ -12,11 +12,14 @@ class Config:
         if os.path.exists("config.yml"):
             self.config = load(open("config.yml"))
 
-    def __getitem__(self, item):
+    def __getitem__(self, item, default=None):
         if hasattr(self, item):
             return getattr(self, item)
         else:
-            return self.config[item]
+            return self.config.get(item, default)
+
+    def get(self, key, default=None):
+        return self[key, default]
 
     @property
     def database_url(self):
