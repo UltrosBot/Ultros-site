@@ -4,13 +4,12 @@ import inspect
 import logging
 import os
 
-import ruamel.yaml as yaml
-
 from contextlib import contextmanager
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session
 
+from ultros_site.config import Config
 from ultros_site.database.common import DeclarativeBase
 
 __author__ = "Gareth Coles"
@@ -28,8 +27,7 @@ class DatabaseManager:
         self.engine = None
         self.make_session = None
 
-        with open("config.yml", "r") as fh:
-            self.config = yaml.safe_load(fh)
+        self.config = Config()
 
     def create_engine(self):
         log.info("Creating database engine...")

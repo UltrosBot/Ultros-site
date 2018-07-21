@@ -14,16 +14,18 @@ debug: false
 email:
     # If set to False, user accounts will not require email verification
     # You probably want to be using this in production
-    use: True
+
+    # Disabled due to GDPR
+    use: False
 
     # SMTP details for sending email
-    host: localhost
-    port: 25
+    # host: localhost
+    # port: 25
 
-    user: "a@b.c"
-    password: "hunter2"
+    # user: "a@b.c"
+    # password: "hunter2"
 
-    from: "Ultros <a@b.c>"
+    # from: "Ultros <a@b.c>"
 
     # May be False, True, or "starttls"
-    ssl: False
+    # ssl: False
