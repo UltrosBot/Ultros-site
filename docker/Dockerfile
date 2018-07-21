@@ -1,4 +1,4 @@
-FROM tiangolo/uwsgi-nginx:python2.7
+FROM tiangolo/uwsgi-nginx:python3.6-alpine3.7
 
 RUN apk add libxslt libxslt-dev postgresql-client postgresql postgresql-dev libffi libffi-dev libxml2 libxml2-dev git build-base gcc cmake autoconf automake libtool
 RUN mv /app/uwsgi.ini /
