@@ -38,7 +38,7 @@ nosetests.xml
 
 # Configuration
 *.yml
-!circle.yml
+!.circleci/*
 !.landscape.yml
 
 # Virtualenv

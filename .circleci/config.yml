@@ -1,0 +1,33 @@
+version: 2
+
+jobs:
+  test:
+    docker:
+      - image: python:3.6-alpine3.7
+
+    steps:
+      - checkout
+      - run: "pip install -U -r requirements.txt"
+      - run: "pip install -U -r requirements-test.txt"
+      - run: "flake8 ultros_site/"
+
+  deploy:
+    branches:
+      only:
+        - master
+
+    docker:
+      - image: docker:git
+
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run: "sh docker/build.sh"
+
+workflows:
+  test and deploy:
+    - test
+
+    - deploy:
+        requires:
+          - test
