@@ -6,7 +6,7 @@ jobs:
       - image: python:3.6-alpine3.7
 
     steps:
-      - run: "apk add py2-libxml2 postgresql-client postgresql postgresql-dev libffi libffi-dev libxml2 libxml2-dev git build-base gcc cmake autoconf automake libtool"
+      - run: "apk add libxslt libxslt-dev postgresql-client postgresql postgresql-dev libffi libffi-dev libxml2 libxml2-dev git build-base gcc cmake autoconf automake libtool"
       - checkout
       - run: "pip install -U -r requirements.txt"
       - run: "pip install -U -r requirements-test.txt"
