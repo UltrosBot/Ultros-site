@@ -1,3 +1,3 @@
-from ultros_site.app import app
+from ultros_site.app import app as application
 
-__all__ = ["app"]
+__all__ = ["application"]
