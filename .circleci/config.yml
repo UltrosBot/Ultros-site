@@ -13,10 +13,6 @@ jobs:
       - run: "flake8 ultros_site/"
 
   deploy:
-    branches:
-      only:
-        - master
-
     docker:
       - image: docker:git
 
@@ -24,3 +20,18 @@ jobs:
       - checkout
       - setup_remote_docker
       - run: "sh docker/build.sh"
+
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - build
+
+      - deploy:
+          requires:
+            - build
+
+          filters:
+            branches:
+              only:
+                - master
