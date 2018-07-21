@@ -25,7 +25,9 @@ jobs:
       - run: "sh docker/build.sh"
 
 workflows:
-  test and deploy:
+  version: 2
+
+  test_and_deploy:
     - test
 
     - deploy:
